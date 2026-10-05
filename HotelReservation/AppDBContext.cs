@@ -14,7 +14,7 @@ namespace HotelReservation
     public class AppDBContext : DbContext
     {
 
-        private const string ConnectionString =
+        private string ConnectionString =
             @"Server=(localdb)\MSSQLLocalDB;Database=HotelReservationDB;Trusted_Connection=True;TrustServerCertificate=True;";
 
 

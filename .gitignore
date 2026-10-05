@@ -6,3 +6,7 @@
 /HotelReservation/bin/Debug/net10.0-windows
 /.vs
 /HotelReservation/.vs
+/HotelReseservationDB/obj/Debug
+/HotelReseservationDB/HotelReseservationDB.dbmdl
+/HotelReseservationDB/HotelReseservationDB.jfm
+/HotelReseservationDB/Import Schema Logs

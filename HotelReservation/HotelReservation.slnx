@@ -1,3 +1,7 @@
 <Solution>
+  <Project Path="../HotelReseservationDB/HotelReseservationDB.sqlproj" Id="b480412a-aa8b-48fd-b122-48fa29726037">
+    <Build />
+    <Deploy />
+  </Project>
   <Project Path="HotelReservation.csproj" />
 </Solution>
