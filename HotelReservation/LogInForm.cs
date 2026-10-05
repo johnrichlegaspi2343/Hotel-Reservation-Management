@@ -6,8 +6,7 @@ namespace HotelReservation
 {
     public partial class frmLogIn : Form
     {
-        // Gawing true lang kapag gusto mong burahin at gawin ulit ang database.
-        // Iwanang false para hindi mabura ang mga user sa database.
+
         private const bool ResetDatabase = false;
 
         public frmLogIn()
@@ -15,7 +14,7 @@ namespace HotelReservation
             InitializeComponent();
             txtPassword.UseSystemPasswordChar = true;
 
-            // Kapag pinindot ang Enter, gagana na parang pinindot ang Log In button
+
             this.AcceptButton = btnLogin;
 
             try
@@ -54,7 +53,7 @@ namespace HotelReservation
             {
                 using (var db = new AppDBContext())
                 {
-                    // Kunin muna ang user ayon sa username
+
                     user = db.Users.FirstOrDefault(u => u.Username == username);
                 }
             }
@@ -65,7 +64,6 @@ namespace HotelReservation
                 return;
             }
 
-            // Ang password ay inihahambing dito sa C# para eksakto ang malaki at maliit na letra
             if (user == null || user.Password != password)
             {
                 MessageBox.Show("Invalid username or password.",
@@ -93,6 +91,16 @@ namespace HotelReservation
                 frontDesk.Show();
                 this.Hide();
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmLogIn_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

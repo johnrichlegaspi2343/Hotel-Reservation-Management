@@ -45,7 +45,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1902, 1033);
             Controls.Add(btnBack);
             Name = "AdminDashboard";
             Text = "AdminDashboard";
