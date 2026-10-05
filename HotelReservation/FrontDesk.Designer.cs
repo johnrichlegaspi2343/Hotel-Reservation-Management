@@ -170,8 +170,20 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.OliveDrab;
             ClientSize = new Size(1902, 1033);
-            Controls.Add(btnBack);
+            Controls.Add(panel1);
+            Controls.Add(label3);
+            Controls.Add(button7);
+            Controls.Add(button6);
+            Controls.Add(button5);
+            Controls.Add(button4);
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(button1);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            ForeColor = Color.White;
             Name = "FrontDesk";
             Text = "FrontDesk";
             Load += FrontDesk_Load;
