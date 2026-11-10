@@ -72,7 +72,7 @@
             button1.Name = "button1";
             button1.Size = new Size(364, 82);
             button1.TabIndex = 2;
-            button1.Text = "Guests";
+            button1.Text = "Guest's Information";
             button1.UseVisualStyleBackColor = false;
             // 
             // button2
