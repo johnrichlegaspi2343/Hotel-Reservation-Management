@@ -219,6 +219,7 @@
             Controls.Add(button1);
             Name = "BillingRecords";
             Text = "BillingRecords";
+            Load += BillingRecords_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
