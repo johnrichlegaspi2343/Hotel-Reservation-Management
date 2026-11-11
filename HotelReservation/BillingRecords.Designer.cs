@@ -34,14 +34,14 @@
             button1 = new Button();
             label1 = new Label();
             panel1 = new Panel();
+            dataGridView1 = new DataGridView();
+            button6 = new Button();
+            textBox1 = new TextBox();
+            label5 = new Label();
+            label4 = new Label();
             label2 = new Label();
             label3 = new Label();
             button5 = new Button();
-            label4 = new Label();
-            label5 = new Label();
-            textBox1 = new TextBox();
-            button6 = new Button();
-            dataGridView1 = new DataGridView();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -118,6 +118,55 @@
             panel1.Size = new Size(794, 549);
             panel1.TabIndex = 12;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(9, 128);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(779, 412);
+            dataGridView1.TabIndex = 17;
+            // 
+            // button6
+            // 
+            button6.BackColor = Color.LightGray;
+            button6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button6.ForeColor = Color.Black;
+            button6.Location = new Point(401, 59);
+            button6.Name = "button6";
+            button6.Size = new Size(161, 43);
+            button6.TabIndex = 16;
+            button6.Text = "Search";
+            button6.UseVisualStyleBackColor = false;
+            // 
+            // textBox1
+            // 
+            textBox1.BackColor = Color.White;
+            textBox1.Location = new Point(212, 70);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(174, 27);
+            textBox1.TabIndex = 2;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(23, 71);
+            label5.Name = "label5";
+            label5.Size = new Size(183, 23);
+            label5.TabIndex = 1;
+            label5.Text = "Search Reservation ID:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(23, 25);
+            label4.Name = "label4";
+            label4.Size = new Size(294, 31);
+            label4.TabIndex = 0;
+            label4.Text = "Billing Records (View Only)";
+            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -152,55 +201,6 @@
             button5.TabIndex = 15;
             button5.Text = "Logout";
             button5.UseVisualStyleBackColor = false;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(23, 25);
-            label4.Name = "label4";
-            label4.Size = new Size(294, 31);
-            label4.TabIndex = 0;
-            label4.Text = "Billing Records (View Only)";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(23, 71);
-            label5.Name = "label5";
-            label5.Size = new Size(183, 23);
-            label5.TabIndex = 1;
-            label5.Text = "Search Reservation ID:";
-            // 
-            // textBox1
-            // 
-            textBox1.BackColor = Color.White;
-            textBox1.Location = new Point(212, 70);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(174, 27);
-            textBox1.TabIndex = 2;
-            // 
-            // button6
-            // 
-            button6.BackColor = Color.LightGray;
-            button6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button6.ForeColor = Color.Black;
-            button6.Location = new Point(401, 59);
-            button6.Name = "button6";
-            button6.Size = new Size(161, 43);
-            button6.TabIndex = 16;
-            button6.Text = "Search";
-            button6.UseVisualStyleBackColor = false;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(9, 128);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(779, 412);
-            dataGridView1.TabIndex = 17;
             // 
             // BillingRecords
             // 
