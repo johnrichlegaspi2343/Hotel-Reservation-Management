@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboard));
             label1 = new Label();
             button1 = new Button();
             button2 = new Button();
@@ -157,7 +158,7 @@
             Controls.Add(button1);
             Controls.Add(label1);
             Name = "AdminDashboard";
-            Text = "AdminDashboard";
+            Text = resources.GetString("$this.Text");
             Load += AdminDashboard_Load;
             ResumeLayout(false);
             PerformLayout();
