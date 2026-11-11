@@ -132,7 +132,7 @@
             button6.BackColor = Color.LightGray;
             button6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button6.ForeColor = Color.Black;
-            button6.Location = new Point(401, 23);
+            button6.Location = new Point(401, 59);
             button6.Name = "button6";
             button6.Size = new Size(161, 43);
             button6.TabIndex = 16;
@@ -142,7 +142,7 @@
             // textBox1
             // 
             textBox1.BackColor = Color.White;
-            textBox1.Location = new Point(211, 35);
+            textBox1.Location = new Point(212, 70);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(174, 27);
             textBox1.TabIndex = 2;
@@ -151,7 +151,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(22, 35);
+            label5.Location = new Point(23, 71);
             label5.Name = "label5";
             label5.Size = new Size(183, 23);
             label5.TabIndex = 1;
@@ -161,7 +161,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(9, 0);
+            label4.Location = new Point(23, 25);
             label4.Name = "label4";
             label4.Size = new Size(294, 31);
             label4.TabIndex = 0;
