@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using BusinessLogic;
+using Model;
 
 namespace HotelReservation
 {
@@ -27,6 +29,15 @@ namespace HotelReservation
                     }
 
                     db.Database.EnsureCreated();
+
+                    // Gumawa ng default na users kung walang laman ang table
+                    if (!db.Users.Any())
+                    {
+                        db.Users.AddRange(
+                            new User { Username = "admin", Password = "admin123", Role = "Admin" },
+                            new User { Username = "frontdesk", Password = "front123", Role = "FrontDesk" });
+                        db.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
@@ -48,7 +59,7 @@ namespace HotelReservation
                 return;
             }
 
-            User user;
+            User? user;
             try
             {
                 using (var db = new AppDBContext())
