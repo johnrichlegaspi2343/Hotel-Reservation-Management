@@ -19,5 +19,8 @@
     <Compile Update="Reservation.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="RoomMaintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
