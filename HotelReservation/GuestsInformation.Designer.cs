@@ -139,18 +139,7 @@
             label1.Size = new Size(398, 60);
             label1.TabIndex = 13;
             label1.Text = "Hotel Reservation";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(717, 102);
-            label3.Name = "label3";
-            label3.Size = new Size(105, 28);
-            label3.TabIndex = 16;
-            label3.Text = "Frontdesk";
-            label3.Click += this.label3_Click;
+
             // 
             // button7
             // 
@@ -344,7 +333,6 @@
             ForeColor = SystemColors.ActiveCaptionText;
             Name = "GuestsInformation";
             Text = "GuestsInformation";
-            Load += this.GuestsInformation_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
