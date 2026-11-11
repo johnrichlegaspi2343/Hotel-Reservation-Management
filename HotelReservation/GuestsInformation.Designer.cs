@@ -139,7 +139,13 @@
             label1.Size = new Size(398, 60);
             label1.TabIndex = 13;
             label1.Text = "Hotel Reservation";
-
+            // 
+            // label3
+            // 
+            label3.Location = new Point(0, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(100, 23);
+            label3.TabIndex = 18;
             // 
             // button7
             // 
@@ -332,7 +338,6 @@
             Controls.Add(button1);
             ForeColor = SystemColors.ActiveCaptionText;
             Name = "GuestsInformation";
-            Text = "GuestsInformation";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
