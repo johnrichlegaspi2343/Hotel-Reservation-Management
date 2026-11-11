@@ -34,9 +34,8 @@
             button2 = new Button();
             button3 = new Button();
             button4 = new Button();
-            label2 = new Label();
             label3 = new Label();
-            button5 = new Button();
+            btnLogout = new Button();
             panel1 = new Panel();
             SuspendLayout();
             // 
@@ -100,17 +99,6 @@
             button4.Text = "Billing Records";
             button4.UseVisualStyleBackColor = false;
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(1364, 103);
-            label2.Name = "label2";
-            label2.Size = new Size(128, 41);
-            label2.TabIndex = 7;
-            label2.Text = " Admin:";
-            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -122,17 +110,17 @@
             label3.TabIndex = 8;
             label3.Text = "<user>";
             // 
-            // button5
+            // btnLogout
             // 
-            button5.BackColor = Color.OliveDrab;
-            button5.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button5.ForeColor = SystemColors.ButtonHighlight;
-            button5.Location = new Point(1671, 96);
-            button5.Name = "button5";
-            button5.Size = new Size(167, 54);
-            button5.TabIndex = 9;
-            button5.Text = "[Logout]";
-            button5.UseVisualStyleBackColor = false;
+            btnLogout.BackColor = Color.OliveDrab;
+            btnLogout.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = SystemColors.ButtonHighlight;
+            btnLogout.Location = new Point(1671, 96);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(167, 54);
+            btnLogout.TabIndex = 9;
+            btnLogout.Text = "[Logout]";
+            btnLogout.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
@@ -149,9 +137,8 @@
             BackColor = Color.OliveDrab;
             ClientSize = new Size(1902, 1033);
             Controls.Add(panel1);
-            Controls.Add(button5);
+            Controls.Add(btnLogout);
             Controls.Add(label3);
-            Controls.Add(label2);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -170,9 +157,8 @@
         private Button button2;
         private Button button3;
         private Button button4;
-        private Label label2;
         private Label label3;
-        private Button button5;
+        private Button btnLogout;
         private Panel panel1;
     }
 }

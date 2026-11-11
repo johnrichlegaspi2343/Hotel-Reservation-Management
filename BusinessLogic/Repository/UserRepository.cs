@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Model;
 
 namespace BusinessLogic.Repository
 {
-    internal class UserRepository
+    public class UserRepository
     {
+        public User? GetByUsername(string username)
+        {
+            using (var db = new AppDBContext())
+            {
+                return db.Users.FirstOrDefault(u => u.Username == username);
+            }
+        }
     }
 }

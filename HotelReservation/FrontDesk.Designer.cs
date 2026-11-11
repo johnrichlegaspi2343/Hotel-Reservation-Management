@@ -29,15 +29,14 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            label2 = new Label();
-            btnGuestInformation = new Button();
-            btnAvailability = new Button();
-            btnReservation = new Button();
-            btnCheckinCheckout = new Button();
+            lblFrontDesk = new Label();
+            button1 = new Button();
+            button2 = new Button();
+            button3 = new Button();
+            button4 = new Button();
             button5 = new Button();
-            btnBillingPayment = new Button();
+            button6 = new Button();
             btnLogout = new Button();
-            label3 = new Label();
             panel1 = new Panel();
             SuspendLayout();
             // 
@@ -52,16 +51,16 @@
             label1.TabIndex = 0;
             label1.Text = "Hotel Reservation";
             // 
-            // label2
+            // lblFrontDesk
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(1398, 128);
-            label2.Name = "label2";
-            label2.Size = new Size(169, 38);
-            label2.TabIndex = 1;
-            label2.Text = "Front Desk:";
+            lblFrontDesk.AutoSize = true;
+            lblFrontDesk.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
+            lblFrontDesk.ForeColor = Color.White;
+            lblFrontDesk.Location = new Point(1539, 128);
+            lblFrontDesk.Name = "lblFrontDesk";
+            lblFrontDesk.Size = new Size(128, 38);
+            lblFrontDesk.TabIndex = 1;
+            lblFrontDesk.Text = "< user >";
             // 
             // btnGuestInformation
             // 
@@ -124,17 +123,17 @@
             button5.Text = "Check-In / Check-Out";
             button5.UseVisualStyleBackColor = false;
             // 
-            // btnBillingPayment
+            // button6
             // 
-            btnBillingPayment.BackColor = Color.OliveDrab;
-            btnBillingPayment.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold);
-            btnBillingPayment.ForeColor = Color.White;
-            btnBillingPayment.Location = new Point(79, 765);
-            btnBillingPayment.Name = "btnBillingPayment";
-            btnBillingPayment.Size = new Size(364, 91);
-            btnBillingPayment.TabIndex = 7;
-            btnBillingPayment.Text = "Billing / Payment";
-            btnBillingPayment.UseVisualStyleBackColor = false;
+            button6.BackColor = Color.OliveDrab;
+            button6.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold);
+            button6.ForeColor = Color.White;
+            button6.Location = new Point(79, 765);
+            button6.Name = "button6";
+            button6.Size = new Size(364, 91);
+            button6.TabIndex = 7;
+            button6.Text = "Billing / Payment";
+            button6.UseVisualStyleBackColor = false;
             // 
             // btnLogout
             // 
@@ -146,17 +145,6 @@
             btnLogout.TabIndex = 8;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(1564, 128);
-            label3.Name = "label3";
-            label3.Size = new Size(144, 38);
-            label3.TabIndex = 9;
-            label3.Text = "frontdesk";
             // 
             // panel1
             // 
@@ -174,15 +162,14 @@
             BackColor = Color.OliveDrab;
             ClientSize = new Size(1902, 1033);
             Controls.Add(panel1);
-            Controls.Add(label3);
             Controls.Add(btnLogout);
-            Controls.Add(btnBillingPayment);
+            Controls.Add(button6);
             Controls.Add(button5);
-            Controls.Add(btnCheckinCheckout);
-            Controls.Add(btnReservation);
-            Controls.Add(btnAvailability);
-            Controls.Add(btnGuestInformation);
-            Controls.Add(label2);
+            Controls.Add(button4);
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(button1);
+            Controls.Add(lblFrontDesk);
             Controls.Add(label1);
             ForeColor = Color.White;
             Name = "FrontDesk";
@@ -195,15 +182,14 @@
         #endregion
 
         private Label label1;
-        private Label label2;
-        private Button btnGuestInformation;
-        private Button btnAvailability;
-        private Button btnReservation;
-        private Button btnCheckinCheckout;
+        private Label lblFrontDesk;
+        private Button button1;
+        private Button button2;
+        private Button button3;
+        private Button button4;
         private Button button5;
-        private Button btnBillingPayment;
+        private Button button6;
         private Button btnLogout;
-        private Label label3;
         private Panel panel1;
     }
 }

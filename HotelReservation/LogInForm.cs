@@ -1,44 +1,28 @@
 using System;
-using System.Linq;
 using System.Windows.Forms;
 using BusinessLogic;
+using BusinessLogic.Controller;
 using Model;
 
 namespace HotelReservation
 {
     public partial class frmLogIn : Form
     {
-
+        // Gawing true nang ISANG BESES kung gusto mong burahin at gawin ulit ang database
         private const bool ResetDatabase = false;
+
+        private UserController userController = new UserController();
 
         public frmLogIn()
         {
             InitializeComponent();
             txtPassword.UseSystemPasswordChar = true;
-
-
             this.AcceptButton = btnLogin;
 
             try
             {
-                using (var db = new AppDBContext())
-                {
-                    if (ResetDatabase)
-                    {
-                        db.Database.EnsureDeleted();
-                    }
-
-                    db.Database.EnsureCreated();
-
-                    // Gumawa ng default na users kung walang laman ang table
-                    if (!db.Users.Any())
-                    {
-                        db.Users.AddRange(
-                            new User { Username = "admin", Password = "admin123", Role = "Admin" },
-                            new User { Username = "frontdesk", Password = "front123", Role = "FrontDesk" });
-                        db.SaveChanges();
-                    }
-                }
+                // Gagawa ng database at maglalagay ng default data (users, rooms, 50 guests)
+                SeedData.Seed(ResetDatabase);
             }
             catch (Exception ex)
             {
@@ -47,60 +31,41 @@ namespace HotelReservation
             }
         }
 
+        // Tinatawag kapag nag-logout, para malinis ulit ang login screen
+        public void ClearFields()
+        {
+            txtUsername.Clear();
+            txtPassword.Clear();
+            txtUsername.Focus();
+        }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text;
-
-            if (username == "" || password == "")
-            {
-                MessageBox.Show("Please enter your username and password.",
-                    "Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            User? user;
             try
             {
-                using (var db = new AppDBContext())
-                {
+                User user = userController.Login(txtUsername.Text, txtPassword.Text);
 
-                    user = db.Users.FirstOrDefault(u => u.Username == username);
+                MessageBox.Show("Login successful! Welcome, " + user.Username + ".",
+                    "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (user.Role == "Admin")
+                {
+                    AdminDashboard dashboard = new AdminDashboard();
+                    dashboard.Show();
                 }
+                else
+                {
+                    FrontDesk frontDesk = new FrontDesk();
+                    frontDesk.Show();
+                }
+
+                this.Hide();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Database error:\n\n" + ex.Message,
-                    "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (user == null || user.Password != password)
-            {
-                MessageBox.Show("Invalid username or password.",
-                    "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPassword.Clear();
                 txtPassword.Focus();
-                return;
-            }
-
-            if (user.Role == "Admin")
-            {
-                MessageBox.Show("Login successful! Welcome, Admin.",
-                    "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                AdminDashboard dashboard = new AdminDashboard();
-                dashboard.Show();
-                this.Hide();
-            }
-            else if (user.Role == "FrontDesk")
-            {
-                MessageBox.Show("Login successful! Welcome, Front Desk.",
-                    "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                FrontDesk frontDesk = new FrontDesk();
-                frontDesk.Show();
-                this.Hide();
             }
         }
 
