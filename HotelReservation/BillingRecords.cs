@@ -14,5 +14,10 @@ namespace HotelReservation
         {
             InitializeComponent();
         }
+
+        private void BillingRecords_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

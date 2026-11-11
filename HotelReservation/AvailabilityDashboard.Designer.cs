@@ -39,6 +39,7 @@
             button7 = new Button();
             label2 = new Label();
             panel1 = new Panel();
+            dataGridView1 = new DataGridView();
             comboBox1 = new ComboBox();
             dateTimePicker2 = new DateTimePicker();
             dateTimePicker1 = new DateTimePicker();
@@ -46,7 +47,6 @@
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
-            dataGridView1 = new DataGridView();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -184,6 +184,15 @@
             panel1.Size = new Size(696, 533);
             panel1.TabIndex = 18;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(15, 98);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(678, 343);
+            dataGridView1.TabIndex = 25;
+            // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
@@ -211,7 +220,7 @@
             button8.BackColor = Color.LightGray;
             button8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button8.ForeColor = Color.Black;
-            button8.Location = new Point(552, 49);
+            button8.Location = new Point(550, 40);
             button8.Name = "button8";
             button8.Size = new Size(128, 43);
             button8.TabIndex = 19;
@@ -254,15 +263,6 @@
             label4.TabIndex = 19;
             label4.Text = "Check-In Date";
             // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(13, 123);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(678, 343);
-            dataGridView1.TabIndex = 25;
-            // 
             // AvailabilityDashboard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -282,6 +282,7 @@
             Controls.Add(button1);
             Name = "AvailabilityDashboard";
             Text = "AvailabilityDashboard";
+            Load += AvailabilityDashboard_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
