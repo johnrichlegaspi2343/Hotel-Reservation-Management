@@ -9,6 +9,7 @@ namespace HotelReservation
         private GuestController guestController = new GuestController();
         private List<Guest> currentGuests = new List<Guest>();
         private int selectedGuestId = 0;     // 0 = walang napili
+        private bool fromReservation = false;   // BAGO: true kapag galing sa Add New Guest ng Reservation
 
         public GuestsInformation()
         {
@@ -26,12 +27,17 @@ namespace HotelReservation
             dgvGuests.CellClick += dgvGuests_CellClick;
 
             // Sidebar
-            btnAvailability.Click += btnReservation_Click;
             btnReservation.Click += btnReservation_Click;
             btnCheckInCheckOut.Click += btnCheckInCheckOut_Click;
             btnBillingPayment.Click += btnBillingPayment_Click;
             btnLogout.Click += btnLogout_Click;
             this.FormClosed += GuestsInformation_FormClosed;
+        }
+
+        // BAGO: ginagamit ng Reservation (Add New Guest)
+        public GuestsInformation(bool fromReservation) : this()
+        {
+            this.fromReservation = fromReservation;
         }
 
         private void SetupForm()
@@ -164,6 +170,13 @@ namespace HotelReservation
                 MessageBox.Show("Guest added. Guest ID: " + guest.GuestCode, "Add Guest",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                // BAGO: kung galing sa Reservation, bumalik doon na naka-fill ang guest
+                if (fromReservation)
+                {
+                    Navigator.Open(this, new Reservation(guest));
+                    return;
+                }
+
                 ClearForm();
                 LoadGuests(guestController.GetGuests());
             }
@@ -256,12 +269,6 @@ namespace HotelReservation
         private void GuestsInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
             Navigator.ExitIfUserClosed(e);
-        }
-
-        // Galing sa designer, hayaan lang
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

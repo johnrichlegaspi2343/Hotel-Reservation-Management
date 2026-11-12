@@ -10,7 +10,6 @@ namespace HotelReservation
             lblFrontDesk.Text = "Front Desk: " + Session.CurrentUser?.Username;
 
             // Ang btnGuests ay naka-connect na sa designer (button1_Click)
-            btnAvailability.Click += btnAvailability_Click;
             btnReservation.Click += btnReservation_Click;
             btnCheckInCheckOut.Click += btnCheckInCheckOut_Click;
             btnBillingPayment.Click += btnBillingPayment_Click;
@@ -27,12 +26,6 @@ namespace HotelReservation
         private void button1_Click(object sender, EventArgs e)
         {
             Navigator.Open(this, new GuestsInformation());
-        }
-
-        // Availability (nasa Reservation form ang Check Availability)
-        private void btnAvailability_Click(object sender, EventArgs e)
-        {
-            Navigator.Open(this, new Reservation());
         }
 
         private void btnReservation_Click(object sender, EventArgs e)
