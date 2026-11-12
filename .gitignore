@@ -17,3 +17,23 @@
    
    /HotelReseservationDB/bin/
    /HotelReseservationDB/obj/
+ Updated upstream
+/HotelReseservationDB/bin/Debug
+/BusinessLogic/obj
+/Model/obj
+/HotelReseservationDB
+/BusinessLogic/bin/Debug/net10.0
+/Model/bin/Debug/net10.0
+
+/Model
+/BusinessLogic
+/HotelReseservationDB
+/.gitignore
+ Stashed changes
+/HotelReservation/HotelReservation.csproj.user
+/HotelReservation
+/.gitignore
+/.gitignore
+/.gitignore
+/.gitignore
+ 
