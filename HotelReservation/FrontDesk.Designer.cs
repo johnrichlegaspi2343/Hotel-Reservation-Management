@@ -29,15 +29,14 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            label2 = new Label();
-            btnGuestInformation = new Button();
+            lblFrontDesk = new Label();
+            btnGuests = new Button();
             btnAvailability = new Button();
             btnReservation = new Button();
-            btnCheckinCheckout = new Button();
-            button5 = new Button();
+            btnReservationStatus = new Button();
+            btnCheckInCheckOut = new Button();
             btnBillingPayment = new Button();
             btnLogout = new Button();
-            label3 = new Label();
             panel1 = new Panel();
             SuspendLayout();
             // 
@@ -52,29 +51,29 @@
             label1.TabIndex = 0;
             label1.Text = "Hotel Reservation";
             // 
-            // label2
+            // lblFrontDesk
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(1398, 128);
-            label2.Name = "label2";
-            label2.Size = new Size(169, 38);
-            label2.TabIndex = 1;
-            label2.Text = "Front Desk:";
+            lblFrontDesk.AutoSize = true;
+            lblFrontDesk.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
+            lblFrontDesk.ForeColor = Color.White;
+            lblFrontDesk.Location = new Point(1539, 128);
+            lblFrontDesk.Name = "lblFrontDesk";
+            lblFrontDesk.Size = new Size(128, 38);
+            lblFrontDesk.TabIndex = 1;
+            lblFrontDesk.Text = "< user >";
             // 
-            // btnGuestInformation
+            // btnGuests
             // 
-            btnGuestInformation.BackColor = Color.OliveDrab;
-            btnGuestInformation.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold);
-            btnGuestInformation.ForeColor = Color.White;
-            btnGuestInformation.Location = new Point(79, 208);
-            btnGuestInformation.Name = "btnGuestInformation";
-            btnGuestInformation.Size = new Size(364, 82);
-            btnGuestInformation.TabIndex = 2;
-            btnGuestInformation.Text = "Guests Information";
-            btnGuestInformation.UseVisualStyleBackColor = false;
-            btnGuestInformation.Click += button1_Click;
+            btnGuests.BackColor = Color.OliveDrab;
+            btnGuests.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold);
+            btnGuests.ForeColor = Color.White;
+            btnGuests.Location = new Point(79, 208);
+            btnGuests.Name = "btnGuests";
+            btnGuests.Size = new Size(364, 82);
+            btnGuests.TabIndex = 2;
+            btnGuests.Text = "Guests Information";
+            btnGuests.UseVisualStyleBackColor = false;
+            btnGuests.Click += button1_Click;
             // 
             // btnAvailability
             // 
@@ -100,29 +99,29 @@
             btnReservation.Text = "Reservation";
             btnReservation.UseVisualStyleBackColor = false;
             // 
-            // btnCheckinCheckout
+            // btnReservationStatus
             // 
-            btnCheckinCheckout.BackColor = Color.OliveDrab;
-            btnCheckinCheckout.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold);
-            btnCheckinCheckout.ForeColor = Color.White;
-            btnCheckinCheckout.Location = new Point(79, 539);
-            btnCheckinCheckout.Name = "btnCheckinCheckout";
-            btnCheckinCheckout.Size = new Size(364, 90);
-            btnCheckinCheckout.TabIndex = 5;
-            btnCheckinCheckout.Text = "Reservation Status";
-            btnCheckinCheckout.UseVisualStyleBackColor = false;
+            btnReservationStatus.BackColor = Color.OliveDrab;
+            btnReservationStatus.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold);
+            btnReservationStatus.ForeColor = Color.White;
+            btnReservationStatus.Location = new Point(79, 539);
+            btnReservationStatus.Name = "btnReservationStatus";
+            btnReservationStatus.Size = new Size(364, 90);
+            btnReservationStatus.TabIndex = 5;
+            btnReservationStatus.Text = "Reservation Status";
+            btnReservationStatus.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // btnCheckInCheckOut
             // 
-            button5.BackColor = Color.OliveDrab;
-            button5.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold);
-            button5.ForeColor = Color.White;
-            button5.Location = new Point(79, 654);
-            button5.Name = "button5";
-            button5.Size = new Size(364, 89);
-            button5.TabIndex = 6;
-            button5.Text = "Check-In / Check-Out";
-            button5.UseVisualStyleBackColor = false;
+            btnCheckInCheckOut.BackColor = Color.OliveDrab;
+            btnCheckInCheckOut.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold);
+            btnCheckInCheckOut.ForeColor = Color.White;
+            btnCheckInCheckOut.Location = new Point(79, 654);
+            btnCheckInCheckOut.Name = "btnCheckInCheckOut";
+            btnCheckInCheckOut.Size = new Size(364, 89);
+            btnCheckInCheckOut.TabIndex = 6;
+            btnCheckInCheckOut.Text = "Check-In / Check-Out";
+            btnCheckInCheckOut.UseVisualStyleBackColor = false;
             // 
             // btnBillingPayment
             // 
@@ -147,17 +146,6 @@
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(1564, 128);
-            label3.Name = "label3";
-            label3.Size = new Size(144, 38);
-            label3.TabIndex = 9;
-            label3.Text = "frontdesk";
-            // 
             // panel1
             // 
             panel1.BackColor = Color.White;
@@ -174,15 +162,14 @@
             BackColor = Color.OliveDrab;
             ClientSize = new Size(1902, 1033);
             Controls.Add(panel1);
-            Controls.Add(label3);
             Controls.Add(btnLogout);
             Controls.Add(btnBillingPayment);
-            Controls.Add(button5);
-            Controls.Add(btnCheckinCheckout);
+            Controls.Add(btnCheckInCheckOut);
+            Controls.Add(btnReservationStatus);
             Controls.Add(btnReservation);
             Controls.Add(btnAvailability);
-            Controls.Add(btnGuestInformation);
-            Controls.Add(label2);
+            Controls.Add(btnGuests);
+            Controls.Add(lblFrontDesk);
             Controls.Add(label1);
             ForeColor = Color.White;
             Name = "FrontDesk";
@@ -195,15 +182,14 @@
         #endregion
 
         private Label label1;
-        private Label label2;
-        private Button btnGuestInformation;
+        private Label lblFrontDesk;
+        private Button btnGuests;
         private Button btnAvailability;
         private Button btnReservation;
-        private Button btnCheckinCheckout;
-        private Button button5;
+        private Button btnReservationStatus;
+        private Button btnCheckInCheckOut;
         private Button btnBillingPayment;
         private Button btnLogout;
-        private Label label3;
         private Panel panel1;
     }
 }

@@ -15,6 +15,9 @@ namespace HotelReservation
             InitializeComponent();
         }
 
-      
+        private void AvailabilityDashboard_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
