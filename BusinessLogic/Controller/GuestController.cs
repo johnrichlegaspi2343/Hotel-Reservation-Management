@@ -62,27 +62,42 @@ namespace BusinessLogic.Controller
 
         private void ValidateGuest(Guest guest)
         {
+            // ---------- Lahat ng field ay required ----------
             if (guest.FirstName.Trim() == "")
                 throw new Exception("First name is required.");
 
             if (guest.LastName.Trim() == "")
                 throw new Exception("Last name is required.");
 
+            if (guest.Address.Trim() == "")
+                throw new Exception("Address is required.");
+
+            if (guest.Gender.Trim() == "")
+                throw new Exception("Please select a gender.");
+
+            if (guest.ContactNumber.Trim() == "")
+                throw new Exception("Contact number is required.");
+
+            if (guest.EmergencyContactName.Trim() == "")
+                throw new Exception("Emergency contact name is required.");
+
+            if (guest.EmergencyContactNumber.Trim() == "")
+                throw new Exception("Emergency contact number is required.");
+
+            // ---------- Tamang format ----------
             if (guest.DateOfBirth.Date > DateTime.Today.AddYears(-18))
                 throw new Exception("Guest must be at least 18 years old.");
 
             if (!IsValidContactNumber(guest.ContactNumber))
                 throw new Exception("Contact number must be 11 digits and start with 09.");
 
+            if (!IsValidContactNumber(guest.EmergencyContactNumber))
+                throw new Exception("Emergency contact number must be 11 digits and start with 09.");
+
             if (guest.Email.Trim() != "" && (!guest.Email.Contains("@") || !guest.Email.Contains(".")))
                 throw new Exception("Please enter a valid email address.");
 
-            if (guest.Address.Trim() == "")
-                throw new Exception("Address is required.");
-
-            if (guest.EmergencyContactNumber.Trim() != "" && !IsValidContactNumber(guest.EmergencyContactNumber))
-                throw new Exception("Emergency contact number must be 11 digits and start with 09.");
-
+            // ---------- Walang duplicate ----------
             if (guestRepo.GuestExists(guest.FirstName.Trim(), guest.LastName.Trim(), guest.DateOfBirth.Date, guest.Id))
                 throw new Exception("This guest already exists.");
         }
