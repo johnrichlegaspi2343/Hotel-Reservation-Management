@@ -21,7 +21,6 @@ namespace HotelReservation
 
             // Sidebar
             btnGuests.Click += btnGuests_Click;
-            btnAvailability.Click += btnReservation_Click;
             btnReservation.Click += btnReservation_Click;
             btnBillingPayment.Click += btnBillingPayment_Click;
             btnLogout.Click += btnLogout_Click;

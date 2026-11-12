@@ -33,7 +33,6 @@
             btnCheckInCheckOut = new Button();
             btnReservationStatus = new Button();
             btnReservation = new Button();
-            btnAvailability = new Button();
             label1 = new Label();
             lblUser = new Label();
             btnLogout = new Button();
@@ -96,7 +95,7 @@
             btnCheckInCheckOut.BackColor = Color.OliveDrab;
             btnCheckInCheckOut.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCheckInCheckOut.ForeColor = Color.White;
-            btnCheckInCheckOut.Location = new Point(41, 274);
+            btnCheckInCheckOut.Location = new Point(41, 331);
             btnCheckInCheckOut.Name = "btnCheckInCheckOut";
             btnCheckInCheckOut.Size = new Size(219, 47);
             btnCheckInCheckOut.TabIndex = 11;
@@ -108,7 +107,7 @@
             btnReservationStatus.BackColor = Color.OliveDrab;
             btnReservationStatus.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
             btnReservationStatus.ForeColor = Color.White;
-            btnReservationStatus.Location = new Point(42, 331);
+            btnReservationStatus.Location = new Point(42, 273);
             btnReservationStatus.Name = "btnReservationStatus";
             btnReservationStatus.Size = new Size(218, 49);
             btnReservationStatus.TabIndex = 10;
@@ -120,24 +119,12 @@
             btnReservation.BackColor = Color.OliveDrab;
             btnReservation.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
             btnReservation.ForeColor = Color.White;
-            btnReservation.Location = new Point(43, 211);
+            btnReservation.Location = new Point(43, 216);
             btnReservation.Name = "btnReservation";
             btnReservation.Size = new Size(218, 49);
             btnReservation.TabIndex = 9;
             btnReservation.Text = "Reservation";
             btnReservation.UseVisualStyleBackColor = false;
-            // 
-            // btnAvailability
-            // 
-            btnAvailability.BackColor = Color.OliveDrab;
-            btnAvailability.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
-            btnAvailability.ForeColor = Color.White;
-            btnAvailability.Location = new Point(41, 442);
-            btnAvailability.Name = "btnAvailability";
-            btnAvailability.Size = new Size(218, 50);
-            btnAvailability.TabIndex = 8;
-            btnAvailability.Text = "Availability";
-            btnAvailability.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -424,7 +411,6 @@
             Controls.Add(btnCheckInCheckOut);
             Controls.Add(btnReservationStatus);
             Controls.Add(btnReservation);
-            Controls.Add(btnAvailability);
             Controls.Add(btnGuests);
             ForeColor = SystemColors.ActiveCaptionText;
             Name = "GuestsInformation";
@@ -444,7 +430,6 @@
         private Button btnCheckInCheckOut;
         private Button btnReservationStatus;
         private Button btnReservation;
-        private Button btnAvailability;
         private Label label1;
         private Label lblUser;
         private Button btnLogout;
