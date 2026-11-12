@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using BusinessLogic;
 
 namespace HotelReservation
 {
@@ -13,9 +7,15 @@ namespace HotelReservation
         public FrontDesk()
         {
             InitializeComponent();
+            lblFrontDesk.Text = "Front Desk: " + Session.CurrentUser?.Username;
+
+            // Ang btnGuests ay naka-connect na sa designer (button1_Click)
+            btnAvailability.Click += btnAvailability_Click;
+            btnReservation.Click += btnReservation_Click;
+            btnCheckInCheckOut.Click += btnCheckInCheckOut_Click;
+            btnBillingPayment.Click += btnBillingPayment_Click;
             btnLogout.Click += btnLogout_Click;
-            this.FormClosed += Dashboard_FormClosed;
-            lblFrontDesk.Text = BusinessLogic.Session.CurrentUser?.Username;
+            this.FormClosed += FrontDesk_FormClosed;
         }
 
         private void FrontDesk_Load(object sender, EventArgs e)
@@ -23,29 +23,41 @@ namespace HotelReservation
 
         }
 
-        // Logout button
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            BusinessLogic.Session.CurrentUser = null;
-
-            frmLogIn login = (frmLogIn)Application.OpenForms["frmLogIn"];
-            login.ClearFields();
-            login.Show();
-            this.Close();
-        }
-
-        // Kapag pinindot ang X (hindi Logout), isara ang buong app
-        private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (BusinessLogic.Session.CurrentUser != null)
-            {
-                Application.Exit();
-            }
-        }
-
+        // Guests Information
         private void button1_Click(object sender, EventArgs e)
         {
+            Navigator.Open(this, new GuestsInformation());
+        }
 
+        // Availability (nasa Reservation form ang Check Availability)
+        private void btnAvailability_Click(object sender, EventArgs e)
+        {
+            Navigator.Open(this, new Reservation());
+        }
+
+        private void btnReservation_Click(object sender, EventArgs e)
+        {
+            Navigator.Open(this, new Reservation());
+        }
+
+        private void btnCheckInCheckOut_Click(object sender, EventArgs e)
+        {
+            Navigator.Open(this, new CheckinCheckout());
+        }
+
+        private void btnBillingPayment_Click(object sender, EventArgs e)
+        {
+            Navigator.Open(this, new BillingPayment());
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Navigator.Logout(this);
+        }
+
+        private void FrontDesk_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Navigator.ExitIfUserClosed(e);
         }
     }
 }
