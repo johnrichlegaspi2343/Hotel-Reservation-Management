@@ -34,15 +34,14 @@
             btnReservationStatus = new Button();
             btnReservation = new Button();
             panel1 = new Panel();
-            button2 = new Button();
-            button1 = new Button();
+            btnClear = new Button();
+            btnProcessPayment = new Button();
             cbPaymentMethod = new ComboBox();
             txtPaymentAmount = new TextBox();
             label16 = new Label();
             label15 = new Label();
             label14 = new Label();
             btnSearch = new Button();
-            domainUpDown1 = new DomainUpDown();
             label13 = new Label();
             label12 = new Label();
             label11 = new Label();
@@ -65,6 +64,7 @@
             label3 = new Label();
             btnLogin = new Button();
             label2 = new Label();
+            txtServiceCharges = new TextBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -132,15 +132,15 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(txtServiceCharges);
+            panel1.Controls.Add(btnClear);
+            panel1.Controls.Add(btnProcessPayment);
             panel1.Controls.Add(cbPaymentMethod);
             panel1.Controls.Add(txtPaymentAmount);
             panel1.Controls.Add(label16);
             panel1.Controls.Add(label15);
             panel1.Controls.Add(label14);
             panel1.Controls.Add(btnSearch);
-            panel1.Controls.Add(domainUpDown1);
             panel1.Controls.Add(label13);
             panel1.Controls.Add(label12);
             panel1.Controls.Add(label11);
@@ -164,25 +164,25 @@
             panel1.Size = new Size(654, 377);
             panel1.TabIndex = 9;
             // 
-            // button2
+            // btnClear
             // 
-            button2.BackColor = Color.PaleGreen;
-            button2.Location = new Point(509, 234);
-            button2.Name = "button2";
-            button2.Size = new Size(127, 62);
-            button2.TabIndex = 26;
-            button2.Text = "Clear";
-            button2.UseVisualStyleBackColor = false;
+            btnClear.BackColor = Color.PaleGreen;
+            btnClear.Location = new Point(509, 234);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(127, 62);
+            btnClear.TabIndex = 26;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btnProcessPayment
             // 
-            button1.BackColor = Color.PaleGreen;
-            button1.Location = new Point(378, 234);
-            button1.Name = "button1";
-            button1.Size = new Size(125, 62);
-            button1.TabIndex = 25;
-            button1.Text = "Process Payment";
-            button1.UseVisualStyleBackColor = false;
+            btnProcessPayment.BackColor = Color.PaleGreen;
+            btnProcessPayment.Location = new Point(378, 234);
+            btnProcessPayment.Name = "btnProcessPayment";
+            btnProcessPayment.Size = new Size(125, 62);
+            btnProcessPayment.TabIndex = 25;
+            btnProcessPayment.Text = "Process Payment";
+            btnProcessPayment.UseVisualStyleBackColor = false;
             // 
             // cbPaymentMethod
             // 
@@ -237,14 +237,6 @@
             btnSearch.TabIndex = 14;
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = false;
-            // 
-            // domainUpDown1
-            // 
-            domainUpDown1.Location = new Point(201, 225);
-            domainUpDown1.Name = "domainUpDown1";
-            domainUpDown1.Size = new Size(150, 27);
-            domainUpDown1.TabIndex = 19;
-            domainUpDown1.Text = "100";
             // 
             // label13
             // 
@@ -437,6 +429,13 @@
             label2.TabIndex = 11;
             label2.Text = "Front Desk:";
             // 
+            // txtServiceCharges
+            // 
+            txtServiceCharges.Location = new Point(201, 225);
+            txtServiceCharges.Name = "txtServiceCharges";
+            txtServiceCharges.Size = new Size(150, 27);
+            txtServiceCharges.TabIndex = 27;
+            // 
             // BillingPayment
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -493,13 +492,13 @@
         private TextBox txtRoom;
         private TextBox txtGuests;
         private Button btnSearch;
-        private DomainUpDown domainUpDown1;
         private TextBox txtPaymentAmount;
         private Label label16;
         private Label label15;
         private Label label14;
         private ComboBox cbPaymentMethod;
-        private Button button2;
-        private Button button1;
+        private Button btnClear;
+        private Button btnProcessPayment;
+        private TextBox txtServiceCharges;
     }
 }
