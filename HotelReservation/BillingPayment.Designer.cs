@@ -34,6 +34,7 @@
             btnReservationStatus = new Button();
             btnReservation = new Button();
             panel1 = new Panel();
+            txtServiceCharges = new TextBox();
             btnClear = new Button();
             btnProcessPayment = new Button();
             cbPaymentMethod = new ComboBox();
@@ -51,20 +52,18 @@
             label7 = new Label();
             label6 = new Label();
             label5 = new Label();
-            txtSearchRservationID = new TextBox();
+            this.txtSearchReservationId = new TextBox();
             label4 = new Label();
             txtRemainingBalance = new TextBox();
             txtTotalBill = new TextBox();
-            txtRoomChanges = new TextBox();
+            txtRoomCharges = new TextBox();
             txtNumberOfNights = new TextBox();
             txtRoomRate = new TextBox();
             txtRoom = new TextBox();
             txtGuests = new TextBox();
             label1 = new Label();
-            label3 = new Label();
-            btnLogin = new Button();
-            label2 = new Label();
-            txtServiceCharges = new TextBox();
+            lblUser = new Label();
+            btnLogout = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -150,11 +149,11 @@
             panel1.Controls.Add(label7);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(txtSearchRservationID);
+            panel1.Controls.Add(this.txtSearchReservationId);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtRemainingBalance);
             panel1.Controls.Add(txtTotalBill);
-            panel1.Controls.Add(txtRoomChanges);
+            panel1.Controls.Add(txtRoomCharges);
             panel1.Controls.Add(txtNumberOfNights);
             panel1.Controls.Add(txtRoomRate);
             panel1.Controls.Add(txtRoom);
@@ -163,6 +162,13 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(654, 377);
             panel1.TabIndex = 9;
+            // 
+            // txtServiceCharges
+            // 
+            txtServiceCharges.Location = new Point(201, 225);
+            txtServiceCharges.Name = "txtServiceCharges";
+            txtServiceCharges.Size = new Size(150, 27);
+            txtServiceCharges.TabIndex = 27;
             // 
             // btnClear
             // 
@@ -231,7 +237,7 @@
             // 
             btnSearch.BackColor = Color.LightGray;
             btnSearch.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSearch.Location = new Point(311, 11);
+            btnSearch.Location = new Point(364, 11);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(127, 30);
             btnSearch.TabIndex = 14;
@@ -319,12 +325,12 @@
             label5.TabIndex = 10;
             label5.Text = "Billing Details";
             // 
-            // txtSearchRservationID
+            // txtSearchReservationId
             // 
-            txtSearchRservationID.Location = new Point(180, 11);
-            txtSearchRservationID.Name = "txtSearchRservationID";
-            txtSearchRservationID.Size = new Size(125, 27);
-            txtSearchRservationID.TabIndex = 9;
+            this.txtSearchReservationId.Location = new Point(180, 11);
+            this.txtSearchReservationId.Name = "txtSearchReservationId";
+            this.txtSearchReservationId.Size = new Size(171, 27);
+            this.txtSearchReservationId.TabIndex = 9;
             // 
             // label4
             // 
@@ -349,12 +355,12 @@
             txtTotalBill.Size = new Size(149, 27);
             txtTotalBill.TabIndex = 6;
             // 
-            // txtRoomChanges
+            // txtRoomCharges
             // 
-            txtRoomChanges.Location = new Point(20, 225);
-            txtRoomChanges.Name = "txtRoomChanges";
-            txtRoomChanges.Size = new Size(149, 27);
-            txtRoomChanges.TabIndex = 4;
+            txtRoomCharges.Location = new Point(20, 225);
+            txtRoomCharges.Name = "txtRoomCharges";
+            txtRoomCharges.Size = new Size(149, 27);
+            txtRoomCharges.TabIndex = 4;
             // 
             // txtNumberOfNights
             // 
@@ -395,46 +401,28 @@
             label1.TabIndex = 10;
             label1.Text = "Hotel Reservation";
             // 
-            // label3
+            // lblUser
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(625, 26);
-            label3.Name = "label3";
-            label3.Size = new Size(103, 28);
-            label3.TabIndex = 13;
-            label3.Text = "frontdesk";
+            lblUser.AutoSize = true;
+            lblUser.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblUser.ForeColor = Color.White;
+            lblUser.Location = new Point(625, 26);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(92, 28);
+            lblUser.TabIndex = 13;
+            lblUser.Text = "< user >";
             // 
-            // btnLogin
+            // btnLogout
             // 
-            btnLogin.BackColor = Color.OliveDrab;
-            btnLogin.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            btnLogin.ForeColor = SystemColors.Control;
-            btnLogin.Location = new Point(742, 20);
-            btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(136, 44);
-            btnLogin.TabIndex = 12;
-            btnLogin.Text = "Logout";
-            btnLogin.UseVisualStyleBackColor = false;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(499, 26);
-            label2.Name = "label2";
-            label2.Size = new Size(120, 28);
-            label2.TabIndex = 11;
-            label2.Text = "Front Desk:";
-            // 
-            // txtServiceCharges
-            // 
-            txtServiceCharges.Location = new Point(201, 225);
-            txtServiceCharges.Name = "txtServiceCharges";
-            txtServiceCharges.Size = new Size(150, 27);
-            txtServiceCharges.TabIndex = 27;
+            btnLogout.BackColor = Color.OliveDrab;
+            btnLogout.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnLogout.ForeColor = SystemColors.Control;
+            btnLogout.Location = new Point(742, 20);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(136, 44);
+            btnLogout.TabIndex = 12;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
             // 
             // BillingPayment
             // 
@@ -442,9 +430,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.OliveDrab;
             ClientSize = new Size(945, 484);
-            Controls.Add(label3);
-            Controls.Add(btnLogin);
-            Controls.Add(label2);
+            Controls.Add(lblUser);
+            Controls.Add(btnLogout);
             Controls.Add(label1);
             Controls.Add(panel1);
             Controls.Add(btnReservation);
@@ -470,8 +457,8 @@
         private Button btnReservation;
         private Panel panel1;
         private Label label1;
-        private Label label3;
-        private Button btnLogin;
+        private Label lblUser;
+        private Button btnLogout;
         private Label label2;
         private Label label13;
         private Label label12;
@@ -482,11 +469,11 @@
         private Label label7;
         private Label label6;
         private Label label5;
-        private TextBox txtSearchRservationID;
+        private TextBox txtSearchReservationId;
         private Label label4;
         private TextBox txtRemainingBalance;
         private TextBox txtTotalBill;
-        private TextBox txtRoomChanges;
+        private TextBox txtRoomCharges;
         private TextBox txtNumberOfNights;
         private TextBox txtRoomRate;
         private TextBox txtRoom;
