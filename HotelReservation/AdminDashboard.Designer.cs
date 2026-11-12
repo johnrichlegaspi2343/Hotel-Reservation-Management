@@ -30,11 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboard));
             label1 = new Label();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            label3 = new Label();
+            btnRoomsMaintenance = new Button();
+            btnGuestRecords = new Button();
+            btnReservationRecords = new Button();
+            btnBillingRecords = new Button();
+            lblUser = new Label();
             btnLogout = new Button();
             panel1 = new Panel();
             SuspendLayout();
@@ -49,66 +49,65 @@
             label1.Size = new Size(398, 60);
             label1.TabIndex = 2;
             label1.Text = "Hotel Reservation";
-            label1.Click += label1_Click;
             // 
-            // button1
+            // btnRoomsMaintenance
             // 
-            button1.BackColor = Color.OliveDrab;
-            button1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(25, 190);
-            button1.Name = "button1";
-            button1.Size = new Size(471, 88);
-            button1.TabIndex = 3;
-            button1.Text = " Rooms Maintenance";
-            button1.UseVisualStyleBackColor = false;
+            btnRoomsMaintenance.BackColor = Color.OliveDrab;
+            btnRoomsMaintenance.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRoomsMaintenance.ForeColor = Color.White;
+            btnRoomsMaintenance.Location = new Point(25, 190);
+            btnRoomsMaintenance.Name = "btnRoomsMaintenance";
+            btnRoomsMaintenance.Size = new Size(471, 88);
+            btnRoomsMaintenance.TabIndex = 3;
+            btnRoomsMaintenance.Text = " Rooms Maintenance";
+            btnRoomsMaintenance.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnGuestRecords
             // 
-            button2.BackColor = Color.OliveDrab;
-            button2.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(25, 340);
-            button2.Name = "button2";
-            button2.Size = new Size(471, 90);
-            button2.TabIndex = 4;
-            button2.Text = "Guest Records";
-            button2.UseVisualStyleBackColor = false;
+            btnGuestRecords.BackColor = Color.OliveDrab;
+            btnGuestRecords.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGuestRecords.ForeColor = Color.White;
+            btnGuestRecords.Location = new Point(25, 340);
+            btnGuestRecords.Name = "btnGuestRecords";
+            btnGuestRecords.Size = new Size(471, 90);
+            btnGuestRecords.TabIndex = 4;
+            btnGuestRecords.Text = "Guest Records";
+            btnGuestRecords.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // btnReservationRecords
             // 
-            button3.BackColor = Color.OliveDrab;
-            button3.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(25, 487);
-            button3.Name = "button3";
-            button3.Size = new Size(471, 82);
-            button3.TabIndex = 5;
-            button3.Text = "Reservation Records";
-            button3.UseVisualStyleBackColor = false;
+            btnReservationRecords.BackColor = Color.OliveDrab;
+            btnReservationRecords.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnReservationRecords.ForeColor = Color.White;
+            btnReservationRecords.Location = new Point(25, 487);
+            btnReservationRecords.Name = "btnReservationRecords";
+            btnReservationRecords.Size = new Size(471, 82);
+            btnReservationRecords.TabIndex = 5;
+            btnReservationRecords.Text = "Reservation Records";
+            btnReservationRecords.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // btnBillingRecords
             // 
-            button4.BackColor = Color.OliveDrab;
-            button4.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.ForeColor = Color.White;
-            button4.Location = new Point(25, 625);
-            button4.Name = "button4";
-            button4.Size = new Size(471, 81);
-            button4.TabIndex = 6;
-            button4.Text = "Billing Records";
-            button4.UseVisualStyleBackColor = false;
+            btnBillingRecords.BackColor = Color.OliveDrab;
+            btnBillingRecords.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBillingRecords.ForeColor = Color.White;
+            btnBillingRecords.Location = new Point(25, 625);
+            btnBillingRecords.Name = "btnBillingRecords";
+            btnBillingRecords.Size = new Size(471, 81);
+            btnBillingRecords.TabIndex = 6;
+            btnBillingRecords.Text = "Billing Records";
+            btnBillingRecords.UseVisualStyleBackColor = false;
             // 
-            // label3
+            // lblUser
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(1498, 103);
-            label3.Name = "label3";
-            label3.Size = new Size(119, 41);
-            label3.TabIndex = 8;
-            label3.Text = "<user>";
+            lblUser.AutoSize = true;
+            lblUser.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblUser.ForeColor = SystemColors.ButtonHighlight;
+            lblUser.Location = new Point(1498, 103);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(119, 41);
+            lblUser.TabIndex = 8;
+            lblUser.Text = "<user>";
             // 
             // btnLogout
             // 
@@ -138,11 +137,11 @@
             ClientSize = new Size(1902, 1033);
             Controls.Add(panel1);
             Controls.Add(btnLogout);
-            Controls.Add(label3);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(lblUser);
+            Controls.Add(btnBillingRecords);
+            Controls.Add(btnReservationRecords);
+            Controls.Add(btnGuestRecords);
+            Controls.Add(btnRoomsMaintenance);
             Controls.Add(label1);
             Name = "AdminDashboard";
             Text = resources.GetString("$this.Text");
@@ -153,11 +152,11 @@
 
         #endregion
         private Label label1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private Label label3;
+        private Button btnRoomsMaintenance;
+        private Button btnGuestRecords;
+        private Button btnReservationRecords;
+        private Button btnBillingRecords;
+        private Label lblUser;
         private Button btnLogout;
         private Panel panel1;
     }

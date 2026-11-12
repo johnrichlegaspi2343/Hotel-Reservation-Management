@@ -4,10 +4,22 @@
     <Compile Update="AdminDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="AvailabilityDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="BillingPayment.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="BillingRecords.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="CheckinCheckout.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrontDesk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GuestRecords.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GuestsInformation.cs">
@@ -16,7 +28,13 @@
     <Compile Update="LogInForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="PaymentReceipt.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Reservation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ReservationRecords.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="RoomMaintenance.cs">

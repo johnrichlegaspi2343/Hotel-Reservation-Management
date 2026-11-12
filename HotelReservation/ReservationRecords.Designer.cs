@@ -28,72 +28,71 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
+            btnBillingRecords = new Button();
+            btnReservationRecords = new Button();
+            btnGuestRecords = new Button();
+            btnRoomsMaintenance = new Button();
             label1 = new Label();
             panel1 = new Panel();
-            dataGridView1 = new DataGridView();
-            button6 = new Button();
-            textBox1 = new TextBox();
+            label6 = new Label();
+            dgvReservations = new DataGridView();
+            btnSearch = new Button();
+            txtSearchReservationId = new TextBox();
             label5 = new Label();
             label4 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            button5 = new Button();
-            label6 = new Label();
+            lblUser = new Label();
+            btnLogout = new Button();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvReservations).BeginInit();
             SuspendLayout();
             // 
-            // button4
+            // btnBillingRecords
             // 
-            button4.BackColor = Color.OliveDrab;
-            button4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.ForeColor = Color.White;
-            button4.Location = new Point(12, 377);
-            button4.Name = "button4";
-            button4.Size = new Size(225, 71);
-            button4.TabIndex = 14;
-            button4.Text = "Billing Records";
-            button4.UseVisualStyleBackColor = false;
+            btnBillingRecords.BackColor = Color.OliveDrab;
+            btnBillingRecords.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBillingRecords.ForeColor = Color.White;
+            btnBillingRecords.Location = new Point(12, 377);
+            btnBillingRecords.Name = "btnBillingRecords";
+            btnBillingRecords.Size = new Size(225, 71);
+            btnBillingRecords.TabIndex = 14;
+            btnBillingRecords.Text = "Billing Records";
+            btnBillingRecords.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // btnReservationRecords
             // 
-            button3.BackColor = Color.OliveDrab;
-            button3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(12, 299);
-            button3.Name = "button3";
-            button3.Size = new Size(225, 72);
-            button3.TabIndex = 13;
-            button3.Text = "Reservation Records";
-            button3.UseVisualStyleBackColor = false;
+            btnReservationRecords.BackColor = Color.OliveDrab;
+            btnReservationRecords.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnReservationRecords.ForeColor = Color.White;
+            btnReservationRecords.Location = new Point(12, 299);
+            btnReservationRecords.Name = "btnReservationRecords";
+            btnReservationRecords.Size = new Size(225, 72);
+            btnReservationRecords.TabIndex = 13;
+            btnReservationRecords.Text = "Reservation Records";
+            btnReservationRecords.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnGuestRecords
             // 
-            button2.BackColor = Color.OliveDrab;
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(12, 213);
-            button2.Name = "button2";
-            button2.Size = new Size(225, 80);
-            button2.TabIndex = 12;
-            button2.Text = "Guest Records";
-            button2.UseVisualStyleBackColor = false;
+            btnGuestRecords.BackColor = Color.OliveDrab;
+            btnGuestRecords.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGuestRecords.ForeColor = Color.White;
+            btnGuestRecords.Location = new Point(12, 213);
+            btnGuestRecords.Name = "btnGuestRecords";
+            btnGuestRecords.Size = new Size(225, 80);
+            btnGuestRecords.TabIndex = 12;
+            btnGuestRecords.Text = "Guest Records";
+            btnGuestRecords.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btnRoomsMaintenance
             // 
-            button1.BackColor = Color.OliveDrab;
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(12, 129);
-            button1.Name = "button1";
-            button1.Size = new Size(225, 78);
-            button1.TabIndex = 11;
-            button1.Text = " Rooms Maintenance";
-            button1.UseVisualStyleBackColor = false;
+            btnRoomsMaintenance.BackColor = Color.OliveDrab;
+            btnRoomsMaintenance.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRoomsMaintenance.ForeColor = Color.White;
+            btnRoomsMaintenance.Location = new Point(12, 129);
+            btnRoomsMaintenance.Name = "btnRoomsMaintenance";
+            btnRoomsMaintenance.Size = new Size(225, 78);
+            btnRoomsMaintenance.TabIndex = 11;
+            btnRoomsMaintenance.Text = " Rooms Maintenance";
+            btnRoomsMaintenance.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -110,43 +109,57 @@
             // 
             panel1.BackColor = Color.White;
             panel1.Controls.Add(label6);
-            panel1.Controls.Add(dataGridView1);
-            panel1.Controls.Add(button6);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(dgvReservations);
+            panel1.Controls.Add(btnSearch);
+            panel1.Controls.Add(txtSearchReservationId);
             panel1.Controls.Add(label5);
             panel1.Location = new Point(262, 112);
             panel1.Name = "panel1";
             panel1.Size = new Size(843, 549);
             panel1.TabIndex = 16;
             // 
-            // dataGridView1
+            // label6
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(15, 108);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(813, 428);
-            dataGridView1.TabIndex = 17;
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(15, 82);
+            label6.Name = "label6";
+            label6.Size = new Size(132, 23);
+            label6.TabIndex = 18;
+            label6.Text = "All Reservations";
             // 
-            // button6
+            // dgvReservations
             // 
-            button6.BackColor = Color.LightGray;
-            button6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button6.ForeColor = Color.Black;
-            button6.Location = new Point(384, 6);
-            button6.Name = "button6";
-            button6.Size = new Size(161, 43);
-            button6.TabIndex = 16;
-            button6.Text = "Search";
-            button6.UseVisualStyleBackColor = false;
+            dgvReservations.AllowUserToAddRows = false;
+            dgvReservations.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvReservations.Location = new Point(15, 108);
+            dgvReservations.MultiSelect = false;
+            dgvReservations.Name = "dgvReservations";
+            dgvReservations.ReadOnly = true;
+            dgvReservations.RowHeadersWidth = 51;
+            dgvReservations.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvReservations.Size = new Size(813, 428);
+            dgvReservations.TabIndex = 17;
             // 
-            // textBox1
+            // btnSearch
             // 
-            textBox1.BackColor = Color.White;
-            textBox1.Location = new Point(204, 17);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(174, 27);
-            textBox1.TabIndex = 2;
+            btnSearch.BackColor = Color.LightGray;
+            btnSearch.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnSearch.ForeColor = Color.Black;
+            btnSearch.Location = new Point(384, 6);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(161, 43);
+            btnSearch.TabIndex = 16;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = false;
+            // 
+            // txtSearchReservationId
+            // 
+            txtSearchReservationId.BackColor = Color.White;
+            txtSearchReservationId.Location = new Point(204, 17);
+            txtSearchReservationId.Name = "txtSearchReservationId";
+            txtSearchReservationId.Size = new Size(174, 27);
+            txtSearchReservationId.TabIndex = 2;
             // 
             // label5
             // 
@@ -169,92 +182,69 @@
             label4.TabIndex = 0;
             label4.Text = "Reservation Records";
             // 
-            // label2
+            // lblUser
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(713, 70);
-            label2.Name = "label2";
-            label2.Size = new Size(55, 28);
-            label2.TabIndex = 17;
-            label2.Text = "User:";
+            lblUser.AutoSize = true;
+            lblUser.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblUser.ForeColor = SystemColors.ButtonHighlight;
+            lblUser.Location = new Point(743, 70);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(51, 28);
+            lblUser.TabIndex = 17;
+            lblUser.Text = "User";
             // 
-            // label3
+            // btnLogout
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(762, 70);
-            label3.Name = "label3";
-            label3.Size = new Size(70, 28);
-            label3.TabIndex = 18;
-            label3.Text = "Admin";
-            // 
-            // button5
-            // 
-            button5.BackColor = Color.White;
-            button5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button5.ForeColor = Color.Black;
-            button5.Location = new Point(862, 63);
-            button5.Name = "button5";
-            button5.Size = new Size(161, 43);
-            button5.TabIndex = 19;
-            button5.Text = "Logout";
-            button5.UseVisualStyleBackColor = false;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(15, 82);
-            label6.Name = "label6";
-            label6.Size = new Size(132, 23);
-            label6.TabIndex = 18;
-            label6.Text = "All Reservations";
+            btnLogout.BackColor = Color.White;
+            btnLogout.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.Black;
+            btnLogout.Location = new Point(862, 63);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(161, 43);
+            btnLogout.TabIndex = 19;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
             // 
             // ReservationRecords
             // 
+            AcceptButton = btnSearch;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.OliveDrab;
             ClientSize = new Size(1117, 673);
-            Controls.Add(button5);
-            Controls.Add(label3);
-            Controls.Add(label2);
+            Controls.Add(btnLogout);
+            Controls.Add(lblUser);
             Controls.Add(panel1);
             Controls.Add(label1);
             Controls.Add(label4);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnBillingRecords);
+            Controls.Add(btnReservationRecords);
+            Controls.Add(btnGuestRecords);
+            Controls.Add(btnRoomsMaintenance);
             Name = "ReservationRecords";
             Text = "ReservationRecords";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvReservations).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button button4;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Button btnBillingRecords;
+        private Button btnReservationRecords;
+        private Button btnGuestRecords;
+        private Button btnRoomsMaintenance;
         private Label label1;
         private Panel panel1;
-        private DataGridView dataGridView1;
-        private Button button6;
-        private TextBox textBox1;
+        private DataGridView dgvReservations;
+        private Button btnSearch;
+        private TextBox txtSearchReservationId;
         private Label label5;
         private Label label4;
-        private Label label2;
-        private Label label3;
-        private Button button5;
+        private Label lblUser;
+        private Button btnLogout;
         private Label label6;
     }
 }
