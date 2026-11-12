@@ -19,6 +19,9 @@
     <Compile Update="FrontDesk.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="GuestRecords.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GuestsInformation.cs">
       <SubType>Form</SubType>
     </Compile>

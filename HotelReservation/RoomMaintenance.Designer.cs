@@ -28,106 +28,104 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
+            btnBillingRecords = new Button();
+            btnReservationRecords = new Button();
+            btnGuestRecords = new Button();
+            btnRoomsMaintenance = new Button();
             label1 = new Label();
             panel1 = new Panel();
             label9 = new Label();
             panel3 = new Panel();
             panel5 = new Panel();
-            dataGridView2 = new DataGridView();
+            dgvRoomTypes = new DataGridView();
             Column5 = new DataGridViewTextBoxColumn();
             Column6 = new DataGridViewTextBoxColumn();
-            button14 = new Button();
-            button13 = new Button();
-            button12 = new Button();
-            button10 = new Button();
-            textBox4 = new TextBox();
-            textBox3 = new TextBox();
+            btnClearRoomType = new Button();
+            btnDeleteRoomType = new Button();
+            btnEditRoomType = new Button();
+            btnAddRoomType = new Button();
+            txtRoomTypeRate = new TextBox();
+            txtRoomTypeName = new TextBox();
             label11 = new Label();
             label10 = new Label();
             panel2 = new Panel();
             panel4 = new Panel();
-            dataGridView1 = new DataGridView();
+            dgvRooms = new DataGridView();
             Column1 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
             Column4 = new DataGridViewTextBoxColumn();
-            button11 = new Button();
-            button9 = new Button();
-            button8 = new Button();
-            button7 = new Button();
-            button6 = new Button();
-            comboBox2 = new ComboBox();
-            textBox2 = new TextBox();
-            comboBox1 = new ComboBox();
-            textBox1 = new TextBox();
+            btnEditRoom = new Button();
+            btnClearRoom = new Button();
+            btnDeleteRoom = new Button();
+            btnAddRoom = new Button();
+            cmbRoomStatus = new ComboBox();
+            txtRoomRate = new TextBox();
+            cmbRoomType = new ComboBox();
+            txtRoomNumber = new TextBox();
             label8 = new Label();
             label7 = new Label();
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            button5 = new Button();
+            lblUser = new Label();
+            btnLogout = new Button();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvRoomTypes).BeginInit();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvRooms).BeginInit();
             SuspendLayout();
             // 
-            // button4
+            // btnBillingRecords
             // 
-            button4.BackColor = Color.OliveDrab;
-            button4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.ForeColor = Color.White;
-            button4.Location = new Point(12, 407);
-            button4.Name = "button4";
-            button4.Size = new Size(200, 71);
-            button4.TabIndex = 18;
-            button4.Text = "Billing Records";
-            button4.UseVisualStyleBackColor = false;
+            btnBillingRecords.BackColor = Color.OliveDrab;
+            btnBillingRecords.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBillingRecords.ForeColor = Color.White;
+            btnBillingRecords.Location = new Point(12, 407);
+            btnBillingRecords.Name = "btnBillingRecords";
+            btnBillingRecords.Size = new Size(200, 71);
+            btnBillingRecords.TabIndex = 18;
+            btnBillingRecords.Text = "Billing Records";
+            btnBillingRecords.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // btnReservationRecords
             // 
-            button3.BackColor = Color.OliveDrab;
-            button3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(12, 329);
-            button3.Name = "button3";
-            button3.Size = new Size(200, 72);
-            button3.TabIndex = 17;
-            button3.Text = "Reservation Records";
-            button3.UseVisualStyleBackColor = false;
+            btnReservationRecords.BackColor = Color.OliveDrab;
+            btnReservationRecords.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnReservationRecords.ForeColor = Color.White;
+            btnReservationRecords.Location = new Point(12, 329);
+            btnReservationRecords.Name = "btnReservationRecords";
+            btnReservationRecords.Size = new Size(200, 72);
+            btnReservationRecords.TabIndex = 17;
+            btnReservationRecords.Text = "Reservation Records";
+            btnReservationRecords.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnGuestRecords
             // 
-            button2.BackColor = Color.OliveDrab;
-            button2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(12, 243);
-            button2.Name = "button2";
-            button2.Size = new Size(200, 80);
-            button2.TabIndex = 16;
-            button2.Text = "Guest Records";
-            button2.UseVisualStyleBackColor = false;
+            btnGuestRecords.BackColor = Color.OliveDrab;
+            btnGuestRecords.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGuestRecords.ForeColor = Color.White;
+            btnGuestRecords.Location = new Point(12, 243);
+            btnGuestRecords.Name = "btnGuestRecords";
+            btnGuestRecords.Size = new Size(200, 80);
+            btnGuestRecords.TabIndex = 16;
+            btnGuestRecords.Text = "Guest Records";
+            btnGuestRecords.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btnRoomsMaintenance
             // 
-            button1.BackColor = Color.OliveDrab;
-            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(12, 159);
-            button1.Name = "button1";
-            button1.Size = new Size(200, 78);
-            button1.TabIndex = 15;
-            button1.Text = " Rooms Maintenance";
-            button1.UseVisualStyleBackColor = false;
+            btnRoomsMaintenance.BackColor = Color.OliveDrab;
+            btnRoomsMaintenance.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRoomsMaintenance.ForeColor = Color.White;
+            btnRoomsMaintenance.Location = new Point(12, 159);
+            btnRoomsMaintenance.Name = "btnRoomsMaintenance";
+            btnRoomsMaintenance.Size = new Size(200, 78);
+            btnRoomsMaintenance.TabIndex = 15;
+            btnRoomsMaintenance.Text = " Rooms Maintenance";
+            btnRoomsMaintenance.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -168,12 +166,12 @@
             // 
             panel3.BackColor = Color.White;
             panel3.Controls.Add(panel5);
-            panel3.Controls.Add(button14);
-            panel3.Controls.Add(button13);
-            panel3.Controls.Add(button12);
-            panel3.Controls.Add(button10);
-            panel3.Controls.Add(textBox4);
-            panel3.Controls.Add(textBox3);
+            panel3.Controls.Add(btnClearRoomType);
+            panel3.Controls.Add(btnDeleteRoomType);
+            panel3.Controls.Add(btnEditRoomType);
+            panel3.Controls.Add(btnAddRoomType);
+            panel3.Controls.Add(txtRoomTypeRate);
+            panel3.Controls.Add(txtRoomTypeName);
             panel3.Controls.Add(label11);
             panel3.Controls.Add(label10);
             panel3.Location = new Point(527, 42);
@@ -184,27 +182,32 @@
             // panel5
             // 
             panel5.BackColor = Color.OliveDrab;
-            panel5.Controls.Add(dataGridView2);
+            panel5.Controls.Add(dgvRoomTypes);
             panel5.Location = new Point(8, 207);
             panel5.Name = "panel5";
             panel5.Size = new Size(399, 308);
             panel5.TabIndex = 38;
             // 
-            // dataGridView2
+            // dgvRoomTypes
             // 
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { Column5, Column6 });
-            dataGridView2.Location = new Point(1, 1);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(401, 250);
-            dataGridView2.TabIndex = 0;
+            dgvRoomTypes.AllowUserToAddRows = false;
+            dgvRoomTypes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRoomTypes.Columns.AddRange(new DataGridViewColumn[] { Column5, Column6 });
+            dgvRoomTypes.Location = new Point(1, 1);
+            dgvRoomTypes.MultiSelect = false;
+            dgvRoomTypes.Name = "dgvRoomTypes";
+            dgvRoomTypes.ReadOnly = true;
+            dgvRoomTypes.RowHeadersWidth = 51;
+            dgvRoomTypes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRoomTypes.Size = new Size(401, 250);
+            dgvRoomTypes.TabIndex = 0;
             // 
             // Column5
             // 
             Column5.HeaderText = "Room Type Name";
             Column5.MinimumWidth = 6;
             Column5.Name = "Column5";
+            Column5.ReadOnly = true;
             Column5.Width = 125;
             // 
             // Column6
@@ -212,69 +215,70 @@
             Column6.HeaderText = "Rate per Night";
             Column6.MinimumWidth = 6;
             Column6.Name = "Column6";
+            Column6.ReadOnly = true;
             Column6.Width = 125;
             // 
-            // button14
+            // btnClearRoomType
             // 
-            button14.BackColor = Color.LightGray;
-            button14.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button14.ForeColor = Color.Black;
-            button14.Location = new Point(304, 152);
-            button14.Name = "button14";
-            button14.Size = new Size(92, 43);
-            button14.TabIndex = 37;
-            button14.Text = "Clear";
-            button14.UseVisualStyleBackColor = false;
+            btnClearRoomType.BackColor = Color.LightGray;
+            btnClearRoomType.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnClearRoomType.ForeColor = Color.Black;
+            btnClearRoomType.Location = new Point(304, 152);
+            btnClearRoomType.Name = "btnClearRoomType";
+            btnClearRoomType.Size = new Size(92, 43);
+            btnClearRoomType.TabIndex = 37;
+            btnClearRoomType.Text = "Clear";
+            btnClearRoomType.UseVisualStyleBackColor = false;
             // 
-            // button13
+            // btnDeleteRoomType
             // 
-            button13.BackColor = Color.LightGray;
-            button13.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button13.ForeColor = Color.Black;
-            button13.Location = new Point(206, 152);
-            button13.Name = "button13";
-            button13.Size = new Size(92, 43);
-            button13.TabIndex = 37;
-            button13.Text = "Delete";
-            button13.UseVisualStyleBackColor = false;
+            btnDeleteRoomType.BackColor = Color.LightGray;
+            btnDeleteRoomType.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDeleteRoomType.ForeColor = Color.Black;
+            btnDeleteRoomType.Location = new Point(206, 152);
+            btnDeleteRoomType.Name = "btnDeleteRoomType";
+            btnDeleteRoomType.Size = new Size(92, 43);
+            btnDeleteRoomType.TabIndex = 37;
+            btnDeleteRoomType.Text = "Delete";
+            btnDeleteRoomType.UseVisualStyleBackColor = false;
             // 
-            // button12
+            // btnEditRoomType
             // 
-            button12.BackColor = Color.LightGray;
-            button12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button12.ForeColor = Color.Black;
-            button12.Location = new Point(108, 152);
-            button12.Name = "button12";
-            button12.Size = new Size(92, 43);
-            button12.TabIndex = 37;
-            button12.Text = "Edit";
-            button12.UseVisualStyleBackColor = false;
+            btnEditRoomType.BackColor = Color.LightGray;
+            btnEditRoomType.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEditRoomType.ForeColor = Color.Black;
+            btnEditRoomType.Location = new Point(108, 152);
+            btnEditRoomType.Name = "btnEditRoomType";
+            btnEditRoomType.Size = new Size(92, 43);
+            btnEditRoomType.TabIndex = 37;
+            btnEditRoomType.Text = "Update";
+            btnEditRoomType.UseVisualStyleBackColor = false;
             // 
-            // button10
+            // btnAddRoomType
             // 
-            button10.BackColor = Color.LightGray;
-            button10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button10.ForeColor = Color.Black;
-            button10.Location = new Point(9, 152);
-            button10.Name = "button10";
-            button10.Size = new Size(92, 43);
-            button10.TabIndex = 36;
-            button10.Text = "Add";
-            button10.UseVisualStyleBackColor = false;
+            btnAddRoomType.BackColor = Color.LightGray;
+            btnAddRoomType.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAddRoomType.ForeColor = Color.Black;
+            btnAddRoomType.Location = new Point(9, 152);
+            btnAddRoomType.Name = "btnAddRoomType";
+            btnAddRoomType.Size = new Size(92, 43);
+            btnAddRoomType.TabIndex = 36;
+            btnAddRoomType.Text = "Add";
+            btnAddRoomType.UseVisualStyleBackColor = false;
             // 
-            // textBox4
+            // txtRoomTypeRate
             // 
-            textBox4.Location = new Point(199, 29);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(120, 27);
-            textBox4.TabIndex = 33;
+            txtRoomTypeRate.Location = new Point(199, 29);
+            txtRoomTypeRate.Name = "txtRoomTypeRate";
+            txtRoomTypeRate.Size = new Size(120, 27);
+            txtRoomTypeRate.TabIndex = 33;
             // 
-            // textBox3
+            // txtRoomTypeName
             // 
-            textBox3.Location = new Point(3, 29);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(169, 27);
-            textBox3.TabIndex = 33;
+            txtRoomTypeName.Location = new Point(3, 29);
+            txtRoomTypeName.Name = "txtRoomTypeName";
+            txtRoomTypeName.Size = new Size(169, 27);
+            txtRoomTypeName.TabIndex = 33;
             // 
             // label11
             // 
@@ -304,15 +308,14 @@
             // 
             panel2.BackColor = Color.White;
             panel2.Controls.Add(panel4);
-            panel2.Controls.Add(button11);
-            panel2.Controls.Add(button9);
-            panel2.Controls.Add(button8);
-            panel2.Controls.Add(button7);
-            panel2.Controls.Add(button6);
-            panel2.Controls.Add(comboBox2);
-            panel2.Controls.Add(textBox2);
-            panel2.Controls.Add(comboBox1);
-            panel2.Controls.Add(textBox1);
+            panel2.Controls.Add(btnEditRoom);
+            panel2.Controls.Add(btnClearRoom);
+            panel2.Controls.Add(btnDeleteRoom);
+            panel2.Controls.Add(btnAddRoom);
+            panel2.Controls.Add(cmbRoomStatus);
+            panel2.Controls.Add(txtRoomRate);
+            panel2.Controls.Add(cmbRoomType);
+            panel2.Controls.Add(txtRoomNumber);
             panel2.Controls.Add(label8);
             panel2.Controls.Add(label7);
             panel2.Controls.Add(label6);
@@ -325,27 +328,32 @@
             // panel4
             // 
             panel4.BackColor = Color.OliveDrab;
-            panel4.Controls.Add(dataGridView1);
+            panel4.Controls.Add(dgvRooms);
             panel4.Location = new Point(8, 208);
             panel4.Name = "panel4";
             panel4.Size = new Size(498, 308);
             panel4.TabIndex = 37;
             // 
-            // dataGridView1
+            // dgvRooms
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4 });
-            dataGridView1.Location = new Point(-1, 1);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(498, 250);
-            dataGridView1.TabIndex = 0;
+            dgvRooms.AllowUserToAddRows = false;
+            dgvRooms.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRooms.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4 });
+            dgvRooms.Location = new Point(-1, 1);
+            dgvRooms.MultiSelect = false;
+            dgvRooms.Name = "dgvRooms";
+            dgvRooms.ReadOnly = true;
+            dgvRooms.RowHeadersWidth = 51;
+            dgvRooms.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRooms.Size = new Size(498, 250);
+            dgvRooms.TabIndex = 0;
             // 
             // Column1
             // 
             Column1.HeaderText = "Room Number";
             Column1.MinimumWidth = 6;
             Column1.Name = "Column1";
+            Column1.ReadOnly = true;
             Column1.Width = 125;
             // 
             // Column2
@@ -353,6 +361,7 @@
             Column2.HeaderText = "Room Type";
             Column2.MinimumWidth = 6;
             Column2.Name = "Column2";
+            Column2.ReadOnly = true;
             Column2.Width = 125;
             // 
             // Column3
@@ -360,6 +369,7 @@
             Column3.HeaderText = "Rate";
             Column3.MinimumWidth = 6;
             Column3.Name = "Column3";
+            Column3.ReadOnly = true;
             Column3.Width = 125;
             // 
             // Column4
@@ -367,98 +377,87 @@
             Column4.HeaderText = "Status";
             Column4.MinimumWidth = 6;
             Column4.Name = "Column4";
+            Column4.ReadOnly = true;
             Column4.Width = 125;
             // 
-            // button11
+            // btnEditRoom
             // 
-            button11.BackColor = Color.LightGray;
-            button11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button11.ForeColor = Color.Black;
-            button11.Location = new Point(196, 153);
-            button11.Name = "button11";
-            button11.Size = new Size(92, 43);
-            button11.TabIndex = 36;
-            button11.Text = "Edit";
-            button11.UseVisualStyleBackColor = false;
+            btnEditRoom.BackColor = Color.LightGray;
+            btnEditRoom.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEditRoom.ForeColor = Color.Black;
+            btnEditRoom.Location = new Point(275, 153);
+            btnEditRoom.Name = "btnEditRoom";
+            btnEditRoom.Size = new Size(116, 43);
+            btnEditRoom.TabIndex = 36;
+            btnEditRoom.Text = "Update";
+            btnEditRoom.UseVisualStyleBackColor = false;
             // 
-            // button9
+            // btnClearRoom
             // 
-            button9.BackColor = Color.LightGray;
-            button9.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button9.ForeColor = Color.Black;
-            button9.Location = new Point(419, 153);
-            button9.Name = "button9";
-            button9.Size = new Size(92, 43);
-            button9.TabIndex = 35;
-            button9.Text = "Clear";
-            button9.UseVisualStyleBackColor = false;
+            btnClearRoom.BackColor = Color.LightGray;
+            btnClearRoom.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnClearRoom.ForeColor = Color.Black;
+            btnClearRoom.Location = new Point(397, 153);
+            btnClearRoom.Name = "btnClearRoom";
+            btnClearRoom.Size = new Size(114, 43);
+            btnClearRoom.TabIndex = 35;
+            btnClearRoom.Text = "Clear";
+            btnClearRoom.UseVisualStyleBackColor = false;
             // 
-            // button8
+            // btnDeleteRoom
             // 
-            button8.BackColor = Color.LightGray;
-            button8.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button8.ForeColor = Color.Black;
-            button8.Location = new Point(294, 153);
-            button8.Name = "button8";
-            button8.Size = new Size(122, 43);
-            button8.TabIndex = 34;
-            button8.Text = "Delete/Deactivate";
-            button8.UseVisualStyleBackColor = false;
+            btnDeleteRoom.BackColor = Color.LightGray;
+            btnDeleteRoom.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDeleteRoom.ForeColor = Color.Black;
+            btnDeleteRoom.Location = new Point(150, 153);
+            btnDeleteRoom.Name = "btnDeleteRoom";
+            btnDeleteRoom.Size = new Size(119, 43);
+            btnDeleteRoom.TabIndex = 33;
+            btnDeleteRoom.Text = "Delete";
+            btnDeleteRoom.UseVisualStyleBackColor = false;
             // 
-            // button7
+            // btnAddRoom
             // 
-            button7.BackColor = Color.LightGray;
-            button7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button7.ForeColor = Color.Black;
-            button7.Location = new Point(98, 153);
-            button7.Name = "button7";
-            button7.Size = new Size(92, 43);
-            button7.TabIndex = 33;
-            button7.Text = "Delete";
-            button7.UseVisualStyleBackColor = false;
+            btnAddRoom.BackColor = Color.LightGray;
+            btnAddRoom.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAddRoom.ForeColor = Color.Black;
+            btnAddRoom.Location = new Point(8, 153);
+            btnAddRoom.Name = "btnAddRoom";
+            btnAddRoom.Size = new Size(136, 43);
+            btnAddRoom.TabIndex = 23;
+            btnAddRoom.Text = "Add";
+            btnAddRoom.UseVisualStyleBackColor = false;
             // 
-            // button6
+            // cmbRoomStatus
             // 
-            button6.BackColor = Color.LightGray;
-            button6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button6.ForeColor = Color.Black;
-            button6.Location = new Point(0, 153);
-            button6.Name = "button6";
-            button6.Size = new Size(92, 43);
-            button6.TabIndex = 23;
-            button6.Text = "Add";
-            button6.UseVisualStyleBackColor = false;
+            cmbRoomStatus.FormattingEnabled = true;
+            cmbRoomStatus.Location = new Point(380, 31);
+            cmbRoomStatus.Name = "cmbRoomStatus";
+            cmbRoomStatus.Size = new Size(115, 28);
+            cmbRoomStatus.TabIndex = 32;
             // 
-            // comboBox2
+            // txtRoomRate
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(380, 31);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(115, 28);
-            comboBox2.TabIndex = 32;
+            txtRoomRate.BackColor = Color.Silver;
+            txtRoomRate.Location = new Point(254, 32);
+            txtRoomRate.Name = "txtRoomRate";
+            txtRoomRate.Size = new Size(120, 27);
+            txtRoomRate.TabIndex = 31;
             // 
-            // textBox2
+            // cmbRoomType
             // 
-            textBox2.BackColor = Color.Silver;
-            textBox2.Location = new Point(254, 32);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(120, 27);
-            textBox2.TabIndex = 31;
+            cmbRoomType.FormattingEnabled = true;
+            cmbRoomType.Location = new Point(133, 32);
+            cmbRoomType.Name = "cmbRoomType";
+            cmbRoomType.Size = new Size(115, 28);
+            cmbRoomType.TabIndex = 30;
             // 
-            // comboBox1
+            // txtRoomNumber
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(133, 32);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(115, 28);
-            comboBox1.TabIndex = 30;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(7, 32);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(120, 27);
-            textBox1.TabIndex = 29;
+            txtRoomNumber.Location = new Point(7, 32);
+            txtRoomNumber.Name = "txtRoomNumber";
+            txtRoomNumber.Size = new Size(120, 27);
+            txtRoomNumber.TabIndex = 29;
             // 
             // label8
             // 
@@ -520,40 +519,28 @@
             label4.TabIndex = 23;
             label4.Text = "Rooms";
             // 
-            // label2
+            // lblUser
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(853, 55);
-            label2.Name = "label2";
-            label2.Size = new Size(55, 28);
-            label2.TabIndex = 18;
-            label2.Text = "User:";
+            lblUser.AutoSize = true;
+            lblUser.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblUser.ForeColor = SystemColors.ButtonHighlight;
+            lblUser.Location = new Point(862, 55);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(51, 28);
+            lblUser.TabIndex = 18;
+            lblUser.Text = "User";
             // 
-            // label3
+            // btnLogout
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(904, 55);
-            label3.Name = "label3";
-            label3.Size = new Size(70, 28);
-            label3.TabIndex = 21;
-            label3.Text = "Admin";
-            // 
-            // button5
-            // 
-            button5.BackColor = Color.White;
-            button5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button5.ForeColor = Color.Black;
-            button5.Location = new Point(980, 48);
-            button5.Name = "button5";
-            button5.Size = new Size(161, 43);
-            button5.TabIndex = 22;
-            button5.Text = "Logout";
-            button5.UseVisualStyleBackColor = false;
+            btnLogout.BackColor = Color.White;
+            btnLogout.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLogout.ForeColor = Color.Black;
+            btnLogout.Location = new Point(980, 48);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(161, 43);
+            btnLogout.TabIndex = 22;
+            btnLogout.Text = "Logout";
+            btnLogout.UseVisualStyleBackColor = false;
             // 
             // RoomMaintenance
             // 
@@ -561,15 +548,14 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.OliveDrab;
             ClientSize = new Size(1167, 696);
-            Controls.Add(button5);
-            Controls.Add(label3);
-            Controls.Add(label2);
+            Controls.Add(btnLogout);
+            Controls.Add(lblUser);
             Controls.Add(panel1);
             Controls.Add(label1);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnBillingRecords);
+            Controls.Add(btnReservationRecords);
+            Controls.Add(btnGuestRecords);
+            Controls.Add(btnRoomsMaintenance);
             Name = "RoomMaintenance";
             Text = "RoomMaintenance";
             panel1.ResumeLayout(false);
@@ -577,26 +563,25 @@
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvRoomTypes).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvRooms).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button button4;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Button btnBillingRecords;
+        private Button btnReservationRecords;
+        private Button btnGuestRecords;
+        private Button btnRoomsMaintenance;
         private Label label1;
         private Panel panel1;
-        private Label label2;
-        private Label label3;
-        private Button button5;
+        private Label lblUser;
+        private Button btnLogout;
         private Panel panel2;
         private Label label8;
         private Label label7;
@@ -606,26 +591,25 @@
         private Label label9;
         private Panel panel3;
         private Label label10;
-        private ComboBox comboBox2;
-        private TextBox textBox2;
-        private ComboBox comboBox1;
-        private TextBox textBox1;
-        private Button button13;
-        private Button button12;
-        private Button button10;
-        private TextBox textBox4;
-        private TextBox textBox3;
+        private ComboBox cmbRoomStatus;
+        private TextBox txtRoomRate;
+        private ComboBox cmbRoomType;
+        private TextBox txtRoomNumber;
+        private Button btnDeleteRoomType;
+        private Button btnEditRoomType;
+        private Button btnAddRoomType;
+        private TextBox txtRoomTypeRate;
+        private TextBox txtRoomTypeName;
         private Label label11;
-        private Button button11;
-        private Button button9;
-        private Button button8;
-        private Button button7;
-        private Button button6;
+        private Button btnEditRoom;
+        private Button btnClearRoom;
+        private Button btnDeleteRoom;
+        private Button btnAddRoom;
         private Panel panel5;
-        private DataGridView dataGridView2;
-        private Button button14;
+        private DataGridView dgvRoomTypes;
+        private Button btnClearRoomType;
         private Panel panel4;
-        private DataGridView dataGridView1;
+        private DataGridView dgvRooms;
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
