@@ -23,6 +23,7 @@ namespace HotelReservation
             btnGuests.Click += btnGuests_Click;
             btnCheckInCheckOut.Click += btnCheckInCheckOut_Click;
             btnBillingPayment.Click += btnBillingPayment_Click;
+            btnReservationStatus.Click += btnReservationStatus_Click;
             btnLogout.Click += btnLogout_Click;
 
             // Guest section
@@ -289,8 +290,7 @@ namespace HotelReservation
             Navigator.Open(this, new GuestsInformation());
         }
 
-        // Ang Availability at Reservation ay nandito na sa form na ito, kaya walang gagawin
-        // TODO: btnReservationStatus kapag nagawa na ang ReservationStatus form
+        // Ang Reservation ay nandito na sa form na ito, kaya walang gagawin
 
         private void btnCheckInCheckOut_Click(object sender, EventArgs e)
         {
@@ -300,6 +300,11 @@ namespace HotelReservation
         private void btnBillingPayment_Click(object sender, EventArgs e)
         {
             Navigator.Open(this, new BillingPayment());
+        }
+
+        private void btnReservationStatus_Click(object sender, EventArgs e)
+        {
+            Navigator.Open(this, new ReservationStatus());
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

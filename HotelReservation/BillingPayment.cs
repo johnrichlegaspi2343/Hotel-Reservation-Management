@@ -24,6 +24,7 @@ namespace HotelReservation
             // Sidebar (ang btnGuests ay naka-connect na sa designer: button1_Click)
             btnReservation.Click += btnReservation_Click;
             btnCheckInCheckOut.Click += btnCheckInCheckOut_Click;
+            btnReservationStatus.Click += btnReservationStatus_Click;
             btnLogout.Click += btnLogout_Click;
             this.FormClosed += BillingPayment_FormClosed;
         }
@@ -155,11 +156,14 @@ namespace HotelReservation
             Navigator.Open(this, new Reservation());
         }
 
-        // TODO: btnReservationStatus kapag nagawa na ang ReservationStatus form
-
         private void btnCheckInCheckOut_Click(object sender, EventArgs e)
         {
             Navigator.Open(this, new CheckinCheckout());
+        }
+
+        private void btnReservationStatus_Click(object sender, EventArgs e)
+        {
+            Navigator.Open(this, new ReservationStatus());
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

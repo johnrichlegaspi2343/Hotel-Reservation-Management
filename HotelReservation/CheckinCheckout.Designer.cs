@@ -31,12 +31,11 @@
             label1 = new Label();
             btnGuests = new Button();
             btnReservation = new Button();
-            btnActualRecords = new Button();
+            btnReservationStatus = new Button();
             btnCheckinCheckout = new Button();
             btnBillingPayment = new Button();
             btnLogout = new Button();
-            label3 = new Label();
-            label2 = new Label();
+            lblUser = new Label();
             panel1 = new Panel();
             txtActualCheckout = new TextBox();
             label14 = new Label();
@@ -56,7 +55,7 @@
             btnCheckout = new Button();
             btnCheckin = new Button();
             btnSearch = new Button();
-            textBox1 = new TextBox();
+            txtSearchReservationId = new TextBox();
             label7 = new Label();
             label6 = new Label();
             label5 = new Label();
@@ -78,6 +77,7 @@
             // btnGuests
             // 
             btnGuests.BackColor = Color.OliveDrab;
+            btnGuests.ForeColor = Color.White;
             btnGuests.Location = new Point(27, 88);
             btnGuests.Name = "btnGuests";
             btnGuests.Size = new Size(206, 35);
@@ -88,6 +88,7 @@
             // btnReservation
             // 
             btnReservation.BackColor = Color.OliveDrab;
+            btnReservation.ForeColor = Color.White;
             btnReservation.Location = new Point(27, 143);
             btnReservation.Name = "btnReservation";
             btnReservation.Size = new Size(206, 35);
@@ -95,19 +96,21 @@
             btnReservation.Text = "Reservation";
             btnReservation.UseVisualStyleBackColor = false;
             // 
-            // btnActualRecords
+            // btnReservationStatus
             // 
-            btnActualRecords.BackColor = Color.OliveDrab;
-            btnActualRecords.Location = new Point(27, 197);
-            btnActualRecords.Name = "btnActualRecords";
-            btnActualRecords.Size = new Size(206, 35);
-            btnActualRecords.TabIndex = 5;
-            btnActualRecords.Text = "Reservation Records";
-            btnActualRecords.UseVisualStyleBackColor = false;
+            btnReservationStatus.BackColor = Color.OliveDrab;
+            btnReservationStatus.ForeColor = Color.White;
+            btnReservationStatus.Location = new Point(27, 197);
+            btnReservationStatus.Name = "btnReservationStatus";
+            btnReservationStatus.Size = new Size(206, 35);
+            btnReservationStatus.TabIndex = 5;
+            btnReservationStatus.Text = "Reservation Records";
+            btnReservationStatus.UseVisualStyleBackColor = false;
             // 
             // btnCheckinCheckout
             // 
             btnCheckinCheckout.BackColor = Color.OliveDrab;
+            btnCheckinCheckout.ForeColor = Color.White;
             btnCheckinCheckout.Location = new Point(27, 252);
             btnCheckinCheckout.Name = "btnCheckinCheckout";
             btnCheckinCheckout.Size = new Size(206, 35);
@@ -119,6 +122,7 @@
             // btnBillingPayment
             // 
             btnBillingPayment.BackColor = Color.OliveDrab;
+            btnBillingPayment.ForeColor = Color.White;
             btnBillingPayment.Location = new Point(27, 309);
             btnBillingPayment.Name = "btnBillingPayment";
             btnBillingPayment.Size = new Size(206, 35);
@@ -129,6 +133,7 @@
             // btnLogout
             // 
             btnLogout.BackColor = Color.OliveDrab;
+            btnLogout.ForeColor = Color.White;
             btnLogout.Location = new Point(649, 38);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(124, 28);
@@ -136,27 +141,16 @@
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
             // 
-            // label3
+            // lblUser
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(539, 38);
-            label3.Name = "label3";
-            label3.Size = new Size(103, 28);
-            label3.TabIndex = 11;
-            label3.Text = "frontdesk";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(425, 38);
-            label2.Name = "label2";
-            label2.Size = new Size(120, 28);
-            label2.TabIndex = 10;
-            label2.Text = "Front Desk:";
+            lblUser.AutoSize = true;
+            lblUser.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblUser.ForeColor = Color.White;
+            lblUser.Location = new Point(539, 38);
+            lblUser.Name = "lblUser";
+            lblUser.Size = new Size(92, 28);
+            lblUser.TabIndex = 11;
+            lblUser.Text = "< user >";
             // 
             // panel1
             // 
@@ -179,7 +173,7 @@
             panel1.Controls.Add(btnCheckout);
             panel1.Controls.Add(btnCheckin);
             panel1.Controls.Add(btnSearch);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(txtSearchReservationId);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(label5);
@@ -347,12 +341,12 @@
             btnSearch.Text = "Search";
             btnSearch.UseVisualStyleBackColor = false;
             // 
-            // textBox1
+            // txtSearchReservationId
             // 
-            textBox1.Location = new Point(188, 18);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(135, 27);
-            textBox1.TabIndex = 4;
+            txtSearchReservationId.Location = new Point(188, 18);
+            txtSearchReservationId.Name = "txtSearchReservationId";
+            txtSearchReservationId.Size = new Size(135, 27);
+            txtSearchReservationId.TabIndex = 4;
             // 
             // label7
             // 
@@ -397,12 +391,11 @@
             BackColor = Color.OliveDrab;
             ClientSize = new Size(800, 450);
             Controls.Add(panel1);
-            Controls.Add(label3);
-            Controls.Add(label2);
+            Controls.Add(lblUser);
             Controls.Add(btnLogout);
             Controls.Add(btnBillingPayment);
             Controls.Add(btnCheckinCheckout);
-            Controls.Add(btnActualRecords);
+            Controls.Add(btnReservationStatus);
             Controls.Add(btnReservation);
             Controls.Add(btnGuests);
             Controls.Add(label1);
@@ -419,12 +412,11 @@
         private Label label1;
         private Button btnGuests;
         private Button btnReservation;
-        private Button btnActualRecords;
+        private Button btnReservationStatus;
         private Button btnCheckinCheckout;
         private Button btnBillingPayment;
         private Button btnLogout;
-        private Label label3;
-        private Label label2;
+        private Label lblUser;
         private Panel panel1;
         private Label label4;
         private Label label6;
@@ -436,7 +428,7 @@
         private Button btnCheckout;
         private Button btnCheckin;
         private Button btnSearch;
-        private TextBox textBox1;
+        private TextBox txtSearchReservationId;
         private Label label7;
         private Label label13;
         private Label label12;

@@ -9,7 +9,7 @@ namespace HotelReservation
         private GuestController guestController = new GuestController();
         private List<Guest> currentGuests = new List<Guest>();
         private int selectedGuestId = 0;     // 0 = walang napili
-        private bool fromReservation = false;   // BAGO: true kapag galing sa Add New Guest ng Reservation
+        private bool fromReservation = false;   // true kapag galing sa Add New Guest ng Reservation
 
         public GuestsInformation()
         {
@@ -30,11 +30,12 @@ namespace HotelReservation
             btnReservation.Click += btnReservation_Click;
             btnCheckInCheckOut.Click += btnCheckInCheckOut_Click;
             btnBillingPayment.Click += btnBillingPayment_Click;
+            btnReservationStatus.Click += btnReservationStatus_Click;
             btnLogout.Click += btnLogout_Click;
             this.FormClosed += GuestsInformation_FormClosed;
         }
 
-        // BAGO: ginagamit ng Reservation (Add New Guest)
+        // Ginagamit ng Reservation (Add New Guest)
         public GuestsInformation(bool fromReservation) : this()
         {
             this.fromReservation = fromReservation;
@@ -170,7 +171,7 @@ namespace HotelReservation
                 MessageBox.Show("Guest added. Guest ID: " + guest.GuestCode, "Add Guest",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // BAGO: kung galing sa Reservation, bumalik doon na naka-fill ang guest
+                // Kung galing sa Reservation, bumalik doon na naka-fill ang guest
                 if (fromReservation)
                 {
                     Navigator.Open(this, new Reservation(guest));
@@ -259,6 +260,11 @@ namespace HotelReservation
         private void btnBillingPayment_Click(object sender, EventArgs e)
         {
             Navigator.Open(this, new BillingPayment());
+        }
+
+        private void btnReservationStatus_Click(object sender, EventArgs e)
+        {
+            Navigator.Open(this, new ReservationStatus());
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
