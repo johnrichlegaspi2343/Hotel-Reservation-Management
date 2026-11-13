@@ -13,6 +13,7 @@ namespace HotelReservation
             btnReservation.Click += btnReservation_Click;
             btnCheckInCheckOut.Click += btnCheckInCheckOut_Click;
             btnBillingPayment.Click += btnBillingPayment_Click;
+            btnReservationStatus.Click += btnReservationStatus_Click;
             btnLogout.Click += btnLogout_Click;
             this.FormClosed += FrontDesk_FormClosed;
         }
@@ -41,6 +42,11 @@ namespace HotelReservation
         private void btnBillingPayment_Click(object sender, EventArgs e)
         {
             Navigator.Open(this, new BillingPayment());
+        }
+
+        private void btnReservationStatus_Click(object sender, EventArgs e)
+        {
+            Navigator.Open(this, new ReservationStatus());
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

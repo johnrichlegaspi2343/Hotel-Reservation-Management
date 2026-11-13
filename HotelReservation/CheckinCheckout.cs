@@ -13,7 +13,7 @@ namespace HotelReservation
         public CheckinCheckout()
         {
             InitializeComponent();
-            label3.Text = Session.CurrentUser?.Username;
+            lblUser.Text = Session.CurrentUser?.Username;
 
             btnSearch.Click += btnSearch_Click;
             btnCheckin.Click += btnCheckin_Click;
@@ -22,6 +22,7 @@ namespace HotelReservation
             // Sidebar
             btnGuests.Click += btnGuests_Click;
             btnReservation.Click += btnReservation_Click;
+            btnReservationStatus.Click += btnReservationStatus_Click;
             btnBillingPayment.Click += btnBillingPayment_Click;
             btnLogout.Click += btnLogout_Click;
             this.FormClosed += CheckinCheckout_FormClosed;
@@ -33,7 +34,10 @@ namespace HotelReservation
         {
             try
             {
-                currentReservation = reservationController.FindReservation(textBox1.Text);
+                if (txtSearchReservationId.Text.Trim() == "")
+                    throw new Exception("Please enter a Reservation ID (ex. RES-0001).");
+
+                currentReservation = reservationController.FindReservation(txtSearchReservationId.Text.Trim());
                 ShowReservation();
             }
             catch (Exception ex)
@@ -139,6 +143,11 @@ namespace HotelReservation
             Navigator.Open(this, new Reservation());
         }
 
+        private void btnReservationStatus_Click(object sender, EventArgs e)
+        {
+            Navigator.Open(this, new ReservationStatus());
+        }
+
         private void btnBillingPayment_Click(object sender, EventArgs e)
         {
             Navigator.Open(this, new BillingPayment());
@@ -154,7 +163,7 @@ namespace HotelReservation
             Navigator.ExitIfUserClosed(e);
         }
 
-        // Galing sa designer, hayaan lang
+        // Galing sa designer, hayaan lang (huwag burahin)
         private void button5_Click(object sender, EventArgs e)
         {
 
