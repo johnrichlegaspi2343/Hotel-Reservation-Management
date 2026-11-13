@@ -147,10 +147,7 @@ namespace HotelReservation   // <-- palitan kung iba ang namespace sa file mo
 
         private void btnGuestRecords_Click(object sender, EventArgs e)
         {
-            // Papalitan pag nagawa na ang GuestRecords:
-            // Navigator.Open(this, new GuestRecords());
-            MessageBox.Show("Guest Records is not available yet.", "Info",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Navigator.Open(this, new GuestRecords());
         }
 
         private void btnBillingRecords_Click(object sender, EventArgs e)

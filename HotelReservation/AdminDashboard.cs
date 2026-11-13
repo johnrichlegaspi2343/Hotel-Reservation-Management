@@ -39,10 +39,7 @@ namespace HotelReservation   // <-- palitan kung iba ang namespace sa file mo
 
         private void btnGuestRecords_Click(object sender, EventArgs e)
         {
-            // Wala pang GuestRecords form. Papalitan natin ito pag nagawa na:
-            // Navigator.Open(this, new GuestRecords());
-            MessageBox.Show("Guest Records is not available yet.", "Info",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Navigator.Open(this, new GuestRecords());
         }
 
         private void btnReservationRecords_Click(object sender, EventArgs e)
