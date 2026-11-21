@@ -19,7 +19,12 @@ namespace BusinessLogic
                 // Kung luma ang database (Users table lang ang laman), burahin at gawin ulit
                 try
                 {
-                    db.Rooms.Any();
+                    // Babasahin ang bawat table. Kapag kulang ang columns, mag-e-error,
+                    // kaya buburahin at gagawin ulit ang database.
+                    db.Rooms.FirstOrDefault();
+                    db.Guests.FirstOrDefault();
+                    db.Reservations.FirstOrDefault();
+                    db.Payments.FirstOrDefault();
                 }
                 catch
                 {
