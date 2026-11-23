@@ -104,7 +104,7 @@
             btnReservationStatus.Name = "btnReservationStatus";
             btnReservationStatus.Size = new Size(206, 35);
             btnReservationStatus.TabIndex = 5;
-            btnReservationStatus.Text = "Reservation Records";
+            btnReservationStatus.Text = "Reservation Status";
             btnReservationStatus.UseVisualStyleBackColor = false;
             // 
             // btnCheckinCheckout
