@@ -74,6 +74,10 @@
             label4 = new Label();
             lblUser = new Label();
             btnLogout = new Button();
+            cmbBedSize = new ComboBox();
+            nudMaxGuest = new NumericUpDown();
+            label2 = new Label();
+            label3 = new Label();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel5.SuspendLayout();
@@ -81,6 +85,7 @@
             panel2.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRooms).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudMaxGuest).BeginInit();
             SuspendLayout();
             // 
             // btnBillingRecords
@@ -169,6 +174,10 @@
             // panel3
             // 
             panel3.BackColor = Color.White;
+            panel3.Controls.Add(label3);
+            panel3.Controls.Add(label2);
+            panel3.Controls.Add(nudMaxGuest);
+            panel3.Controls.Add(cmbBedSize);
             panel3.Controls.Add(panel5);
             panel3.Controls.Add(btnClearRoomType);
             panel3.Controls.Add(btnDeleteRoomType);
@@ -578,6 +587,45 @@
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
             // 
+            // cmbBedSize
+            // 
+            cmbBedSize.FormattingEnabled = true;
+            cmbBedSize.Location = new Point(9, 87);
+            cmbBedSize.Name = "cmbBedSize";
+            cmbBedSize.Size = new Size(115, 28);
+            cmbBedSize.TabIndex = 38;
+            // 
+            // nudMaxGuest
+            // 
+            nudMaxGuest.Location = new Point(199, 88);
+            nudMaxGuest.Name = "nudMaxGuest";
+            nudMaxGuest.Size = new Size(108, 27);
+            nudMaxGuest.TabIndex = 39;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.Black;
+            label2.Location = new Point(8, 61);
+            label2.Name = "label2";
+            label2.Size = new Size(74, 23);
+            label2.TabIndex = 40;
+            label2.Text = "Bed Size";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(199, 61);
+            label3.Name = "label3";
+            label3.Size = new Size(96, 23);
+            label3.TabIndex = 41;
+            label3.Text = "Max guests";
+            // 
             // RoomMaintenance
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -604,6 +652,7 @@
             panel2.PerformLayout();
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvRooms).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudMaxGuest).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -652,5 +701,9 @@
         private DataGridViewTextBoxColumn Column4;
         private DataGridViewTextBoxColumn Column5;
         private DataGridViewTextBoxColumn Column6;
+        private Label label3;
+        private Label label2;
+        private NumericUpDown nudMaxGuest;
+        private ComboBox cmbBedSize;
     }
 }

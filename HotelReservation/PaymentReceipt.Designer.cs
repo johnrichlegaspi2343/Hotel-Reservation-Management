@@ -286,9 +286,9 @@
             label9.Font = new Font("Arial", 10.2F);
             label9.Location = new Point(58, 411);
             label9.Name = "label9";
-            label9.Size = new Size(131, 19);
+            label9.Size = new Size(116, 19);
             label9.TabIndex = 24;
-            label9.Text = "Service Charges";
+            label9.Text = "Early/Late Fee";
             // 
             // label10
             // 

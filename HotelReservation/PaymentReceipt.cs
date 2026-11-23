@@ -21,7 +21,8 @@ namespace HotelReservation
             lblGuest.Text = r.Guest?.FullName + " (" + r.Guest?.GuestCode + ")";
             lblReservationId.Text = r.ReservationCode;
             lblRoom.Text = r.Room?.RoomNumber + " (" + r.Room?.RoomTypeName + ")";
-            lblRoomCharges.Text = "P" + r.TotalBill.ToString("N2");
+            lblRoomCharges.Text = "P" + r.RoomCharges.ToString("N2");
+            lblServiceCharges.Text = "P" + r.ExtraCharges.ToString("N2");     // Early/Late Fee
             lblServiceCharges.Text = "P0.00";
             lblTotalBill.Text = "P" + r.TotalBill.ToString("N2");
             lblAmountPaid.Text = "P" + payment.Amount.ToString("N2");
@@ -39,7 +40,7 @@ namespace HotelReservation
                           "Room: " + lblRoom.Text + "\n" +
                           "--------------------------------\n" +
                           "Room Charges: " + lblRoomCharges.Text + "\n" +
-                          "Service Charges: " + lblServiceCharges.Text + "\n" +
+                          "Early/Late Fee: " + lblServiceCharges.Text + "\n" +
                           "Total Bill: " + lblTotalBill.Text + "\n" +
                           "Amount Paid: " + lblAmountPaid.Text + "\n" +
                           "Payment Method: " + lblPaymentMethod.Text + "\n" +

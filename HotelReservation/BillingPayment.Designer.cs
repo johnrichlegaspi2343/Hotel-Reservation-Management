@@ -52,7 +52,7 @@
             label7 = new Label();
             label6 = new Label();
             label5 = new Label();
-            this.txtSearchReservationId = new TextBox();
+            txtSearchReservationId = new TextBox();
             label4 = new Label();
             txtRemainingBalance = new TextBox();
             txtTotalBill = new TextBox();
@@ -149,7 +149,7 @@
             panel1.Controls.Add(label7);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(label5);
-            panel1.Controls.Add(this.txtSearchReservationId);
+            panel1.Controls.Add(txtSearchReservationId);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(txtRemainingBalance);
             panel1.Controls.Add(txtTotalBill);
@@ -165,7 +165,7 @@
             // 
             // txtServiceCharges
             // 
-            txtServiceCharges.Location = new Point(201, 225);
+            txtServiceCharges.Location = new Point(201, 246);
             txtServiceCharges.Name = "txtServiceCharges";
             txtServiceCharges.Size = new Size(150, 27);
             txtServiceCharges.TabIndex = 27;
@@ -194,14 +194,14 @@
             // 
             cbPaymentMethod.FormattingEnabled = true;
             cbPaymentMethod.Items.AddRange(new object[] { "Cash", "Card", "Gcash/Maya" });
-            cbPaymentMethod.Location = new Point(497, 140);
+            cbPaymentMethod.Location = new Point(497, 159);
             cbPaymentMethod.Name = "cbPaymentMethod";
             cbPaymentMethod.Size = new Size(151, 28);
             cbPaymentMethod.TabIndex = 24;
             // 
             // txtPaymentAmount
             // 
-            txtPaymentAmount.Location = new Point(497, 97);
+            txtPaymentAmount.Location = new Point(497, 116);
             txtPaymentAmount.Name = "txtPaymentAmount";
             txtPaymentAmount.Size = new Size(102, 27);
             txtPaymentAmount.TabIndex = 23;
@@ -209,7 +209,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(369, 140);
+            label16.Location = new Point(369, 159);
             label16.Name = "label16";
             label16.Size = new Size(121, 20);
             label16.TabIndex = 22;
@@ -218,7 +218,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(369, 100);
+            label15.Location = new Point(369, 119);
             label15.Name = "label15";
             label15.Size = new Size(122, 20);
             label15.TabIndex = 21;
@@ -227,9 +227,10 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(369, 71);
+            label14.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.Location = new Point(369, 45);
             label14.Name = "label14";
-            label14.Size = new Size(65, 20);
+            label14.Size = new Size(80, 23);
             label14.TabIndex = 20;
             label14.Text = "Payment";
             // 
@@ -247,7 +248,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(201, 257);
+            label13.Location = new Point(201, 278);
             label13.Name = "label13";
             label13.Size = new Size(136, 20);
             label13.TabIndex = 18;
@@ -256,7 +257,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(20, 257);
+            label12.Location = new Point(20, 278);
             label12.Name = "label12";
             label12.Size = new Size(67, 20);
             label12.TabIndex = 17;
@@ -265,16 +266,16 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(204, 202);
+            label11.Location = new Point(204, 223);
             label11.Name = "label11";
-            label11.Size = new Size(115, 20);
+            label11.Size = new Size(102, 20);
             label11.TabIndex = 16;
-            label11.Text = "Service Changer";
+            label11.Text = "Early/Late Fee";
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(20, 202);
+            label10.Location = new Point(20, 223);
             label10.Name = "label10";
             label10.Size = new Size(109, 20);
             label10.TabIndex = 15;
@@ -283,7 +284,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(204, 143);
+            label9.Location = new Point(204, 164);
             label9.Name = "label9";
             label9.Size = new Size(128, 20);
             label9.TabIndex = 14;
@@ -292,7 +293,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(20, 143);
+            label8.Location = new Point(20, 164);
             label8.Name = "label8";
             label8.Size = new Size(83, 20);
             label8.TabIndex = 13;
@@ -301,7 +302,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(202, 78);
+            label7.Location = new Point(202, 99);
             label7.Name = "label7";
             label7.Size = new Size(49, 20);
             label7.TabIndex = 12;
@@ -310,7 +311,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(20, 77);
+            label6.Location = new Point(20, 98);
             label6.Name = "label6";
             label6.Size = new Size(52, 20);
             label6.TabIndex = 11;
@@ -319,18 +320,19 @@
             // label5
             // 
             label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.Location = new Point(14, 34);
             label5.Name = "label5";
-            label5.Size = new Size(101, 20);
+            label5.Size = new Size(122, 23);
             label5.TabIndex = 10;
             label5.Text = "Billing Details";
             // 
             // txtSearchReservationId
             // 
-            this.txtSearchReservationId.Location = new Point(180, 11);
-            this.txtSearchReservationId.Name = "txtSearchReservationId";
-            this.txtSearchReservationId.Size = new Size(171, 27);
-            this.txtSearchReservationId.TabIndex = 9;
+            txtSearchReservationId.Location = new Point(180, 11);
+            txtSearchReservationId.Name = "txtSearchReservationId";
+            txtSearchReservationId.Size = new Size(171, 27);
+            txtSearchReservationId.TabIndex = 9;
             // 
             // label4
             // 
@@ -343,49 +345,49 @@
             // 
             // txtRemainingBalance
             // 
-            txtRemainingBalance.Location = new Point(201, 280);
+            txtRemainingBalance.Location = new Point(201, 301);
             txtRemainingBalance.Name = "txtRemainingBalance";
             txtRemainingBalance.Size = new Size(150, 27);
             txtRemainingBalance.TabIndex = 7;
             // 
             // txtTotalBill
             // 
-            txtTotalBill.Location = new Point(20, 280);
+            txtTotalBill.Location = new Point(20, 301);
             txtTotalBill.Name = "txtTotalBill";
             txtTotalBill.Size = new Size(149, 27);
             txtTotalBill.TabIndex = 6;
             // 
             // txtRoomCharges
             // 
-            txtRoomCharges.Location = new Point(20, 225);
+            txtRoomCharges.Location = new Point(20, 246);
             txtRoomCharges.Name = "txtRoomCharges";
             txtRoomCharges.Size = new Size(149, 27);
             txtRoomCharges.TabIndex = 4;
             // 
             // txtNumberOfNights
             // 
-            txtNumberOfNights.Location = new Point(201, 166);
+            txtNumberOfNights.Location = new Point(201, 187);
             txtNumberOfNights.Name = "txtNumberOfNights";
             txtNumberOfNights.Size = new Size(150, 27);
             txtNumberOfNights.TabIndex = 3;
             // 
             // txtRoomRate
             // 
-            txtRoomRate.Location = new Point(20, 166);
+            txtRoomRate.Location = new Point(20, 187);
             txtRoomRate.Name = "txtRoomRate";
             txtRoomRate.Size = new Size(149, 27);
             txtRoomRate.TabIndex = 2;
             // 
             // txtRoom
             // 
-            txtRoom.Location = new Point(201, 100);
+            txtRoom.Location = new Point(201, 121);
             txtRoom.Name = "txtRoom";
             txtRoom.Size = new Size(150, 27);
             txtRoom.TabIndex = 1;
             // 
             // txtGuests
             // 
-            txtGuests.Location = new Point(20, 100);
+            txtGuests.Location = new Point(20, 121);
             txtGuests.Name = "txtGuests";
             txtGuests.Size = new Size(149, 27);
             txtGuests.TabIndex = 0;

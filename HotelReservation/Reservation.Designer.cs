@@ -75,6 +75,7 @@
             label2 = new Label();
             lblUser = new Label();
             btnLogout = new Button();
+            lblHotelTime = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudGuests).BeginInit();
             panel2.SuspendLayout();
@@ -155,6 +156,7 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(lblHotelTime);
             panel1.Controls.Add(txtBedSize);
             panel1.Controls.Add(label15);
             panel1.Controls.Add(nudGuests);
@@ -339,7 +341,7 @@
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.ForeColor = SystemColors.ButtonHighlight;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
@@ -564,6 +566,17 @@
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
             // 
+            // lblHotelTime
+            // 
+            lblHotelTime.AutoSize = true;
+            lblHotelTime.Font = new Font("Segoe UI", 10F);
+            lblHotelTime.ForeColor = SystemColors.ActiveCaptionText;
+            lblHotelTime.Location = new Point(462, 231);
+            lblHotelTime.Name = "lblHotelTime";
+            lblHotelTime.Size = new Size(320, 23);
+            lblHotelTime.TabIndex = 52;
+            lblHotelTime.Text = "Check-in: 2:00 PM | Check-out: 12:00 NN";
+            // 
             // Reservation
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -636,5 +649,6 @@
         private Label label14;
         private TextBox txtBedSize;
         private Label label15;
+        private Label lblHotelTime;
     }
 }

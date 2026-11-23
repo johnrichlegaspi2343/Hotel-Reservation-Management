@@ -13,7 +13,10 @@ namespace BusinessLogic.Controller
             return guestRepo.GetGuests();
         }
 
-        // Hanapin gamit ang Guest ID (GST-001), pangalan, o contact number
+        // Hanapin gamit ang:
+        //   Guest ID  -> "GST-001", "gst1", "gst 1" o "1"
+        //   Pangalan  -> "Juan", "Santos", "Juan Santos", "santos juan"
+        //   Contact   -> "0917", "09170000001"
         public List<Guest> SearchGuest(string text)
         {
             text = text.Trim();
@@ -22,20 +25,43 @@ namespace BusinessLogic.Controller
 
             List<Guest> result = new List<Guest>();
 
-            if (text.ToUpper().StartsWith("GST-"))
+            if (CodeHelper.StartsWithPrefix(text, "GST"))
             {
+                // Guest ID lang
                 Guest? guest = guestRepo.GetGuestById(CodeHelper.ToId(text, "GST-"));
                 if (guest != null) result.Add(guest);
             }
             else
             {
-                result = guestRepo.Search(text);
+                // Maikling numero (hal. "1" o "12") = puwedeng Guest ID
+                if (CodeHelper.IsDigits(text) && text.Length <= 4)
+                {
+                    Guest? guest = guestRepo.GetGuestById(CodeHelper.ToId(text, "GST-"));
+                    if (guest != null) result.Add(guest);
+                }
+
+                // Pangalan o contact number
+                foreach (Guest g in guestRepo.Search(text))
+                {
+                    if (!ContainsGuest(result, g.Id))
+                        result.Add(g);
+                }
             }
 
             if (result.Count == 0)
-                throw new Exception("Guest not found.");
+                throw new Exception("No guest found for \"" + text + "\".");
 
             return result;
+        }
+
+        // TRUE kung nasa listahan na ang guest (para walang doble)
+        private bool ContainsGuest(List<Guest> list, int id)
+        {
+            foreach (Guest g in list)
+            {
+                if (g.Id == id) return true;
+            }
+            return false;
         }
 
         public void AddGuest(Guest guest)
@@ -85,8 +111,20 @@ namespace BusinessLogic.Controller
                 throw new Exception("Emergency contact number is required.");
 
             // ---------- Tamang format ----------
-            if (guest.DateOfBirth.Date > DateTime.Today.AddYears(-18))
-                throw new Exception("Guest must be at least 18 years old.");
+            if (!IsValidName(guest.FirstName))
+                throw new Exception("First name must contain letters only.");
+
+            if (!IsValidName(guest.LastName))
+                throw new Exception("Last name must contain letters only.");
+
+            if (!IsValidName(guest.EmergencyContactName))
+                throw new Exception("Emergency contact name must contain letters only.");
+
+            if (guest.DateOfBirth.Date > DateTime.Today.AddYears(-HotelPolicy.MinGuestAge))
+                throw new Exception("Guest must be at least " + HotelPolicy.MinGuestAge + " years old.");
+
+            if (guest.DateOfBirth.Date < DateTime.Today.AddYears(-HotelPolicy.MaxGuestAge))
+                throw new Exception("Please check the date of birth. Maximum age is " + HotelPolicy.MaxGuestAge + ".");
 
             if (!IsValidContactNumber(guest.ContactNumber))
                 throw new Exception("Contact number must be 11 digits and start with 09.");
@@ -94,12 +132,30 @@ namespace BusinessLogic.Controller
             if (!IsValidContactNumber(guest.EmergencyContactNumber))
                 throw new Exception("Emergency contact number must be 11 digits and start with 09.");
 
+            if (guest.ContactNumber.Trim() == guest.EmergencyContactNumber.Trim())
+                throw new Exception("Emergency contact number must be different from the guest's contact number.");
+
             if (guest.Email.Trim() != "" && (!guest.Email.Contains("@") || !guest.Email.Contains(".")))
                 throw new Exception("Please enter a valid email address.");
 
             // ---------- Walang duplicate ----------
             if (guestRepo.GuestExists(guest.FirstName.Trim(), guest.LastName.Trim(), guest.DateOfBirth.Date, guest.Id))
                 throw new Exception("This guest already exists.");
+        }
+
+        // Letra, space, gitling (-), tuldok (.) at apostrophe (') lang. Puwede ang Ñ.
+        private bool IsValidName(string name)
+        {
+            name = name.Trim();
+            if (name.Length < 2)
+                return false;
+
+            foreach (char c in name)
+            {
+                if (!char.IsLetter(c) && c != ' ' && c != '-' && c != '.' && c != '\'')
+                    return false;
+            }
+            return true;
         }
 
         private bool IsValidContactNumber(string number)

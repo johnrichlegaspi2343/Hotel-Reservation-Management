@@ -28,6 +28,13 @@ namespace Model
         public DateTime? ActualCheckIn { get; set; }
         public DateTime? ActualCheckOut { get; set; }
 
+        // Multa kapag maagang nag-check-in o late nag-check-out
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal EarlyCheckInFee { get; set; }
+
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal LateCheckOutFee { get; set; }
+
         public List<Payment> Payments { get; set; } = new List<Payment>();
 
         // Reservation ID na ipinapakita sa screen, hal. RES-0001
@@ -43,11 +50,39 @@ namespace Model
             get { return (CheckOutDate.Date - CheckInDate.Date).Days; }
         }
 
+        // Oras ng check-in: check-in date + 2:00 PM
+        [NotMapped]
+        public DateTime ExpectedCheckIn
+        {
+            get { return CheckInDate.Date.AddHours(HotelPolicy.CheckInHour); }
+        }
+
+        // Oras ng check-out: check-out date + 12:00 NN
+        [NotMapped]
+        public DateTime ExpectedCheckOut
+        {
+            get { return CheckOutDate.Date.AddHours(HotelPolicy.CheckOutHour); }
+        }
+
         // Room Charges = Rate x Nights
+        [NotMapped]
+        public decimal RoomCharges
+        {
+            get { return RoomRate * Nights; }
+        }
+
+        // Early check-in fee + late check-out fee
+        [NotMapped]
+        public decimal ExtraCharges
+        {
+            get { return EarlyCheckInFee + LateCheckOutFee; }
+        }
+
+        // Total Bill = Room Charges + Early/Late Fee
         [NotMapped]
         public decimal TotalBill
         {
-            get { return RoomRate * Nights; }
+            get { return RoomCharges + ExtraCharges; }
         }
 
         [NotMapped]
