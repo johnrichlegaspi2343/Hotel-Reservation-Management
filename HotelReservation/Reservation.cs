@@ -101,6 +101,9 @@ namespace HotelReservation
             dtpCheckOut.MinDate = DateTime.Today.AddDays(1);
             dtpCheckIn.Value = DateTime.Today;
             dtpCheckOut.Value = DateTime.Today.AddDays(1);
+            lblHotelTime.Text = "Check-in: " + HotelPolicy.CheckInTimeText + "  |  Check-out: " + HotelPolicy.CheckOutTimeText;
+
+            
 
             // Table ng available rooms
             dgvAvailableRooms.ReadOnly = true;
@@ -299,6 +302,8 @@ namespace HotelReservation
                     "Guest: " + txtGuestName.Text + "\n" +
                     "Room: " + txtSelectedRoom.Text + "\n" +
                     "Guests: " + reservation.NumberOfGuests + " (" + txtBedSize.Text + ")\n" +
+                    "Check-in: " + reservation.ExpectedCheckIn.ToString("MM/dd/yyyy hh:mm tt") + "\n" +
+                    "Check-out: " + reservation.ExpectedCheckOut.ToString("MM/dd/yyyy hh:mm tt") + "\n" +
                     "Nights: " + reservation.Nights + "\n" +
                     "Total: " + reservation.TotalBill.ToString("N2") + "\n" +
                     "Status: " + reservation.Status,

@@ -32,7 +32,7 @@ namespace BusinessLogic.Repository
             }
         }
 
-        public void UpdateRoomType(int id, string name, decimal rate)
+        public void UpdateRoomType(int id, string name, decimal rate, string bedSize, int maxGuests)
         {
             using (var db = new AppDBContext())
             {
@@ -41,8 +41,20 @@ namespace BusinessLogic.Repository
                 {
                     type.Name = name;
                     type.Rate = rate;
+                    type.BedSize = bedSize;
+                    type.MaxGuests = maxGuests;
                     db.SaveChanges();
                 }
+            }
+        }
+
+        // TRUE kung may ibang room type na may parehong max guests
+        // (kailangan ito kasi ang number of guests ang pumipili ng room type)
+        public bool RoomTypeMaxGuestsExists(int maxGuests, int excludeId)
+        {
+            using (var db = new AppDBContext())
+            {
+                return db.RoomTypes.Any(t => t.MaxGuests == maxGuests && t.Id != excludeId);
             }
         }
 

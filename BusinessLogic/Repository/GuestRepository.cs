@@ -20,18 +20,26 @@ namespace BusinessLogic.Repository
             }
         }
 
-        // Hanapin gamit ang pangalan o contact number
+        // Hanapin gamit ang pangalan o contact number.
+        // Puwedeng buong pangalan: "Juan Santos" o "santos juan".
+        // Bawat salita ay dapat tumugma sa first name, last name o contact number.
         public List<Guest> Search(string text)
         {
+            string[] words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
             using (var db = new AppDBContext())
             {
-                return db.Guests
-                    .Where(g => g.IsActive &&
-                               (g.FirstName.Contains(text) ||
-                                g.LastName.Contains(text) ||
-                                g.ContactNumber.Contains(text)))
-                    .OrderBy(g => g.LastName)
-                    .ToList();
+                IQueryable<Guest> query = db.Guests.Where(g => g.IsActive);
+
+                foreach (string word in words)
+                {
+                    string w = word;
+                    query = query.Where(g => g.FirstName.Contains(w) ||
+                                             g.LastName.Contains(w) ||
+                                             g.ContactNumber.Contains(w));
+                }
+
+                return query.OrderBy(g => g.LastName).ThenBy(g => g.FirstName).ToList();
             }
         }
 

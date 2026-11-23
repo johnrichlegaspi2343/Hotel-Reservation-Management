@@ -68,6 +68,8 @@ namespace BusinessLogic.Controller
             receipt += "Room: " + r.Room?.RoomNumber + " (" + r.Room?.RoomTypeName + ")\n";
             receipt += "Nights: " + r.Nights + "\n";
             receipt += "--------------------------------\n";
+            receipt += "Room Charges: P" + r.RoomCharges.ToString("N2") + "\n";
+            receipt += "Early/Late Fee: P" + r.ExtraCharges.ToString("N2") + "\n";
             receipt += "Total Bill: P" + r.TotalBill.ToString("N2") + "\n";
             receipt += "Amount Paid: P" + payment.Amount.ToString("N2") + "\n";
             receipt += "Payment Method: " + payment.PaymentMethod + "\n";

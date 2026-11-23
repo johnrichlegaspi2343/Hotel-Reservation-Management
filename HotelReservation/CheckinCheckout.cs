@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using BusinessLogic.Controller;
+using Model;
 
 namespace HotelReservation
 {
@@ -53,7 +54,8 @@ namespace HotelReservation
 
             txtGuest.Text = currentReservation.Guest?.FullName + " (" + currentReservation.Guest?.GuestCode + ")";
             txtRoom.Text = currentReservation.Room?.RoomNumber + " (" + currentReservation.Room?.RoomTypeName + ")";
-            txtCheckInDate.Text = currentReservation.CheckInDate.ToString("MM/dd/yyyy");
+            txtCheckInDate.Text = currentReservation.CheckInDate.ToString("MM/dd/yyyy") + " " + HotelPolicy.CheckInTimeText;
+            txtCheckOutDate.Text = currentReservation.CheckOutDate.ToString("MM/dd/yyyy") + " " + HotelPolicy.CheckOutTimeText;
             txtCheckOutDate.Text = currentReservation.CheckOutDate.ToString("MM/dd/yyyy");
             txtReservationStatus.Text = currentReservation.Status;
             txtPaymentStatus.Text = currentReservation.PaymentStatus;
@@ -94,9 +96,15 @@ namespace HotelReservation
 
             try
             {
-                reservationController.CheckIn(currentReservation.Id);
-                MessageBox.Show("Guest checked in. Room is now Occupied.", "Check-In",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                decimal earlyFee = reservationController.CheckIn(currentReservation.Id);
+
+                string message = "Guest checked in. Room is now Occupied.";
+                if (earlyFee > 0)
+                {
+                    message += "\n\nEarly check-in (before " + HotelPolicy.CheckInTimeText + ")." +
+                               "\nEarly check-in fee of P" + earlyFee.ToString("N2") + " was added to the bill.";
+                }
+                MessageBox.Show(message, "Check-In", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // I-reload para makita ang bagong status at oras
                 currentReservation = reservationController.FindReservation(currentReservation.ReservationCode);

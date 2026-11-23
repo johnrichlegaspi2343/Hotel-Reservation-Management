@@ -62,6 +62,9 @@ namespace HotelReservation
                     throw new Exception("Please enter a Reservation ID (ex. RES-0001).");
 
                 currentReservation = reservationController.FindReservation(txtSearchReservationId.Text.Trim());
+                // Kung naka-check-in at lampas na sa 12:00 NN, isasama ang late check-out fee
+                reservationController.UpdateLateCheckOutFee(currentReservation);
+
                 ShowBill(currentReservation);
             }
             catch (Exception ex)
@@ -78,7 +81,8 @@ namespace HotelReservation
             txtRoom.Text = r.Room?.RoomNumber + " (" + r.Room?.RoomTypeName + ")";
             txtRoomRate.Text = r.RoomRate.ToString("N2");
             txtNumberOfNights.Text = r.Nights.ToString();
-            txtRoomCharges.Text = r.TotalBill.ToString("N2");     // Rate x Nights
+            txtRoomCharges.Text = r.RoomCharges.ToString("N2");     // Rate x Nights
+            txtServiceCharges.Text = r.ExtraCharges.ToString("N2"); // Early check-in + late check-out fee
             txtServiceCharges.Text = "0.00";                      // Wala pang services (optional)
             txtTotalBill.Text = r.TotalBill.ToString("N2");
             txtRemainingBalance.Text = r.Balance.ToString("N2");
