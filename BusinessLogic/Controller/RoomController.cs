@@ -6,6 +6,7 @@ namespace BusinessLogic.Controller
     public class RoomController
     {
         private RoomRepository roomRepo = new RoomRepository();
+        private ReservationRepository reservationRepo = new ReservationRepository();
 
         // ===================== ROOM TYPES =====================
 
@@ -14,23 +15,25 @@ namespace BusinessLogic.Controller
             return roomRepo.GetRoomTypes();
         }
 
-        public void AddRoomType(string name, decimal rate)
+        public void AddRoomType(string name, decimal rate, string bedSize, int maxGuests)
         {
-            ValidateRoomType(name, rate, 0);
+            ValidateRoomType(name, rate, bedSize, maxGuests, 0);
 
             RoomType type = new RoomType();
             type.Name = name.Trim();
             type.Rate = rate;
+            type.BedSize = bedSize.Trim();
+            type.MaxGuests = maxGuests;
             roomRepo.AddRoomType(type);
         }
 
-        public void UpdateRoomType(int id, string name, decimal rate)
+        public void UpdateRoomType(int id, string name, decimal rate, string bedSize, int maxGuests)
         {
-            ValidateRoomType(name, rate, id);
-            roomRepo.UpdateRoomType(id, name.Trim(), rate);
+            ValidateRoomType(name, rate, bedSize, maxGuests, id);
+            roomRepo.UpdateRoomType(id, name.Trim(), rate, bedSize.Trim(), maxGuests);
         }
 
-        private void ValidateRoomType(string name, decimal rate, int id)
+        private void ValidateRoomType(string name, decimal rate, string bedSize, int maxGuests, int id)
         {
             if (name.Trim() == "")
                 throw new Exception("Room type name is required.");
@@ -38,8 +41,23 @@ namespace BusinessLogic.Controller
             if (rate <= 0)
                 throw new Exception("Room rate must be greater than zero.");
 
+            if (rate > 100000)
+                throw new Exception("Room rate is too high. Maximum is P100,000.");
+
+            if (rate != Math.Round(rate, 2))
+                throw new Exception("Room rate can only have up to 2 decimal places.");
+
+            if (bedSize.Trim() == "")
+                throw new Exception("Please select a bed size.");
+
+            if (maxGuests < 1 || maxGuests > 10)
+                throw new Exception("Max guests must be from 1 to 10.");
+
             if (roomRepo.RoomTypeNameExists(name.Trim(), id))
                 throw new Exception("Room type already exists.");
+
+            if (roomRepo.RoomTypeMaxGuestsExists(maxGuests, id))
+                throw new Exception("Another room type is already for " + maxGuests + " guest(s). Each room type must have a different max guests.");
         }
 
         // ===================== ROOMS =====================
@@ -63,18 +81,34 @@ namespace BusinessLogic.Controller
         public void UpdateRoom(int id, string roomNumber, int roomTypeId)
         {
             ValidateRoom(roomNumber, roomTypeId, id);
+
+            Room? room = roomRepo.GetRoomById(id);
+            if (room == null)
+                throw new Exception("Room not found.");
+
+            // Bawal palitan ang room number o room type kapag may active na booking
+            bool changed = room.RoomNumber != roomNumber.Trim() || room.RoomTypeId != roomTypeId;
+            if (changed && reservationRepo.RoomHasActiveReservation(id))
+                throw new Exception("Room " + room.RoomNumber + " has an active reservation. Its number and type cannot be changed.");
+
             roomRepo.UpdateRoom(id, roomNumber.Trim(), roomTypeId);
         }
 
+        // Room number: 3 digits, numero lang, hindi nagsisimula sa 0 (hal. 101 hanggang 999)
         private void ValidateRoom(string roomNumber, int roomTypeId, int id)
         {
-            if (roomNumber.Trim() == "")
+            roomNumber = roomNumber.Trim();
+
+            if (roomNumber == "")
                 throw new Exception("Room number is required.");
+
+            if (roomNumber.Length != 3 || !CodeHelper.IsDigits(roomNumber) || roomNumber.StartsWith("0"))
+                throw new Exception("Room number must be 3 digits (example: 101).");
 
             if (roomTypeId <= 0)
                 throw new Exception("Room type is required.");
 
-            if (roomRepo.RoomNumberExists(roomNumber.Trim(), id))
+            if (roomRepo.RoomNumberExists(roomNumber, id))
                 throw new Exception("Room number already exists.");
         }
 
@@ -92,6 +126,10 @@ namespace BusinessLogic.Controller
             if (room.Status == "Reserved" || room.Status == "Occupied")
                 throw new Exception("Room " + room.RoomNumber + " is " + room.Status + ". Its status cannot be changed manually.");
 
+            // Bawal i-Maintenance kapag may naka-book pa (kahit sa susunod na buwan)
+            if (status == "Maintenance" && reservationRepo.RoomHasActiveReservation(id))
+                throw new Exception("Room " + room.RoomNumber + " has an upcoming reservation. Cancel or move it first.");
+
             roomRepo.UpdateRoomStatus(id, status);
         }
 
@@ -103,6 +141,10 @@ namespace BusinessLogic.Controller
 
             if (room.Status == "Reserved" || room.Status == "Occupied")
                 throw new Exception("Cannot delete a room that is " + room.Status + ".");
+
+            // Bawal i-delete kapag may naka-book pa (kahit sa susunod na buwan)
+            if (reservationRepo.RoomHasActiveReservation(id))
+                throw new Exception("Cannot delete room " + room.RoomNumber + ". It has an upcoming reservation.");
 
             roomRepo.DeactivateRoom(id);
         }

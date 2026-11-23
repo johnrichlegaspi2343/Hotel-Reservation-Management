@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Model;
-using BusinessLogic.Controller;   // tingnan ang paalala sa ilalim kung mag-error ito
+using BusinessLogic.Controller;
 
-namespace HotelReservation   // <-- palitan kung iba ang namespace sa file mo
+namespace HotelReservation
 {
     public partial class RoomMaintenance : Form
     {
@@ -57,6 +57,19 @@ namespace HotelReservation   // <-- palitan kung iba ang namespace sa file mo
             cmbRoomStatus.Items.Add("Available");
             cmbRoomStatus.Items.Add("Maintenance");
 
+            // Bed size at max guests ng room type
+            cmbBedSize.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbBedSize.Items.Clear();
+            cmbBedSize.Items.Add("Single");
+            cmbBedSize.Items.Add("Double");
+            cmbBedSize.Items.Add("Queen");
+            cmbBedSize.Items.Add("King");
+            cmbBedSize.SelectedIndex = -1;
+
+            nudMaxGuest.Minimum = 1;
+            nudMaxGuest.Maximum = 10;
+            nudMaxGuest.Value = 1;
+
             SetupGrids();
             LoadRoomTypes();
             LoadRooms();
@@ -80,6 +93,8 @@ namespace HotelReservation   // <-- palitan kung iba ang namespace sa file mo
             dgvRoomTypes.Columns.Add("colTypeId", "ID");
             dgvRoomTypes.Columns.Add("colTypeName", "Room Type");
             dgvRoomTypes.Columns.Add("colTypeRate", "Rate");
+            dgvRoomTypes.Columns.Add("colTypeBed", "Bed Size");
+            dgvRoomTypes.Columns.Add("colTypeMax", "Max Guests");
             dgvRoomTypes.Columns["colTypeId"].Visible = false;
             dgvRoomTypes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
@@ -97,7 +112,7 @@ namespace HotelReservation   // <-- palitan kung iba ang namespace sa file mo
 
                 foreach (RoomType type in roomTypes)
                 {
-                    dgvRoomTypes.Rows.Add(type.Id, type.Name, type.Rate.ToString("N2"));
+                    dgvRoomTypes.Rows.Add(type.Id, type.Name, type.Rate.ToString("N2"), type.BedSize, type.MaxGuests);
                     cmbRoomType.Items.Add(type);   // lalabas ang Name dahil sa ToString()
                 }
 
@@ -294,7 +309,9 @@ namespace HotelReservation   // <-- palitan kung iba ang namespace sa file mo
 
             selectedRoomTypeId = Convert.ToInt32(row.Cells["colTypeId"].Value);
             txtRoomTypeName.Text = row.Cells["colTypeName"].Value.ToString();
-            txtRoomTypeRate.Text = row.Cells["colTypeRate"].Value.ToString();
+            txtRoomTypeRate.Text = row.Cells["colTypeRate"].Value.ToString().Replace(",", "");   // "1,500.00" -> "1500.00"
+            cmbBedSize.SelectedIndex = cmbBedSize.Items.IndexOf(row.Cells["colTypeBed"].Value.ToString());
+            nudMaxGuest.Value = Convert.ToInt32(row.Cells["colTypeMax"].Value);
         }
 
         private void btnAddRoomType_Click(object sender, EventArgs e)
@@ -307,7 +324,7 @@ namespace HotelReservation   // <-- palitan kung iba ang namespace sa file mo
                     throw new Exception("Please enter a valid rate (numbers only).");
                 }
 
-                roomController.AddRoomType(txtRoomTypeName.Text.Trim(), rate);
+                roomController.AddRoomType(txtRoomTypeName.Text.Trim(), rate, cmbBedSize.Text, (int)nudMaxGuest.Value);
 
                 MessageBox.Show("Room type added successfully.", "Success",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -336,7 +353,7 @@ namespace HotelReservation   // <-- palitan kung iba ang namespace sa file mo
                     throw new Exception("Please enter a valid rate (numbers only).");
                 }
 
-                roomController.UpdateRoomType(selectedRoomTypeId, txtRoomTypeName.Text.Trim(), rate);
+                roomController.UpdateRoomType(selectedRoomTypeId, txtRoomTypeName.Text.Trim(), rate, cmbBedSize.Text, (int)nudMaxGuest.Value);
 
                 MessageBox.Show("Room type updated successfully.", "Success",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -361,6 +378,8 @@ namespace HotelReservation   // <-- palitan kung iba ang namespace sa file mo
             selectedRoomTypeId = 0;
             txtRoomTypeName.Text = "";
             txtRoomTypeRate.Text = "";
+            cmbBedSize.SelectedIndex = -1;
+            nudMaxGuest.Value = 1;
             dgvRoomTypes.ClearSelection();
         }
 
