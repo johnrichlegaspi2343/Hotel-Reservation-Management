@@ -21,6 +21,7 @@ namespace BusinessLogic
                 {
                     // Babasahin ang bawat table. Kapag kulang ang columns, mag-e-error,
                     // kaya buburahin at gagawin ulit ang database.
+                    db.RoomTypes.FirstOrDefault();
                     db.Rooms.FirstOrDefault();
                     db.Guests.FirstOrDefault();
                     db.Reservations.FirstOrDefault();
@@ -43,26 +44,34 @@ namespace BusinessLogic
                 // ---------- 4 ROOM TYPES ----------
                 if (!db.RoomTypes.Any())
                 {
-                    db.RoomTypes.Add(new RoomType { Name = "Standard", Rate = 1500 });
-                    db.RoomTypes.Add(new RoomType { Name = "Deluxe", Rate = 2000 });
-                    db.RoomTypes.Add(new RoomType { Name = "Family Room", Rate = 3000 });
-                    db.RoomTypes.Add(new RoomType { Name = "Suite", Rate = 5000 });
+                    // Bawat room type ay may sariling bed size at ilang guest ang kasya
+                    db.RoomTypes.Add(new RoomType { Name = "Standard", Rate = 1500, BedSize = "Single", MaxGuests = 1 });
+                    db.RoomTypes.Add(new RoomType { Name = "Deluxe", Rate = 2000, BedSize = "Double", MaxGuests = 2 });
+                    db.RoomTypes.Add(new RoomType { Name = "Family Room", Rate = 3000, BedSize = "Queen", MaxGuests = 3 });
+                    db.RoomTypes.Add(new RoomType { Name = "Suite", Rate = 5000, BedSize = "King", MaxGuests = 4 });
                     db.SaveChanges();
                 }
 
-                // ---------- 16 ROOMS (4 kada floor) ----------
-                // Floor 1 = Standard, 2 = Deluxe, 3 = Family Room, 4 = Suite
+                // ---------- 50 ROOMS (5 floors x 10 rooms) ----------
+                // Floor 1 = Standard, 2 = Deluxe, 3 = Family Room, 4 at 5 = Suite
                 if (!db.Rooms.Any())
                 {
                     List<RoomType> types = db.RoomTypes.OrderBy(t => t.Id).ToList();
 
-                    for (int floor = 1; floor <= 4; floor++)
+                    for (int floor = 1; floor <= 5; floor++)
                     {
-                        for (int number = 1; number <= 4; number++)
+                        // Floor 5 ay Suite din (huling room type)
+                        int typeIndex = floor - 1;
+                        if (typeIndex > types.Count - 1)
+                        {
+                            typeIndex = types.Count - 1;
+                        }
+
+                        for (int number = 1; number <= 10; number++)
                         {
                             Room room = new Room();
-                            room.RoomNumber = floor + "0" + number;      // 101, 102 ... 404
-                            room.RoomTypeId = types[floor - 1].Id;
+                            room.RoomNumber = (floor * 100 + number).ToString();   // 101 ... 110, 201 ... 510
+                            room.RoomTypeId = types[typeIndex].Id;
                             room.Status = "Available";
                             db.Rooms.Add(room);
                         }

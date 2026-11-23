@@ -22,6 +22,9 @@ namespace Model
         // Pending, Confirmed, Cancelled, CheckedIn, Completed
         public string Status { get; set; } = "Pending";
 
+        // Ilang guest ang titira sa room (1 - 4)
+        public int NumberOfGuests { get; set; } = 1;
+
         public DateTime? ActualCheckIn { get; set; }
         public DateTime? ActualCheckOut { get; set; }
 

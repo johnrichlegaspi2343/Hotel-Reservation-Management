@@ -35,6 +35,7 @@
             txtUsername = new TextBox();
             txtPassword = new TextBox();
             btnLogin = new Button();
+            chkShowPassword = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -106,12 +107,24 @@
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
+            // chkShowPassword
+            // 
+            chkShowPassword.AutoSize = true;
+            chkShowPassword.Font = new Font("Segoe UI", 12F);
+            chkShowPassword.Location = new Point(1315, 622);
+            chkShowPassword.Name = "chkShowPassword";
+            chkShowPassword.Size = new Size(168, 32);
+            chkShowPassword.TabIndex = 7;
+            chkShowPassword.Text = "Show Password";
+            chkShowPassword.UseVisualStyleBackColor = true;
+            // 
             // frmLogIn
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.OliveDrab;
             ClientSize = new Size(1902, 1033);
+            Controls.Add(chkShowPassword);
             Controls.Add(label1);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
@@ -136,5 +149,6 @@
         private TextBox txtUsername;
         private TextBox txtPassword;
         private Button btnLogin;
+        private CheckBox chkShowPassword;
     }
 }

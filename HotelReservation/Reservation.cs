@@ -36,6 +36,7 @@ namespace HotelReservation
             dtpCheckIn.ValueChanged += Dates_ValueChanged;
             dtpCheckOut.ValueChanged += Dates_ValueChanged;
             cmbRoomType.SelectedIndexChanged += cmbRoomType_SelectedIndexChanged;
+            nudGuests.ValueChanged += nudGuests_ValueChanged;
 
             // Reservation section
             btnReserve.Click += btnReserve_Click;
@@ -59,22 +60,33 @@ namespace HotelReservation
         {
             lblUser.Text = "Front Desk: " + Session.CurrentUser?.Username;
 
-            // Room Type: "All" + lahat ng room types galing database
+            // Room Type: lahat ng room types galing database.
+            // Naka-disable kasi automatic itong pinipili base sa number of guests.
             cmbRoomType.Items.Clear();
-            cmbRoomType.Items.Add("All");
+            cmbRoomType.Enabled = false;
+            int maxGuests = 1;
             try
             {
                 List<RoomType> types = roomController.GetRoomTypes();
                 foreach (RoomType type in types)
                 {
                     cmbRoomType.Items.Add(type);
+
+                    // Hanapin ang pinakamaraming guest na kasya sa isang room
+                    if (type.MaxGuests > maxGuests)
+                        maxGuests = type.MaxGuests;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            cmbRoomType.SelectedIndex = 0;
+
+            // Number of guests: 1 hanggang sa pinakamalaking room
+            nudGuests.Minimum = 1;
+            nudGuests.Maximum = maxGuests;
+            nudGuests.Value = 1;
+            txtBedSize.ReadOnly = true;
 
             // Status
             cmbStatus.Items.Clear();
@@ -102,11 +114,13 @@ namespace HotelReservation
             dgvAvailableRooms.Columns.Add("Id", "Id");
             dgvAvailableRooms.Columns.Add("RoomNumber", "Room No.");
             dgvAvailableRooms.Columns.Add("RoomType", "Room Type");
+            dgvAvailableRooms.Columns.Add("BedSize", "Bed Size");
             dgvAvailableRooms.Columns.Add("Rate", "Rate / Night");
             dgvAvailableRooms.Columns.Add("Status", "Status");
             dgvAvailableRooms.Columns["Id"].Visible = false;
 
             ComputeNights();
+            UpdateRoomTypeForGuests();
         }
 
         // ===================== GUEST =====================
@@ -161,20 +175,19 @@ namespace HotelReservation
 
             try
             {
-                // 0 = lahat ng room type
-                int roomTypeId = 0;
-                if (cmbRoomType.SelectedItem is RoomType)
-                {
-                    RoomType type = (RoomType)cmbRoomType.SelectedItem;
-                    roomTypeId = type.Id;
-                }
+                // Ang room type ay galing sa number of guests
+                if (!(cmbRoomType.SelectedItem is RoomType))
+                    throw new Exception("No room type for " + nudGuests.Value + " guest(s).");
+
+                RoomType type = (RoomType)cmbRoomType.SelectedItem;
+                int roomTypeId = type.Id;
 
                 List<Room> rooms = reservationController.GetAvailableRooms(dtpCheckIn.Value, dtpCheckOut.Value, roomTypeId);
 
                 foreach (Room room in rooms)
                 {
                     dgvAvailableRooms.Rows.Add(room.Id, room.RoomNumber, room.RoomTypeName,
-                        room.Rate.ToString("N2"), room.Status);
+                        room.BedSize, room.Rate.ToString("N2"), room.Status);
                 }
             }
             catch (Exception ex)
@@ -211,6 +224,42 @@ namespace HotelReservation
             ClearRooms();
         }
 
+        // ===================== NUMBER OF GUESTS =====================
+
+        // Kapag binago ang number of guests, automatic na lalabas ang bed size at room type
+        private void nudGuests_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateRoomTypeForGuests();
+            ClearRooms();
+        }
+
+        // 1 = Single, 2 = Double, 3 = Queen, 4 = King
+        private void UpdateRoomTypeForGuests()
+        {
+            int guests = (int)nudGuests.Value;
+            bool found = false;
+
+            foreach (object item in cmbRoomType.Items)
+            {
+                RoomType type = (RoomType)item;
+
+                // Hanapin ang room type na sakto sa number of guests
+                if (type.MaxGuests == guests)
+                {
+                    cmbRoomType.SelectedItem = item;
+                    txtBedSize.Text = type.BedSize + " Bed";
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                cmbRoomType.SelectedIndex = -1;
+                txtBedSize.Text = "No room for " + guests + " guest(s)";
+            }
+        }
+
         private void ComputeNights()
         {
             int nights = (dtpCheckOut.Value.Date - dtpCheckIn.Value.Date).Days;
@@ -238,8 +287,10 @@ namespace HotelReservation
 
                 string status = cmbStatus.SelectedItem.ToString();
 
+                int guests = (int)nudGuests.Value;
+
                 Model.Reservation reservation = reservationController.CreateReservation(
-                    selectedGuestId, selectedRoomId, dtpCheckIn.Value, dtpCheckOut.Value, status);
+                    selectedGuestId, selectedRoomId, dtpCheckIn.Value, dtpCheckOut.Value, status, guests);
 
                 txtReservationId.Text = reservation.ReservationCode;
 
@@ -247,6 +298,7 @@ namespace HotelReservation
                     "Reservation ID: " + reservation.ReservationCode + "\n" +
                     "Guest: " + txtGuestName.Text + "\n" +
                     "Room: " + txtSelectedRoom.Text + "\n" +
+                    "Guests: " + reservation.NumberOfGuests + " (" + txtBedSize.Text + ")\n" +
                     "Nights: " + reservation.Nights + "\n" +
                     "Total: " + reservation.TotalBill.ToString("N2") + "\n" +
                     "Status: " + reservation.Status,
@@ -274,7 +326,8 @@ namespace HotelReservation
             txtReservationId.Clear();
             selectedGuestId = 0;
 
-            cmbRoomType.SelectedIndex = 0;
+            nudGuests.Value = 1;
+            UpdateRoomTypeForGuests();
             cmbStatus.SelectedIndex = 0;
             dtpCheckIn.Value = DateTime.Today;
             dtpCheckOut.Value = DateTime.Today.AddDays(1);
