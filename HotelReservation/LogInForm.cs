@@ -19,6 +19,9 @@ namespace HotelReservation
             txtPassword.UseSystemPasswordChar = true;
             this.AcceptButton = btnLogin;
 
+            // Show Password checkbox
+            chkShowPassword.CheckedChanged += chkShowPassword_CheckedChanged;
+
             try
             {
                 // Gagawa ng database at maglalagay ng default data (users, rooms, 50 guests)
@@ -31,11 +34,25 @@ namespace HotelReservation
             }
         }
 
+        // Kapag naka-check, makikita ang password. Kapag hindi, naka-dots ulit.
+        private void chkShowPassword_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkShowPassword.Checked)
+            {
+                txtPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txtPassword.UseSystemPasswordChar = true;
+            }
+        }
+
         // Tinatawag kapag nag-logout, para malinis ulit ang login screen
         public void ClearFields()
         {
             txtUsername.Clear();
             txtPassword.Clear();
+            chkShowPassword.Checked = false;   // itago ulit ang password
             txtUsername.Focus();
         }
 

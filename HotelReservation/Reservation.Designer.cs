@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             btnGuests = new Button();
             btnReservation = new Button();
             btnReservationStatus = new Button();
@@ -36,6 +38,10 @@
             btnBillingPayment = new Button();
             label1 = new Label();
             panel1 = new Panel();
+            txtBedSize = new TextBox();
+            label15 = new Label();
+            nudGuests = new NumericUpDown();
+            label14 = new Label();
             dtpCheckOut = new DateTimePicker();
             dtpCheckIn = new DateTimePicker();
             btnReserve = new Button();
@@ -70,6 +76,7 @@
             lblUser = new Label();
             btnLogout = new Button();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudGuests).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAvailableRooms).BeginInit();
             SuspendLayout();
@@ -148,6 +155,10 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(txtBedSize);
+            panel1.Controls.Add(label15);
+            panel1.Controls.Add(nudGuests);
+            panel1.Controls.Add(label14);
             panel1.Controls.Add(dtpCheckOut);
             panel1.Controls.Add(dtpCheckIn);
             panel1.Controls.Add(btnReserve);
@@ -183,6 +194,41 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(874, 622);
             panel1.TabIndex = 11;
+            // 
+            // txtBedSize
+            // 
+            txtBedSize.ForeColor = Color.Black;
+            txtBedSize.Location = new Point(513, 191);
+            txtBedSize.Name = "txtBedSize";
+            txtBedSize.Size = new Size(128, 27);
+            txtBedSize.TabIndex = 51;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.ForeColor = SystemColors.ActiveCaptionText;
+            label15.Location = new Point(438, 195);
+            label15.Name = "label15";
+            label15.Size = new Size(69, 20);
+            label15.TabIndex = 50;
+            label15.Text = "Bed Size:";
+            // 
+            // nudGuests
+            // 
+            nudGuests.Location = new Point(185, 191);
+            nudGuests.Name = "nudGuests";
+            nudGuests.Size = new Size(129, 27);
+            nudGuests.TabIndex = 49;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.ForeColor = SystemColors.ActiveCaptionText;
+            label14.Location = new Point(54, 195);
+            label14.Name = "label14";
+            label14.Size = new Size(125, 20);
+            label14.TabIndex = 48;
+            label14.Text = "Number of Guest:";
             // 
             // dtpCheckOut
             // 
@@ -281,17 +327,33 @@
             // 
             // dgvAvailableRooms
             // 
-            dgvAvailableRooms.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.ForeColor = Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dgvAvailableRooms.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvAvailableRooms.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvAvailableRooms.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvAvailableRooms.DefaultCellStyle = dataGridViewCellStyle2;
             dgvAvailableRooms.Location = new Point(3, 3);
             dgvAvailableRooms.Name = "dgvAvailableRooms";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvAvailableRooms.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvAvailableRooms.RowHeadersVisible = false;
             dgvAvailableRooms.RowHeadersWidth = 51;
             dgvAvailableRooms.Size = new Size(763, 161);
@@ -300,7 +362,7 @@
             // btnCheckAvailability
             // 
             btnCheckAvailability.ForeColor = SystemColors.ActiveCaptionText;
-            btnCheckAvailability.Location = new Point(294, 182);
+            btnCheckAvailability.Location = new Point(294, 224);
             btnCheckAvailability.Name = "btnCheckAvailability";
             btnCheckAvailability.Size = new Size(162, 34);
             btnCheckAvailability.TabIndex = 32;
@@ -310,7 +372,7 @@
             // cmbRoomType
             // 
             cmbRoomType.FormattingEnabled = true;
-            cmbRoomType.Location = new Point(147, 184);
+            cmbRoomType.Location = new Point(147, 226);
             cmbRoomType.Name = "cmbRoomType";
             cmbRoomType.Size = new Size(128, 28);
             cmbRoomType.TabIndex = 31;
@@ -329,7 +391,7 @@
             // 
             label12.AutoSize = true;
             label12.ForeColor = SystemColors.ActiveCaptionText;
-            label12.Location = new Point(54, 189);
+            label12.Location = new Point(54, 231);
             label12.Name = "label12";
             label12.Size = new Size(87, 20);
             label12.TabIndex = 28;
@@ -521,6 +583,7 @@
             Text = "Reservation";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudGuests).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvAvailableRooms).EndInit();
             ResumeLayout(false);
@@ -569,5 +632,9 @@
         private Button btnLogout;
         private DateTimePicker dtpCheckOut;
         private DateTimePicker dtpCheckIn;
+        private NumericUpDown nudGuests;
+        private Label label14;
+        private TextBox txtBedSize;
+        private Label label15;
     }
 }

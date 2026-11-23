@@ -10,6 +10,9 @@ namespace Model
         [Column(TypeName = "decimal(10,2)")]
         public decimal Rate { get; set; }           // presyo kada gabi
 
+        public string BedSize { get; set; } = "";   // Single, Double, Queen, King
+        public int MaxGuests { get; set; } = 1;     // ilang guest ang kasya
+
         public override string ToString()
         {
             return Name;
@@ -37,6 +40,12 @@ namespace Model
         public decimal Rate
         {
             get { return RoomType != null ? RoomType.Rate : 0; }
+        }
+
+        [NotMapped]
+        public string BedSize
+        {
+            get { return RoomType != null ? RoomType.BedSize : ""; }
         }
     }
 }

@@ -34,7 +34,7 @@ namespace BusinessLogic.Controller
         // ===================== RESERVATION =====================
 
         // status = "Pending" o "Confirmed"
-        public Reservation CreateReservation(int guestId, int roomId, DateTime checkIn, DateTime checkOut, string status)
+        public Reservation CreateReservation(int guestId, int roomId, DateTime checkIn, DateTime checkOut, string status, int numberOfGuests)
         {
             ValidateDates(checkIn, checkOut);
 
@@ -52,6 +52,13 @@ namespace BusinessLogic.Controller
             if (room.Status == "Maintenance")
                 throw new Exception("Room " + room.RoomNumber + " is under maintenance.");
 
+            // Dapat kasya ang guests sa room
+            if (numberOfGuests < 1)
+                throw new Exception("Number of guests must be at least 1.");
+
+            if (room.RoomType != null && numberOfGuests > room.RoomType.MaxGuests)
+                throw new Exception("Room " + room.RoomNumber + " is only good for " + room.RoomType.MaxGuests + " guest(s).");
+
             // Walang double-booking
             if (reservationRepo.IsRoomBooked(roomId, checkIn.Date, checkOut.Date))
                 throw new Exception("Room " + room.RoomNumber + " is already booked for these dates.");
@@ -63,6 +70,7 @@ namespace BusinessLogic.Controller
             reservation.CheckOutDate = checkOut.Date;
             reservation.RoomRate = room.Rate;
             reservation.Status = status;
+            reservation.NumberOfGuests = numberOfGuests;
             reservationRepo.AddReservation(reservation);
 
             // Automatic: nagiging Reserved ang room

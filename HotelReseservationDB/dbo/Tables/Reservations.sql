@@ -6,6 +6,7 @@
     [CheckOutDate]   DATETIME2 (7)   NOT NULL,
     [RoomRate]       DECIMAL (10, 2) NOT NULL,
     [Status]         NVARCHAR (MAX)  NOT NULL,
+    [NumberOfGuests] INT             NOT NULL,
     [ActualCheckIn]  DATETIME2 (7)   NULL,
     [ActualCheckOut] DATETIME2 (7)   NULL,
     CONSTRAINT [PK_Reservations] PRIMARY KEY CLUSTERED ([Id] ASC),
