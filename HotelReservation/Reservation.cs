@@ -14,10 +14,17 @@ namespace HotelReservation
         private int selectedGuestId = 0;
         private int selectedRoomId = 0;
 
+        // Panel ng available rooms (ginagawa sa code, lalabas lang kapag pinindot ang Find Room)
+        private Panel pnlRooms = new Panel();
+        private Label lblRoomsTitle = new Label();
+        private DataGridView dgvAvailableRooms = new DataGridView();
+        private Button btnCloseRooms = new Button();
+
         public Reservation()
         {
             InitializeComponent();
             SetupForm();
+            SetupRoomPanel();
 
             // Sidebar
             btnGuests.Click += btnGuests_Click;
@@ -31,15 +38,13 @@ namespace HotelReservation
             btnAddNewGuest.Click += btnAddNewGuest_Click;
 
             // Room section
-            btnCheckAvailability.Click += btnCheckAvailability_Click;
-            dgvAvailableRooms.CellClick += dgvAvailableRooms_CellClick;
+            btnFindRoom.Click += btnFindRoom_Click;
             dtpCheckIn.ValueChanged += Dates_ValueChanged;
             dtpCheckOut.ValueChanged += Dates_ValueChanged;
-            cmbRoomType.SelectedIndexChanged += cmbRoomType_SelectedIndexChanged;
             nudGuests.ValueChanged += nudGuests_ValueChanged;
 
             // Reservation section
-            btnReserve.Click += btnReserve_Click;
+            btnProceed.Click += btnProceed_Click;
             btnClear.Click += btnClear_Click;
 
             this.FormClosed += Reservation_FormClosed;
@@ -60,8 +65,7 @@ namespace HotelReservation
         {
             lblUser.Text = "Front Desk: " + Session.CurrentUser?.Username;
 
-            // Room Type: lahat ng room types galing database.
-            // Naka-disable kasi automatic itong pinipili base sa number of guests.
+            // Room Type: galing database. Naka-disable kasi automatic base sa number of guests.
             cmbRoomType.Items.Clear();
             cmbRoomType.Enabled = false;
             int maxGuests = 1;
@@ -72,7 +76,6 @@ namespace HotelReservation
                 {
                     cmbRoomType.Items.Add(type);
 
-                    // Hanapin ang pinakamaraming guest na kasya sa isang room
                     if (type.MaxGuests > maxGuests)
                         maxGuests = type.MaxGuests;
                 }
@@ -86,13 +89,14 @@ namespace HotelReservation
             nudGuests.Minimum = 1;
             nudGuests.Maximum = maxGuests;
             nudGuests.Value = 1;
-            txtBedSize.ReadOnly = true;
 
-            // Status
-            cmbStatus.Items.Clear();
-            cmbStatus.Items.Add("Pending");
-            cmbStatus.Items.Add("Confirmed");
-            cmbStatus.SelectedIndex = 0;
+            // Hindi puwedeng i-type, ang system ang naglalagay
+            txtGuestId.ReadOnly = true;
+            txtGuestName.ReadOnly = true;
+            txtBedSize.ReadOnly = true;
+            txtSelectedRoom.ReadOnly = true;
+            txtReservationId.ReadOnly = true;
+            txtNights.ReadOnly = true;
 
             // Dates: default ay ngayon hanggang bukas
             dtpCheckIn.Format = DateTimePickerFormat.Short;
@@ -101,29 +105,55 @@ namespace HotelReservation
             dtpCheckOut.MinDate = DateTime.Today.AddDays(1);
             dtpCheckIn.Value = DateTime.Today;
             dtpCheckOut.Value = DateTime.Today.AddDays(1);
-            lblHotelTime.Text = "Check-in: " + HotelPolicy.CheckInTimeText + "  |  Check-out: " + HotelPolicy.CheckOutTimeText;
 
-            
+            ComputeNights();
+            UpdateRoomTypeForGuests();
+        }
 
-            // Table ng available rooms
+        // Ginagawa ang panel at table ng available rooms
+        private void SetupRoomPanel()
+        {
+            pnlRooms.Size = new Size(650, 340);
+            pnlRooms.BackColor = Color.White;
+            pnlRooms.BorderStyle = BorderStyle.FixedSingle;
+            pnlRooms.Visible = false;
+
+            lblRoomsTitle.Text = "Available Rooms - click a room to select";
+            lblRoomsTitle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            lblRoomsTitle.ForeColor = Color.Black;
+            lblRoomsTitle.Location = new Point(10, 10);
+            lblRoomsTitle.AutoSize = true;
+
+            btnCloseRooms.Text = "Close";
+            btnCloseRooms.Size = new Size(90, 32);
+            btnCloseRooms.Location = new Point(545, 6);
+            btnCloseRooms.BackColor = Color.LightGreen;
+            btnCloseRooms.Click += btnCloseRooms_Click;
+
+            dgvAvailableRooms.Location = new Point(10, 45);
+            dgvAvailableRooms.Size = new Size(625, 282);
             dgvAvailableRooms.ReadOnly = true;
             dgvAvailableRooms.AllowUserToAddRows = false;
             dgvAvailableRooms.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAvailableRooms.MultiSelect = false;
             dgvAvailableRooms.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvAvailableRooms.RowHeadersVisible = false;
+            dgvAvailableRooms.BackgroundColor = Color.White;
+            dgvAvailableRooms.DefaultCellStyle.ForeColor = Color.Black;
 
-            dgvAvailableRooms.Columns.Clear();
             dgvAvailableRooms.Columns.Add("Id", "Id");
             dgvAvailableRooms.Columns.Add("RoomNumber", "Room No.");
             dgvAvailableRooms.Columns.Add("RoomType", "Room Type");
             dgvAvailableRooms.Columns.Add("BedSize", "Bed Size");
             dgvAvailableRooms.Columns.Add("Rate", "Rate / Night");
-            dgvAvailableRooms.Columns.Add("Status", "Status");
+            dgvAvailableRooms.Columns.Add("Status", "Status Today");
             dgvAvailableRooms.Columns["Id"].Visible = false;
+            dgvAvailableRooms.CellClick += dgvAvailableRooms_CellClick;
 
-            ComputeNights();
-            UpdateRoomTypeForGuests();
+            pnlRooms.Controls.Add(lblRoomsTitle);
+            pnlRooms.Controls.Add(btnCloseRooms);
+            pnlRooms.Controls.Add(dgvAvailableRooms);
+            this.Controls.Add(pnlRooms);
         }
 
         // ===================== GUEST =====================
@@ -163,19 +193,10 @@ namespace HotelReservation
             Navigator.Open(this, new GuestsInformation(true));
         }
 
-        // ===================== ROOMS =====================
+        // ===================== FIND ROOM =====================
 
-        private void btnCheckAvailability_Click(object sender, EventArgs e)
+        private void btnFindRoom_Click(object sender, EventArgs e)
         {
-            LoadAvailableRooms();
-        }
-
-        private void LoadAvailableRooms()
-        {
-            dgvAvailableRooms.Rows.Clear();
-            selectedRoomId = 0;
-            txtSelectedRoom.Clear();
-
             try
             {
                 // Ang room type ay galing sa number of guests
@@ -183,19 +204,30 @@ namespace HotelReservation
                     throw new Exception("No room type for " + nudGuests.Value + " guest(s).");
 
                 RoomType type = (RoomType)cmbRoomType.SelectedItem;
-                int roomTypeId = type.Id;
 
-                List<Room> rooms = reservationController.GetAvailableRooms(dtpCheckIn.Value, dtpCheckOut.Value, roomTypeId);
+                // May validation na dito (past date, check-out, max 30 nights)
+                List<Room> rooms = reservationController.GetAvailableRooms(dtpCheckIn.Value, dtpCheckOut.Value, type.Id);
 
+                dgvAvailableRooms.Rows.Clear();
                 foreach (Room room in rooms)
                 {
                     dgvAvailableRooms.Rows.Add(room.Id, room.RoomNumber, room.RoomTypeName,
                         room.BedSize, room.Rate.ToString("N2"), room.Status);
                 }
+                dgvAvailableRooms.ClearSelection();
+
+                lblRoomsTitle.Text = "Available " + type.Name + " Rooms (" +
+                    dtpCheckIn.Value.ToString("MMM dd") + " - " + dtpCheckOut.Value.ToString("MMM dd") + ")";
+
+                // Ilagay ang panel sa gitna ng form at ipakita sa ibabaw ng lahat
+                pnlRooms.Location = new Point((this.ClientSize.Width - pnlRooms.Width) / 2,
+                                              (this.ClientSize.Height - pnlRooms.Height) / 2);
+                pnlRooms.Visible = true;
+                pnlRooms.BringToFront();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Check Availability", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message, "Find Room", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -203,14 +235,21 @@ namespace HotelReservation
         private void dgvAvailableRooms_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
-                return;
+                return;   // header ang na-click
 
             DataGridViewRow row = dgvAvailableRooms.Rows[e.RowIndex];
             selectedRoomId = Convert.ToInt32(row.Cells["Id"].Value);
             txtSelectedRoom.Text = row.Cells["RoomNumber"].Value.ToString();
+
+            pnlRooms.Visible = false;
         }
 
-        // Kapag binago ang petsa o room type, kailangang mag-Check Availability ulit
+        private void btnCloseRooms_Click(object sender, EventArgs e)
+        {
+            pnlRooms.Visible = false;
+        }
+
+        // Kapag binago ang petsa, kailangang mag-Find Room ulit
         private void Dates_ValueChanged(object sender, EventArgs e)
         {
             if (dtpCheckIn.Value.Date >= dtpCheckOut.Value.Date)
@@ -219,24 +258,18 @@ namespace HotelReservation
             }
 
             ComputeNights();
-            ClearRooms();
-        }
-
-        private void cmbRoomType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ClearRooms();
+            ClearRoom();
         }
 
         // ===================== NUMBER OF GUESTS =====================
 
-        // Kapag binago ang number of guests, automatic na lalabas ang bed size at room type
         private void nudGuests_ValueChanged(object sender, EventArgs e)
         {
             UpdateRoomTypeForGuests();
-            ClearRooms();
+            ClearRoom();
         }
 
-        // 1 = Single, 2 = Double, 3 = Queen, 4 = King
+        // 1 = Standard, 2 = Deluxe, 3 = Family Room, 4 = Suite
         private void UpdateRoomTypeForGuests()
         {
             int guests = (int)nudGuests.Value;
@@ -246,7 +279,6 @@ namespace HotelReservation
             {
                 RoomType type = (RoomType)item;
 
-                // Hanapin ang room type na sakto sa number of guests
                 if (type.MaxGuests == guests)
                 {
                     cmbRoomType.SelectedItem = item;
@@ -269,16 +301,17 @@ namespace HotelReservation
             txtNights.Text = nights.ToString();
         }
 
-        private void ClearRooms()
+        private void ClearRoom()
         {
-            dgvAvailableRooms.Rows.Clear();
             selectedRoomId = 0;
             txtSelectedRoom.Clear();
+            pnlRooms.Visible = false;
         }
 
-        // ===================== RESERVE =====================
+        // ===================== PROCEED =====================
 
-        private void btnReserve_Click(object sender, EventArgs e)
+        // I-save ang reservation (Confirmed), tapos diretso sa Billing Payment
+        private void btnProceed_Click(object sender, EventArgs e)
         {
             try
             {
@@ -286,14 +319,12 @@ namespace HotelReservation
                     throw new Exception("Please search and select a guest first.");
 
                 if (selectedRoomId == 0)
-                    throw new Exception("Please click Check Availability and select a room.");
-
-                string status = cmbStatus.SelectedItem.ToString();
+                    throw new Exception("Please click Find Room and select a room.");
 
                 int guests = (int)nudGuests.Value;
 
                 Model.Reservation reservation = reservationController.CreateReservation(
-                    selectedGuestId, selectedRoomId, dtpCheckIn.Value, dtpCheckOut.Value, status, guests);
+                    selectedGuestId, selectedRoomId, dtpCheckIn.Value, dtpCheckOut.Value, "Confirmed", guests);
 
                 txtReservationId.Text = reservation.ReservationCode;
 
@@ -305,12 +336,12 @@ namespace HotelReservation
                     "Check-in: " + reservation.ExpectedCheckIn.ToString("MM/dd/yyyy hh:mm tt") + "\n" +
                     "Check-out: " + reservation.ExpectedCheckOut.ToString("MM/dd/yyyy hh:mm tt") + "\n" +
                     "Nights: " + reservation.Nights + "\n" +
-                    "Total: " + reservation.TotalBill.ToString("N2") + "\n" +
-                    "Status: " + reservation.Status,
+                    "Total: " + reservation.TotalBill.ToString("N2") + "\n\n" +
+                    "Proceeding to Billing Payment...",
                     "Reservation", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // I-refresh ang listahan para mawala na ang na-book na room
-                LoadAvailableRooms();
+                // Lilipat sa Billing Payment, naka-search na ang reservation
+                Navigator.Open(this, new BillingPayment(reservation.ReservationCode));
             }
             catch (Exception ex)
             {
@@ -333,11 +364,10 @@ namespace HotelReservation
 
             nudGuests.Value = 1;
             UpdateRoomTypeForGuests();
-            cmbStatus.SelectedIndex = 0;
             dtpCheckIn.Value = DateTime.Today;
             dtpCheckOut.Value = DateTime.Today.AddDays(1);
 
-            ClearRooms();
+            ClearRoom();
             ComputeNights();
         }
 
@@ -347,8 +377,6 @@ namespace HotelReservation
         {
             Navigator.Open(this, new GuestsInformation());
         }
-
-        // Ang Reservation ay nandito na sa form na ito, kaya walang gagawin
 
         private void btnCheckInCheckOut_Click(object sender, EventArgs e)
         {
