@@ -29,6 +29,12 @@ namespace HotelReservation
             this.FormClosed += BillingPayment_FormClosed;
         }
 
+        // Galing sa Reservation (Proceed): naka-search na agad ang reservation
+        public BillingPayment(string reservationCode) : this()
+        {
+            txtSearchReservationId.Text = reservationCode;
+            btnSearch_Click(this, EventArgs.Empty);
+        }
         // ===================== SETUP =====================
 
         private void SetupForm()
