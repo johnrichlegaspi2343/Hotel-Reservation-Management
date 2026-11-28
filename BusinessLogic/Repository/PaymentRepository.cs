@@ -11,8 +11,9 @@ namespace BusinessLogic.Repository
             {
                 return db.Payments
                     .Include("Reservation.Guest")
-                    .Include("Reservation.Room.RoomType")
+                    .Include("Reservation.Rooms.Room.RoomType")
                     .Include("Reservation.Payments")
+                    .Include("Reservation.Charges")
                     .OrderByDescending(p => p.Id)
                     .ToList();
             }
@@ -24,8 +25,9 @@ namespace BusinessLogic.Repository
             {
                 return db.Payments
                     .Include("Reservation.Guest")
-                    .Include("Reservation.Room.RoomType")
+                    .Include("Reservation.Rooms.Room.RoomType")
                     .Include("Reservation.Payments")
+                    .Include("Reservation.Charges")
                     .FirstOrDefault(p => p.Id == id);
             }
         }

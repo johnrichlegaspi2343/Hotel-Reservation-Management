@@ -15,7 +15,9 @@ namespace BusinessLogic
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<ReservationRoom> ReservationRooms { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Charge> Charges { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,6 +31,13 @@ namespace BusinessLogic
 
             // Bawal ang dalawang room na pareho ang room number
             modelBuilder.Entity<Room>().HasIndex(r => r.RoomNumber).IsUnique();
+
+            // Kapag binura ang room, hindi kasamang mabubura ang lumang reservations
+            modelBuilder.Entity<ReservationRoom>()
+                .HasOne(rr => rr.Room)
+                .WithMany()
+                .HasForeignKey(rr => rr.RoomId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

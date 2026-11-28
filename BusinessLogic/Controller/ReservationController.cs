@@ -11,6 +11,7 @@ namespace BusinessLogic.Controller
 
         // ===================== AVAILABILITY =====================
 
+        // Mga room na bakante sa petsang ito. roomTypeId = 0 kung lahat ng type.
         public List<Room> GetAvailableRooms(DateTime checkIn, DateTime checkOut, int roomTypeId)
         {
             CancelExpiredReservations();
@@ -43,54 +44,91 @@ namespace BusinessLogic.Controller
 
         // ===================== RESERVATION =====================
 
-        // status = "Pending" o "Confirmed"
-        public Reservation CreateReservation(int guestId, int roomId, DateTime checkIn, DateTime checkOut, string status, int numberOfGuests)
+        // Gumagawa ng reservation na may 1 hanggang 5 rooms.
+        // Laging PENDING muna. Magiging Confirmed kapag nabayaran na ang 50% downpayment (sa Billing).
+        public Reservation CreateReservation(int guestId, List<int> roomIds, DateTime checkIn, DateTime checkOut, int numberOfGuests)
         {
+            CancelExpiredReservations();
             ValidateDates(checkIn, checkOut);
-
-            if (status != "Pending" && status != "Confirmed")
-                throw new Exception("Status must be Pending or Confirmed.");
 
             Guest? guest = guestRepo.GetGuestById(guestId);
             if (guest == null)
                 throw new Exception("Please select a guest.");
 
-            Room? room = roomRepo.GetRoomById(roomId);
-            if (room == null || !room.IsActive)
-                throw new Exception("Please select a room.");
+            if (guest.IdType == "" || guest.IdNumber == "")
+                throw new Exception(guest.FullName + " has no Valid ID yet. Please update the guest information first.");
 
-            if (room.Status == "Maintenance")
-                throw new Exception("Room " + room.RoomNumber + " is under maintenance.");
+            // ---------- Rooms ----------
+            if (roomIds.Count == 0)
+                throw new Exception("Please select at least one room.");
 
-            // Dapat kasya ang guests sa room
+            if (roomIds.Count > HotelPolicy.MaxRoomsPerReservation)
+                throw new Exception("Maximum of " + HotelPolicy.MaxRoomsPerReservation + " rooms per reservation.");
+
+            Reservation reservation = new Reservation();
+            int totalCapacity = 0;
+
+            foreach (int roomId in roomIds)
+            {
+                // Bawal ang dobleng room sa iisang reservation
+                foreach (ReservationRoom added in reservation.Rooms)
+                {
+                    if (added.RoomId == roomId)
+                        throw new Exception("The same room was selected twice.");
+                }
+
+                Room? room = roomRepo.GetRoomById(roomId);
+                if (room == null || !room.IsActive)
+                    throw new Exception("Room not found. Please select the room again.");
+
+                if (room.Status == "Maintenance")
+                    throw new Exception("Room " + room.RoomNumber + " is under maintenance.");
+
+                // Walang double-booking ng room
+                if (reservationRepo.IsRoomBooked(roomId, checkIn.Date, checkOut.Date, 0))
+                    throw new Exception("Room " + room.RoomNumber + " is already booked for these dates.");
+
+                ReservationRoom rr = new ReservationRoom();
+                rr.RoomId = roomId;
+                rr.RoomRate = room.Rate;    // rate ngayon, hindi magbabago kahit itaas ng Admin
+                reservation.Rooms.Add(rr);
+
+                totalCapacity += room.MaxGuests;
+            }
+
+            // ---------- Guests ----------
             if (numberOfGuests < 1)
                 throw new Exception("Number of guests must be at least 1.");
 
-            if (room.RoomType != null && numberOfGuests > room.RoomType.MaxGuests)
-                throw new Exception("Room " + room.RoomNumber + " is only good for " + room.RoomType.MaxGuests + " guest(s).");
-
-            // Walang double-booking ng room
-            if (reservationRepo.IsRoomBooked(roomId, checkIn.Date, checkOut.Date))
-                throw new Exception("Room " + room.RoomNumber + " is already booked for these dates.");
+            if (numberOfGuests > totalCapacity)
+                throw new Exception("The selected room(s) are only good for " + totalCapacity + " guest(s). Please add another room.");
 
             // Walang double-booking ng guest
             if (reservationRepo.GuestHasOverlappingReservation(guestId, checkIn.Date, checkOut.Date))
                 throw new Exception(guest.FullName + " already has a reservation on these dates.");
 
-            Reservation reservation = new Reservation();
             reservation.GuestId = guestId;
-            reservation.RoomId = roomId;
             reservation.CheckInDate = checkIn.Date;
             reservation.CheckOutDate = checkOut.Date;
-            reservation.RoomRate = room.Rate;
-            reservation.Status = status;
+            reservation.Status = "Pending";
             reservation.NumberOfGuests = numberOfGuests;
             reservationRepo.AddReservation(reservation);
 
-            // Automatic: nagiging Reserved ang room (pero hindi kung may naka-check-in pa)
-            RefreshRoomStatus(roomId);
+            // Ibabalik ang buong reservation (may guest, rooms at bill na)
+            Reservation? saved = reservationRepo.GetReservationById(reservation.Id);
+            if (saved == null)
+                throw new Exception("Reservation was not saved. Please try again.");
 
-            return reservation;
+            return saved;
+        }
+
+        // PANSAMANTALA para sa lumang Reservation form (isang room lang).
+        // Tatanggalin kapag tapos na ang bagong Reservation form.
+        public Reservation CreateReservation(int guestId, int roomId, DateTime checkIn, DateTime checkOut, string status, int numberOfGuests)
+        {
+            List<int> roomIds = new List<int>();
+            roomIds.Add(roomId);
+            return CreateReservation(guestId, roomIds, checkIn, checkOut, numberOfGuests);
         }
 
         public List<Reservation> GetReservations()
@@ -105,6 +143,15 @@ namespace BusinessLogic.Controller
             CancelExpiredReservations();
             int id = CodeHelper.ToId(code, "RES-");
 
+            Reservation? reservation = reservationRepo.GetReservationById(id);
+            if (reservation == null)
+                throw new Exception("Reservation not found.");
+
+            return reservation;
+        }
+
+        public Reservation GetReservationById(int id)
+        {
             Reservation? reservation = reservationRepo.GetReservationById(id);
             if (reservation == null)
                 throw new Exception("Reservation not found.");
@@ -167,75 +214,125 @@ namespace BusinessLogic.Controller
             return false;
         }
 
+        // ===================== MANAGE RESERVATIONS (filters) =====================
+
+        // Darating ngayon (Confirmed, check-in date ay ngayon)
+        public List<Reservation> GetTodaysArrivals()
+        {
+            List<Reservation> result = new List<Reservation>();
+            foreach (Reservation r in GetReservations())
+            {
+                if (r.Status == "Confirmed" && r.CheckInDate.Date == DateTime.Today)
+                    result.Add(r);
+            }
+            return result;
+        }
+
+        // Aalis ngayon (naka-check-in, check-out date ay ngayon o lampas na)
+        public List<Reservation> GetTodaysDepartures()
+        {
+            List<Reservation> result = new List<Reservation>();
+            foreach (Reservation r in GetReservations())
+            {
+                if (r.Status == "CheckedIn" && r.CheckOutDate.Date <= DateTime.Today)
+                    result.Add(r);
+            }
+            return result;
+        }
+
+        // Nasa hotel ngayon (naka-check-in)
+        public List<Reservation> GetInHouse()
+        {
+            List<Reservation> result = new List<Reservation>();
+            foreach (Reservation r in GetReservations())
+            {
+                if (r.Status == "CheckedIn")
+                    result.Add(r);
+            }
+            return result;
+        }
+
+        // Hindi pa nakakabayad ng downpayment
+        public List<Reservation> GetPendingPayment()
+        {
+            List<Reservation> result = new List<Reservation>();
+            foreach (Reservation r in GetReservations())
+            {
+                if (r.Status == "Pending")
+                    result.Add(r);
+            }
+            return result;
+        }
+
         // ===================== AUTO-CANCEL =====================
 
         // Automatic na kina-cancel ang:
-        //   Pending na hindi na-confirm bago ang check-in date
-        //   Confirmed na hindi dumating (no-show) at walang bayad
+        //   Pending na hindi nakapag-downpayment hanggang sa check-in date (ibabalik ang naibayad)
+        //   Confirmed na hindi dumating (no-show): hindi na ibabalik ang downpayment
         public void CancelExpiredReservations()
         {
             List<Reservation> expired = reservationRepo.GetExpiredReservations(DateTime.Today);
 
             foreach (Reservation r in expired)
             {
+                if (r.Status == "Pending")
+                    reservationRepo.UpdateRefund(r.Id, r.AmountPaid);
+
                 reservationRepo.UpdateStatus(r.Id, "Cancelled");
-                RefreshRoomStatus(r.RoomId);
+                RoomStatusHelper.RefreshRooms(r);
             }
+
+            // Status ng lahat ng room para sa araw na ito
+            RoomStatusHelper.RefreshAll();
         }
 
-        // ===================== ROOM STATUS =====================
+        // ===================== CANCELLATION =====================
 
-        // Inaayos ang status ng room base sa mga reservation nito:
-        //   may naka-check-in            -> Occupied
-        //   may Pending o Confirmed pa   -> Reserved
-        //   wala na                      -> Available
-        // Hindi ginagalaw kapag Maintenance.
-        private void RefreshRoomStatus(int roomId)
+        // TRUE kung libre pa ang cancel (hanggang 1 araw bago ang check-in)
+        // Hal. check-in Dec 24 -> libre kung Dec 22 o mas maaga
+        public bool IsFreeCancellation(Reservation reservation)
         {
-            Room? room = roomRepo.GetRoomById(roomId);
-            if (room == null || room.Status == "Maintenance")
-                return;
+            if (reservation.Status == "Pending")
+                return true;    // hindi pa Confirmed, ibabalik ang anumang naibayad
 
-            if (reservationRepo.RoomHasCheckedInGuest(roomId))
-                roomRepo.UpdateRoomStatus(roomId, "Occupied");
-            else if (reservationRepo.RoomHasActiveReservation(roomId))
-                roomRepo.UpdateRoomStatus(roomId, "Reserved");
-            else
-                roomRepo.UpdateRoomStatus(roomId, "Available");
+            return DateTime.Today < reservation.CheckInDate.Date.AddDays(-HotelPolicy.FreeCancelDays);
         }
 
-        // ===================== RESERVATION STATUS =====================
-
-        // Pending -> Confirmed o Cancelled
-        // Confirmed -> Pending o Cancelled
-        public void UpdateStatus(int reservationId, string newStatus)
+        // Kina-cancel ang reservation. Ibinabalik ang refund (0 kung hindi na refundable).
+        public decimal CancelReservation(int reservationId)
         {
-            CancelExpiredReservations();
-
             Reservation? reservation = reservationRepo.GetReservationById(reservationId);
             if (reservation == null)
                 throw new Exception("Reservation not found.");
 
-            if (newStatus != "Pending" && newStatus != "Confirmed" && newStatus != "Cancelled")
-                throw new Exception("Please select Pending, Confirmed or Cancelled.");
-
             if (reservation.Status != "Pending" && reservation.Status != "Confirmed")
-                throw new Exception("A " + reservation.Status + " reservation can no longer be changed.");
+                throw new Exception("A " + reservation.Status + " reservation can no longer be cancelled.");
 
-            if (reservation.Status == newStatus)
-                throw new Exception("Reservation is already " + newStatus + ".");
+            decimal refund = 0;
+            if (IsFreeCancellation(reservation))
+                refund = reservation.AmountPaid;
 
-            // Hindi na puwedeng i-confirm kapag lampas na ang check-out date
-            if (newStatus == "Confirmed" && DateTime.Today >= reservation.CheckOutDate)
-                throw new Exception("This reservation has already passed its check-out date.");
+            reservationRepo.UpdateRefund(reservationId, refund);
+            reservationRepo.UpdateStatus(reservationId, "Cancelled");
 
-            if (newStatus == "Cancelled" && reservation.AmountPaid > 0)
-                throw new Exception("Cannot cancel: this reservation already has a payment.");
+            // Bakante na ulit ang mga room
+            RoomStatusHelper.RefreshRooms(reservation);
 
-            reservationRepo.UpdateStatus(reservationId, newStatus);
+            return refund;
+        }
 
-            // Automatic: inaayos ang status ng room (Available kung wala nang ibang booking)
-            RefreshRoomStatus(reservation.RoomId);
+        // PANSAMANTALA para sa lumang Reservation Status form.
+        // Automatic na ang Confirmed (pagkabayad ng downpayment), kaya Cancel na lang ang puwede.
+        public void UpdateStatus(int reservationId, string newStatus)
+        {
+            if (newStatus == "Cancelled")
+            {
+                CancelReservation(reservationId);
+                return;
+            }
+
+            throw new Exception("Reservations are confirmed automatically after the " +
+                HotelPolicy.DownpaymentPercent + "% downpayment is paid in Billing / Payment.");
         }
 
         // ===================== CHECK-IN / CHECK-OUT =====================
@@ -249,12 +346,18 @@ namespace BusinessLogic.Controller
             return (int)Math.Ceiling((to - from).TotalHours);
         }
 
-        // Ibinabalik ang early check-in fee (0 kung hindi maaga)
+        // Check-in ng LAHAT ng room ng reservation.
+        // Kinukuha ang security deposit (P1,000 bawat room).
+        // Ibinabalik ang early check-in fee (0 kung hindi maaga).
         public decimal CheckIn(int reservationId)
         {
             Reservation? reservation = reservationRepo.GetReservationById(reservationId);
             if (reservation == null)
                 throw new Exception("Reservation not found.");
+
+            if (reservation.Status == "Pending")
+                throw new Exception("Please pay the " + HotelPolicy.DownpaymentPercent + "% downpayment first (P" +
+                    reservation.DownpaymentDue.ToString("N2") + ").");
 
             if (reservation.Status != "Confirmed")
                 throw new Exception("Only Confirmed reservations can be checked in. Current status: " + reservation.Status);
@@ -267,32 +370,51 @@ namespace BusinessLogic.Controller
                 throw new Exception("This reservation has already passed its check-out date (" +
                     reservation.CheckOutDate.ToString("MM/dd/yyyy") + "). The guest did not arrive (no-show).");
 
-            // Hindi puwedeng mag-check-in kapag may naka-check-in pa sa room
-            if (reservationRepo.RoomHasCheckedInGuest(reservation.RoomId))
-                throw new Exception("Room " + reservation.Room?.RoomNumber + " still has a checked-in guest.");
+            // Hindi puwedeng mag-check-in kapag may naka-check-in pa sa alinmang room
+            foreach (ReservationRoom rr in reservation.Rooms)
+            {
+                if (reservationRepo.RoomHasCheckedInGuest(rr.RoomId, reservationId))
+                    throw new Exception("Room " + rr.Room?.RoomNumber + " still has a checked-in guest.");
+            }
 
-            // Early check-in: bago mag-2:00 PM, may bayad kada oras
+            // Early check-in: bago mag-2:00 PM, P200 kada oras bawat room
             int earlyHours = CountHours(DateTime.Now, reservation.ExpectedCheckIn);
-            decimal earlyFee = earlyHours * HotelPolicy.FeePerHour;
+            decimal earlyFee = earlyHours * HotelPolicy.FeePerHour * reservation.Rooms.Count;
             reservationRepo.UpdateFees(reservationId, earlyFee, reservation.LateCheckOutFee);
+
+            // Security deposit: P1,000 bawat room
+            decimal deposit = HotelPolicy.SecurityDepositPerRoom * reservation.Rooms.Count;
+            reservationRepo.UpdateSecurityDeposit(reservationId, deposit);
 
             reservationRepo.UpdateStatus(reservationId, "CheckedIn");
 
-            // Automatic: nagiging Occupied ang room
-            roomRepo.UpdateRoomStatus(reservation.RoomId, "Occupied");
+            // Automatic: nagiging Occupied ang lahat ng room
+            RoomStatusHelper.RefreshRooms(reservation);
 
             return earlyFee;
         }
 
-        // Late check-out: lampas 12:00 NN ng check-out date, may bayad kada oras.
+        // Late check-out (bawat room):
+        //   lampas 12:00 NN hanggang 6:00 PM -> P200 kada oras
+        //   lampas 6:00 PM                   -> singil ng 1 buong gabi (rate ng room)
         // Ginagamit ng Check-Out at ng Billing para updated ang bill.
         public decimal UpdateLateCheckOutFee(Reservation reservation)
         {
             if (reservation.Status != "CheckedIn")
                 return reservation.LateCheckOutFee;
 
-            int lateHours = CountHours(reservation.ExpectedCheckOut, DateTime.Now);
-            decimal lateFee = lateHours * HotelPolicy.FeePerHour;
+            decimal lateFee;
+            DateTime limit = reservation.CheckOutDate.Date.AddHours(HotelPolicy.LateCheckOutLimitHour);
+
+            if (DateTime.Now > limit)
+            {
+                lateFee = reservation.RoomRate;     // 1 gabi ng lahat ng room
+            }
+            else
+            {
+                int lateHours = CountHours(reservation.ExpectedCheckOut, DateTime.Now);
+                lateFee = lateHours * HotelPolicy.FeePerHour * reservation.Rooms.Count;
+            }
 
             // I-save lang kung tumaas ang multa
             if (lateFee > reservation.LateCheckOutFee)
@@ -327,8 +449,8 @@ namespace BusinessLogic.Controller
 
             reservationRepo.UpdateStatus(reservationId, "Completed");
 
-            // Automatic: Available ulit, o Reserved kung may susunod pang booking
-            RefreshRoomStatus(reservation.RoomId);
+            // Automatic: Available ulit ang lahat ng room
+            RoomStatusHelper.RefreshRooms(reservation);
         }
     }
 }

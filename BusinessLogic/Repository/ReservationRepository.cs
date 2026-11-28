@@ -5,14 +5,21 @@ namespace BusinessLogic.Repository
 {
     public class ReservationRepository
     {
+        // Lahat ng kailangan ng isang reservation: guest, rooms, payments at charges
+        private IQueryable<Reservation> WithDetails(AppDBContext db)
+        {
+            return db.Reservations
+                .Include("Guest")
+                .Include("Rooms.Room.RoomType")
+                .Include("Payments")
+                .Include("Charges");
+        }
+
         public List<Reservation> GetReservations()
         {
             using (var db = new AppDBContext())
             {
-                return db.Reservations
-                    .Include("Guest")
-                    .Include("Room.RoomType")
-                    .Include("Payments")
+                return WithDetails(db)
                     .OrderByDescending(r => r.Id)
                     .ToList();
             }
@@ -22,24 +29,23 @@ namespace BusinessLogic.Repository
         {
             using (var db = new AppDBContext())
             {
-                return db.Reservations
-                    .Include("Guest")
-                    .Include("Room.RoomType")
-                    .Include("Payments")
-                    .FirstOrDefault(r => r.Id == id);
+                return WithDetails(db).FirstOrDefault(r => r.Id == id);
             }
         }
 
-        // TRUE kung may Pending/Confirmed/CheckedIn na reservation ang room na tumatama sa petsa
-        public bool IsRoomBooked(int roomId, DateTime checkIn, DateTime checkOut)
+        // TRUE kung hawak na ng ibang reservation (Confirmed o CheckedIn) ang room sa petsang ito.
+        // Ang Pending ay HINDI pa humahawak ng room (wala pang downpayment).
+        // excludeReservationId = reservation na hindi isasama (0 kung wala)
+        public bool IsRoomBooked(int roomId, DateTime checkIn, DateTime checkOut, int excludeReservationId)
         {
             using (var db = new AppDBContext())
             {
-                return db.Reservations.Any(r =>
-                    r.RoomId == roomId &&
-                    (r.Status == "Pending" || r.Status == "Confirmed" || r.Status == "CheckedIn") &&
-                    r.CheckInDate < checkOut &&
-                    checkIn < r.CheckOutDate);
+                return db.ReservationRooms.Any(rr =>
+                    rr.RoomId == roomId &&
+                    rr.ReservationId != excludeReservationId &&
+                    (rr.Reservation!.Status == "Confirmed" || rr.Reservation!.Status == "CheckedIn") &&
+                    rr.Reservation!.CheckInDate < checkOut &&
+                    checkIn < rr.Reservation!.CheckOutDate);
             }
         }
 
@@ -59,18 +65,34 @@ namespace BusinessLogic.Repository
         {
             using (var db = new AppDBContext())
             {
-                return db.Reservations.Any(r =>
-                    r.RoomId == roomId &&
-                    (r.Status == "Pending" || r.Status == "Confirmed" || r.Status == "CheckedIn"));
+                return db.ReservationRooms.Any(rr =>
+                    rr.RoomId == roomId &&
+                    (rr.Reservation!.Status == "Pending" || rr.Reservation!.Status == "Confirmed" || rr.Reservation!.Status == "CheckedIn"));
             }
         }
 
         // TRUE kung may naka-check-in na guest sa room ngayon
-        public bool RoomHasCheckedInGuest(int roomId)
+        public bool RoomHasCheckedInGuest(int roomId, int excludeReservationId)
         {
             using (var db = new AppDBContext())
             {
-                return db.Reservations.Any(r => r.RoomId == roomId && r.Status == "CheckedIn");
+                return db.ReservationRooms.Any(rr =>
+                    rr.RoomId == roomId &&
+                    rr.ReservationId != excludeReservationId &&
+                    rr.Reservation!.Status == "CheckedIn");
+            }
+        }
+
+        // TRUE kung may Confirmed na reservation ang room na sakop ang araw na ito
+        public bool RoomIsReservedToday(int roomId, DateTime today)
+        {
+            using (var db = new AppDBContext())
+            {
+                return db.ReservationRooms.Any(rr =>
+                    rr.RoomId == roomId &&
+                    rr.Reservation!.Status == "Confirmed" &&
+                    rr.Reservation!.CheckInDate <= today &&
+                    today < rr.Reservation!.CheckOutDate);
             }
         }
 
@@ -88,15 +110,15 @@ namespace BusinessLogic.Repository
         }
 
         // Mga reservation na expired na:
-        //   Pending na lumampas na ang check-in date (hindi na-confirm)
-        //   Confirmed na lumampas na ang check-out date at walang bayad (no-show)
+        //   Pending na lumampas na ang check-in date (hindi nakapag-downpayment)
+        //   Confirmed na lumampas na ang check-out date at hindi dumating (no-show)
         public List<Reservation> GetExpiredReservations(DateTime today)
         {
             using (var db = new AppDBContext())
             {
-                return db.Reservations
+                return WithDetails(db)
                     .Where(r => (r.Status == "Pending" && r.CheckInDate < today) ||
-                                (r.Status == "Confirmed" && r.CheckOutDate <= today && !r.Payments.Any()))
+                                (r.Status == "Confirmed" && r.CheckOutDate <= today))
                     .ToList();
             }
         }
@@ -110,17 +132,14 @@ namespace BusinessLogic.Repository
 
             using (var db = new AppDBContext())
             {
-                IQueryable<Reservation> query = db.Reservations
-                    .Include("Guest")
-                    .Include("Room.RoomType")
-                    .Include("Payments");
+                IQueryable<Reservation> query = WithDetails(db);
 
                 foreach (string word in words)
                 {
                     string w = word;
                     query = query.Where(r => r.Guest!.FirstName.Contains(w) ||
                                              r.Guest!.LastName.Contains(w) ||
-                                             r.Room!.RoomNumber.Contains(w) ||
+                                             r.Rooms.Any(rr => rr.Room!.RoomNumber.Contains(w)) ||
                                              r.Status.Contains(w));
                 }
 
@@ -131,6 +150,7 @@ namespace BusinessLogic.Repository
             }
         }
 
+        // Kasama nang mase-save ang mga ReservationRoom na nasa reservation.Rooms
         public void AddReservation(Reservation reservation)
         {
             using (var db = new AppDBContext())
@@ -167,6 +187,34 @@ namespace BusinessLogic.Repository
                 {
                     reservation.EarlyCheckInFee = earlyCheckInFee;
                     reservation.LateCheckOutFee = lateCheckOutFee;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        // I-save ang security deposit na kinuha sa check-in
+        public void UpdateSecurityDeposit(int id, decimal amount)
+        {
+            using (var db = new AppDBContext())
+            {
+                Reservation? reservation = db.Reservations.Find(id);
+                if (reservation != null)
+                {
+                    reservation.SecurityDeposit = amount;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        // I-save ang refund kapag nag-cancel
+        public void UpdateRefund(int id, decimal amount)
+        {
+            using (var db = new AppDBContext())
+            {
+                Reservation? reservation = db.Reservations.Find(id);
+                if (reservation != null)
+                {
+                    reservation.RefundAmount = amount;
                     db.SaveChanges();
                 }
             }

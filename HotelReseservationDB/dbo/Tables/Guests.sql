@@ -9,6 +9,8 @@
     [Address]                NVARCHAR (MAX) NOT NULL,
     [EmergencyContactName]   NVARCHAR (MAX) NOT NULL,
     [EmergencyContactNumber] NVARCHAR (MAX) NOT NULL,
+    [IdType]                 NVARCHAR (MAX) NOT NULL,
+    [IdNumber]               NVARCHAR (MAX) NOT NULL,
     [IsActive]               BIT            NOT NULL,
     CONSTRAINT [PK_Guests] PRIMARY KEY CLUSTERED ([Id] ASC)
 );

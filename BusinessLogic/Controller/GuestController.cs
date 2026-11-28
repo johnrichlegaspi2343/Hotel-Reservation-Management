@@ -17,6 +17,7 @@ namespace BusinessLogic.Controller
         //   Guest ID  -> "GST-001", "gst1", "gst 1" o "1"
         //   Pangalan  -> "Juan", "Santos", "Juan Santos", "santos juan"
         //   Contact   -> "0917", "09170000001"
+        //   ID number -> "ID-100001"
         public List<Guest> SearchGuest(string text)
         {
             text = text.Trim();
@@ -40,7 +41,7 @@ namespace BusinessLogic.Controller
                     if (guest != null) result.Add(guest);
                 }
 
-                // Pangalan o contact number
+                // Pangalan, contact number o ID number
                 foreach (Guest g in guestRepo.Search(text))
                 {
                     if (!ContainsGuest(result, g.Id))
@@ -67,6 +68,7 @@ namespace BusinessLogic.Controller
         public void AddGuest(Guest guest)
         {
             guest.DateOfBirth = guest.DateOfBirth.Date;     // petsa lang, walang oras
+            guest.IdNumber = guest.IdNumber.Trim().ToUpper();
             ValidateGuest(guest);
             guestRepo.AddGuest(guest);      // pagkatapos nito, may Id at GuestCode na
         }
@@ -74,6 +76,7 @@ namespace BusinessLogic.Controller
         public void UpdateGuest(Guest guest)
         {
             guest.DateOfBirth = guest.DateOfBirth.Date;     // petsa lang, walang oras
+            guest.IdNumber = guest.IdNumber.Trim().ToUpper();
             ValidateGuest(guest);
             guestRepo.UpdateGuest(guest);
         }
@@ -138,9 +141,55 @@ namespace BusinessLogic.Controller
             if (guest.Email.Trim() != "" && (!guest.Email.Contains("@") || !guest.Email.Contains(".")))
                 throw new Exception("Please enter a valid email address.");
 
+            // ---------- Valid ID ----------
+            if (guest.IdType.Trim() == "")
+                throw new Exception("Please select a Valid ID type.");
+
+            if (!IsValidIdType(guest.IdType))
+                throw new Exception("Please select a Valid ID type from the list.");
+
+            if (guest.IdNumber.Trim() == "")
+                throw new Exception("ID number is required.");
+
+            if (!IsValidIdNumber(guest.IdNumber))
+                throw new Exception("ID number must be 4 to 20 characters (letters, numbers and dash only).");
+
             // ---------- Walang duplicate ----------
-            if (guestRepo.GuestExists(guest.FirstName.Trim(), guest.LastName.Trim(), guest.DateOfBirth.Date, guest.Id))
-                throw new Exception("This guest already exists.");
+            // Parehong ID = parehong tao
+            if (guestRepo.IdNumberExists(guest.IdType.Trim(), guest.IdNumber.Trim(), guest.Id))
+                throw new Exception("Another guest is already registered with this " + guest.IdType + " number.");
+        }
+
+        // Guest na pareho ang pangalan at birthday (null kung wala).
+        // Ginagamit ng form para magbabala: "May kaparehong guest na, ituloy?"
+        public Guest? FindSameGuest(string firstName, string lastName, DateTime dateOfBirth, int excludeId)
+        {
+            return guestRepo.FindSameGuest(firstName.Trim(), lastName.Trim(), dateOfBirth.Date, excludeId);
+        }
+
+        // TRUE kung nasa listahan ng tinatanggap na ID
+        private bool IsValidIdType(string idType)
+        {
+            foreach (string type in HotelPolicy.IdTypes)
+            {
+                if (type == idType.Trim()) return true;
+            }
+            return false;
+        }
+
+        // Letra, numero at gitling (-) lang, 4 hanggang 20 characters
+        private bool IsValidIdNumber(string idNumber)
+        {
+            idNumber = idNumber.Trim();
+            if (idNumber.Length < 4 || idNumber.Length > 20)
+                return false;
+
+            foreach (char c in idNumber)
+            {
+                if (!char.IsLetterOrDigit(c) && c != '-')
+                    return false;
+            }
+            return true;
         }
 
         // Letra, space, gitling (-), tuldok (.) at apostrophe (') lang. Puwede ang Ñ.

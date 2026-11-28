@@ -14,6 +14,11 @@ namespace Model
         public string Address { get; set; } = "";
         public string EmergencyContactName { get; set; } = "";
         public string EmergencyContactNumber { get; set; } = "";
+
+        // Valid ID ng guest: uri ng ID at ID number lang ang kinukuha
+        public string IdType { get; set; } = "";       // hal. National ID, Passport
+        public string IdNumber { get; set; } = "";
+
         public bool IsActive { get; set; } = true;
 
         // Guest ID na ipinapakita sa screen, hal. GST-001 (galing sa Id)
