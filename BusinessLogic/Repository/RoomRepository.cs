@@ -32,7 +32,7 @@ namespace BusinessLogic.Repository
             }
         }
 
-        public void UpdateRoomType(int id, string name, decimal rate, string bedSize, int maxGuests)
+        public void UpdateRoomType(int id, string name, decimal rate, string bedSize, int maxGuests, int beds, string amenities)
         {
             using (var db = new AppDBContext())
             {
@@ -43,18 +43,10 @@ namespace BusinessLogic.Repository
                     type.Rate = rate;
                     type.BedSize = bedSize;
                     type.MaxGuests = maxGuests;
+                    type.Beds = beds;
+                    type.Amenities = amenities;
                     db.SaveChanges();
                 }
-            }
-        }
-
-        // TRUE kung may ibang room type na may parehong max guests
-        // (kailangan ito kasi ang number of guests ang pumipili ng room type)
-        public bool RoomTypeMaxGuestsExists(int maxGuests, int excludeId)
-        {
-            using (var db = new AppDBContext())
-            {
-                return db.RoomTypes.Any(t => t.MaxGuests == maxGuests && t.Id != excludeId);
             }
         }
 
@@ -146,7 +138,8 @@ namespace BusinessLogic.Repository
             }
         }
 
-        // Mga room na walang reservation sa napiling petsa. roomTypeId = 0 kung lahat ng type.
+        // Mga room na hindi pa hawak ng ibang reservation sa napiling petsa.
+        // roomTypeId = 0 kung lahat ng type.
         public List<Room> GetAvailableRooms(DateTime checkIn, DateTime checkOut, int roomTypeId)
         {
             List<Room> available = new List<Room>();
@@ -157,7 +150,7 @@ namespace BusinessLogic.Repository
                 if (room.Status == "Maintenance") continue;
                 if (roomTypeId != 0 && room.RoomTypeId != roomTypeId) continue;
 
-                if (!reservationRepo.IsRoomBooked(room.Id, checkIn, checkOut))
+                if (!reservationRepo.IsRoomBooked(room.Id, checkIn, checkOut, 0))
                 {
                     available.Add(room);
                 }

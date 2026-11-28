@@ -20,9 +20,9 @@ namespace BusinessLogic.Repository
             }
         }
 
-        // Hanapin gamit ang pangalan o contact number.
+        // Hanapin gamit ang pangalan, contact number o ID number.
         // Puwedeng buong pangalan: "Juan Santos" o "santos juan".
-        // Bawat salita ay dapat tumugma sa first name, last name o contact number.
+        // Bawat salita ay dapat tumugma sa first name, last name, contact o ID number.
         public List<Guest> Search(string text)
         {
             string[] words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
@@ -36,21 +36,35 @@ namespace BusinessLogic.Repository
                     string w = word;
                     query = query.Where(g => g.FirstName.Contains(w) ||
                                              g.LastName.Contains(w) ||
-                                             g.ContactNumber.Contains(w));
+                                             g.ContactNumber.Contains(w) ||
+                                             g.IdNumber.Contains(w));
                 }
 
                 return query.OrderBy(g => g.LastName).ThenBy(g => g.FirstName).ToList();
             }
         }
 
-        public bool GuestExists(string firstName, string lastName, DateTime dateOfBirth, int excludeId)
+        // Guest na pareho ang pangalan at birthday (null kung wala)
+        public Guest? FindSameGuest(string firstName, string lastName, DateTime dateOfBirth, int excludeId)
+        {
+            using (var db = new AppDBContext())
+            {
+                return db.Guests.FirstOrDefault(g => g.IsActive
+                                       && g.FirstName == firstName
+                                       && g.LastName == lastName
+                                       && g.DateOfBirth == dateOfBirth
+                                       && g.Id != excludeId);
+            }
+        }
+
+        // TRUE kung may ibang guest na may parehong ID type at ID number
+        public bool IdNumberExists(string idType, string idNumber, int excludeId)
         {
             using (var db = new AppDBContext())
             {
                 return db.Guests.Any(g => g.IsActive
-                                       && g.FirstName == firstName
-                                       && g.LastName == lastName
-                                       && g.DateOfBirth == dateOfBirth
+                                       && g.IdType == idType
+                                       && g.IdNumber == idNumber
                                        && g.Id != excludeId);
             }
         }
@@ -80,6 +94,8 @@ namespace BusinessLogic.Repository
                     guest.Address = updated.Address;
                     guest.EmergencyContactName = updated.EmergencyContactName;
                     guest.EmergencyContactNumber = updated.EmergencyContactNumber;
+                    guest.IdType = updated.IdType;
+                    guest.IdNumber = updated.IdNumber;
                     db.SaveChanges();
                 }
             }
