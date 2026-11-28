@@ -29,6 +29,13 @@ namespace HotelReservation
             this.FormClosed += CheckinCheckout_FormClosed;
         }
 
+        // Galing sa Manage Reservations: naka-search na agad ang reservation
+        public CheckinCheckout(string reservationCode) : this()
+        {
+            txtSearchReservationId.Text = reservationCode;
+            btnSearch_Click(this, EventArgs.Empty);
+        }
+
         // ===================== SEARCH =====================
 
         private void btnSearch_Click(object sender, EventArgs e)
